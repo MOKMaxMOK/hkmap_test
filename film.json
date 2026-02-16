@@ -1,0 +1,398 @@
+[
+    {
+        "id": "movie_001",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.2838464,
+        "lng": 114.1549689,
+        "name": {
+            "zh-HK": "中環至半山自動扶梯",
+            "zh-CN": "中环至半山自动扶梯",
+            "en": "Central–Mid-Levels Escalator"
+        },
+        "description": {
+            "zh-HK": "《重慶森林》：飾演警察663的梁朝偉乘搭扶手電梯上班，王菲在公寓內偷看他的經典一幕。",
+            "zh-CN": "《重庆森林》：饰演警察663的梁朝伟乘搭扶手电梯上班，王菲在公寓内偷看他的经典一幕。",
+            "en": "'Chungking Express': The classic scene where Police 663 (Tony Leung) takes the escalator to work while Faye Wong peeks at him from her apartment."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_002",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.2810792,
+        "lng": 114.1554797,
+        "name": {
+            "zh-HK": "蘭桂坊",
+            "zh-CN": "兰桂坊",
+            "en": "Lan Kwai Fong"
+        },
+        "description": {
+            "zh-HK": "《重慶森林》：警察663經常在此巡邏和駐守，也是與王菲相遇的地方。《TVB劇集》：主角下班後Happy Hour的地方。",
+            "zh-CN": "《重庆森林》：警察663经常在此巡逻和驻守，也是与王菲相遇的地方。《TVB剧集》：主角下班后Happy Hour的地方。",
+            "en": "'Chungking Express': Where Police 663 often patrols and meets Faye Wong. 'TVB Dramas': Where protagonists go for Happy Hour after work."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_003",
+        "category": "landmark",
+        "region": "yau-tsim-mong",
+        "lat": 22.2963031,
+        "lng": 114.1723905,
+        "name": {
+            "zh-HK": "重慶大廈",
+            "zh-CN": "重庆大厦",
+            "en": "Chungking Mansions"
+        },
+        "description": {
+            "zh-HK": "《重慶森林》：象徵城市疏離感的背景，何志武（金城武）在這裡尋找過期罐頭和等待愛情。",
+            "zh-CN": "《重庆森林》：象征城市疏离感的背景，何志武（金城武）在这里寻找过期罐头和等待爱情。",
+            "en": "'Chungking Express': Symbolizing urban alienation, where He Zhiwu (Takeshi Kaneshiro) looks for expired cans and waits for love."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_004",
+        "category": "landmark",
+        "region": "wan-chai",
+        "lat": 22.278744,
+        "lng": 114.184277,
+        "name": {
+            "zh-HK": "金雀餐廳",
+            "zh-CN": "金雀餐厅",
+            "en": "Goldfinch Restaurant"
+        },
+        "description": {
+            "zh-HK": "《花樣年華》：周慕雲（梁朝偉）與蘇麗珍（張曼玉）在這裡對坐用餐，互相試探對方伴侶出軌的真相。",
+            "zh-CN": "《花样年华》：周慕云（梁朝伟）与苏丽珍（张曼玉）在这里对坐用餐，互相试探对方伴侣出轨的真相。",
+            "en": "'In the Mood for Love': Chow Mo-wan and Su Li-zhen dine here, probing the truth about their partners' affairs."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_005",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.282367,
+        "lng": 114.1549273,
+        "name": {
+            "zh-HK": "石板街（砵甸乍街）",
+            "zh-CN": "石板街（砵典乍街）",
+            "en": "Pottinger Street (Stone Slab Street)"
+        },
+        "description": {
+            "zh-HK": "《花樣年華》：主角穿旗袍西裝徘徊，氣氛曖昧。《難哄》：章若楠拖行李箱走過及兩人重逢散步地。",
+            "zh-CN": "《花样年华》：主角穿旗袍西装徘徊，气氛暧昧。《难哄》：章若楠拖行李箱走过及两人重逢散步地。",
+            "en": "'In the Mood for Love': Protagonists wander in qipao and suits. 'Nan Hong': Where Zhang Ruonan walks with her suitcase and reunites with the male lead."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_006",
+        "category": "landmark",
+        "region": "southern",
+        "lat": 22.2311372,
+        "lng": 114.2518479,
+        "name": {
+            "zh-HK": "石澳健康院旁定情樹",
+            "zh-CN": "石澳健康院旁定情树",
+            "en": "Shek O Health Centre (Lover's Tree)"
+        },
+        "description": {
+            "zh-HK": "《喜劇之王》：尹天仇（周星馳）教柳飄飄（張栢芝）演戲的經典場景，著名的「樹咚」一幕。",
+            "zh-CN": "《喜剧之王》：尹天仇（周星驰）教柳飘飘（张柏芝）演戏的经典场景，著名的“树咚”一幕。",
+            "en": "'King of Comedy': The classic scene where Wan Tin-sau teaches Lau Piu-piu acting, featuring the famous 'tree kabedon'."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_007",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.2796668,
+        "lng": 114.1566996,
+        "name": {
+            "zh-HK": "都爹利街煤氣燈",
+            "zh-CN": "都爹利街煤气灯",
+            "en": "Duddell Street Gas Lamps"
+        },
+        "description": {
+            "zh-HK": "《喜劇之王》：柳飄飄（張栢芝）首次出場的學生妹造型，在這裡回頭的一幕。",
+            "zh-CN": "《喜剧之王》：柳飘飘（张柏芝）首次出场的学生妹造型，在这里回头的一幕。",
+            "en": "'King of Comedy': The scene where Lau Piu-piu first appears as a schoolgirl and turns back."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_008",
+        "category": "landmark",
+        "region": "sham-shui-po",
+        "lat": 22.331202,
+        "lng": 114.160927,
+        "name": {
+            "zh-HK": "科寶膽機 (鴨寮街)",
+            "zh-CN": "科宝胆机 (鸭寮街)",
+            "en": "Audio Space (Apliu Street)"
+        },
+        "description": {
+            "zh-HK": "《無間道》：陳永仁（梁朝偉）與劉健明（劉德華）在音響店初次相遇，一起聽蔡琴的《被遺忘的時光》。",
+            "zh-CN": "《无间道》：陈永仁（梁朝伟）与刘健明（刘德华）在音响店初次相遇，一起听蔡琴的《被遗忘的时光》。",
+            "en": "'Infernal Affairs': Chan Wing-yan and Lau Kin-ming meet at an audio shop, listening to Tsai Chin's 'The Forgotten Time'."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_009",
+        "category": "landmark",
+        "region": "sha-tin",
+        "lat": 22.3876093,
+        "lng": 114.1847775,
+        "name": {
+            "zh-HK": "萬佛寺",
+            "zh-CN": "万佛寺",
+            "en": "Ten Thousand Buddhas Monastery"
+        },
+        "description": {
+            "zh-HK": "《無間道》：電影開場，韓琛（曾志偉）在此向一眾年輕臥底祝酒，說出「一將功成萬骨枯」。",
+            "zh-CN": "《无间道》：电影开场，韩琛（曾志伟）在此向一众年轻卧底祝酒，说出“一将功成万骨枯”。",
+            "en": "'Infernal Affairs': The opening scene where Hon Sam toasts young undercover agents, saying 'One general's success is built on ten thousand bones'."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_010",
+        "category": "landmark",
+        "region": "eastern",
+        "lat": 22.2922788,
+        "lng": 114.2084053,
+        "name": {
+            "zh-HK": "北角政府合署天台",
+            "zh-CN": "北角政府合署天台",
+            "en": "North Point Government Offices Rooftop"
+        },
+        "description": {
+            "zh-HK": "《無間道》：陳永仁與劉健明最後在天台對峙的經典場景，「對唔住，我係差人」。",
+            "zh-CN": "《无间道》：陈永仁与刘健明最后在天台对峙的经典场景，“对唔住，我係差人”。",
+            "en": "'Infernal Affairs': The classic rooftop standoff where Chan says, 'Sorry, I am a cop'."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_011",
+        "category": "landmark",
+        "region": "yau-tsim-mong",
+        "lat": 22.3090254,
+        "lng": 114.1687897,
+        "name": {
+            "zh-HK": "廣東道",
+            "zh-CN": "广东道",
+            "en": "Canton Road"
+        },
+        "description": {
+            "zh-HK": "《甜蜜蜜》：黎小軍（黎明）騎單車載著李翹（張曼玉），唱著這首歌穿梭鬧市，展現漂泊中的甜蜜。",
+            "zh-CN": "《甜蜜蜜》：黎小军（黎明）骑单车载着李翘（张曼玉），唱着这首歌穿梭闹市，展现漂泊中的甜蜜。",
+            "en": "'Comrades: Almost a Love Story': Lai Siu-kwan rides a bike with Li Qiao through the city, singing 'Tian Mi Mi'."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_012",
+        "category": "landmark",
+        "region": "yau-tsim-mong",
+        "lat": 22.3051766,
+        "lng": 114.1678209,
+        "name": {
+            "zh-HK": "九龍英皇佐治五世公園",
+            "zh-CN": "九龙英皇佐治五世公园",
+            "en": "King George V Memorial Park, Kowloon"
+        },
+        "description": {
+            "zh-HK": "《甜蜜蜜》：黎小軍騎單車送貨經過的公園場景。",
+            "zh-CN": "《甜蜜蜜》：黎小军骑单车送货经过的公园场景。",
+            "en": "'Comrades: Almost a Love Story': The park Lai Siu-kwan rides through while delivering goods."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_013",
+        "category": "landmark",
+        "region": "kwun-tong",
+        "lat": 22.3093463,
+        "lng": 114.236293,
+        "name": {
+            "zh-HK": "藍田配水庫遊樂場",
+            "zh-CN": "蓝田配水库游乐场",
+            "en": "Lam Tin Service Reservoir Playground"
+        },
+        "description": {
+            "zh-HK": "《古惑仔系列》：陳浩南與山雞等人在球場踢波被靚坤欺負，以及他們成長和活動的主要地方。",
+            "zh-CN": "《古惑仔系列》：陈浩南与山鸡等人在球场踢波被靓坤欺负，以及他们成长和活动的主要地方。",
+            "en": "'Young and Dangerous': Where Chan Ho-nam and Chicken played football and were bullied by Kwan, and a key location for their youth."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_014",
+        "category": "landmark",
+        "region": "yau-tsim-mong",
+        "lat": 22.3073082,
+        "lng": 114.1702215,
+        "name": {
+            "zh-HK": "廟街",
+            "zh-CN": "庙街",
+            "en": "Temple Street"
+        },
+        "description": {
+            "zh-HK": "《古惑仔系列》：江湖談判、兄弟聚義的場景，充滿江湖味的街道。",
+            "zh-CN": "《古惑仔系列》：江湖谈判、兄弟聚义的场景，充满江湖味的街道。",
+            "en": "'Young and Dangerous': A street full of triad atmosphere, used for negotiations and brotherhood gatherings."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_015",
+        "category": "landmark",
+        "region": "wan-chai",
+        "lat": 22.277057,
+        "lng": 114.187422,
+        "name": {
+            "zh-HK": "基督君王小堂（聖保祿修院）",
+            "zh-CN": "基督君王小堂（圣保禄修院）",
+            "en": "Christ the King Chapel (St. Paul's Convent)"
+        },
+        "description": {
+            "zh-HK": "《英雄本色》：豪哥（狄龍）父親養病的醫院場景。",
+            "zh-CN": "《英雄本色》：豪哥（狄龙）父亲养病的医院场景。",
+            "en": "'A Better Tomorrow': The hospital setting where Ho's father was recovering."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_016",
+        "category": "landmark",
+        "region": "wan-chai",
+        "lat": 22.279853,
+        "lng": 114.178226,
+        "name": {
+            "zh-HK": "安邦商業大廈天台",
+            "zh-CN": "安邦商业大厦天台",
+            "en": "On Bong Commercial Building Rooftop"
+        },
+        "description": {
+            "zh-HK": "《英雄本色》：Mark哥（周潤發）在大廈天台被大哥成毒打的場景。",
+            "zh-CN": "《英雄本色》：Mark哥（周润发）在大厦天台被大哥成毒打的场景。",
+            "en": "'A Better Tomorrow': The rooftop where Mark (Chow Yun-fat) is beaten up by Shing."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_017",
+        "category": "landmark",
+        "region": "sham-shui-po",
+        "lat": 22.3279129,
+        "lng": 114.1710677,
+        "name": {
+            "zh-HK": "大坑東遊樂場",
+            "zh-CN": "大坑东游乐场",
+            "en": "Tai Hang Tung Recreation Ground"
+        },
+        "description": {
+            "zh-HK": "《少林足球》：阿星（周星馳）與大師兄（黃一飛）在天台對話，以及大家練球的場景。",
+            "zh-CN": "《少林足球》：阿星（周星驰）与大师兄（黄一飞）在天台对话，以及大家练球的场景。",
+            "en": "'Shaolin Soccer': Where Sing (Stephen Chow) talks with Iron Head and the team practices."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_018",
+        "category": "landmark",
+        "region": "eastern",
+        "lat": 22.2842294,
+        "lng": 114.2122537,
+        "name": {
+            "zh-HK": "怪獸大廈（海山樓）",
+            "zh-CN": "怪兽大厦（海山楼）",
+            "en": "Monster Building (Montane Mansion)"
+        },
+        "description": {
+            "zh-HK": "《變形金剛4》：柯博文與狂派大戰的場景，著名的密集住宅天井。",
+            "zh-CN": "《变形金刚4》：柯博文与狂派大战的场景，著名的密集住宅天井。",
+            "en": "'Transformers: Age of Extinction': The battle scene between Optimus Prime and Decepticons, set in the dense residential courtyard."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_019",
+        "category": "landmark",
+        "region": "yau-tsim-mong",
+        "lat": 22.3102619,
+        "lng": 114.1660641,
+        "name": {
+            "zh-HK": "油麻地警署",
+            "zh-CN": "油麻地警署",
+            "en": "Yau Ma Tei Police Station"
+        },
+        "description": {
+            "zh-HK": "《TVB警匪劇》：幾乎所有警匪劇中主角工作、報案、保釋的警署場景。",
+            "zh-CN": "《TVB警匪剧》：几乎所有警匪剧中主角工作、报案、保释的警署场景。",
+            "en": "'TVB Police Dramas': The iconic police station setting for reporting crimes, bail, and police work."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_020",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.2860301,
+        "lng": 114.1624355,
+        "name": {
+            "zh-HK": "中環9號碼頭",
+            "zh-CN": "中环9号码头",
+            "en": "Central Pier No. 9"
+        },
+        "description": {
+            "zh-HK": "《TVB多部劇集》：主角分手、表白、跳海、臥底見面、或是失意時吹風的地方。",
+            "zh-CN": "《TVB多部剧集》：主角分手、表白、跳海、卧底见面、或是失意时吹风的地方。",
+            "en": "'TVB Dramas': A common spot for breakups, confessions, jumping into the sea, undercover meetings, or brooding."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_021",
+        "category": "landmark",
+        "region": "central-and-western",
+        "lat": 22.274287,
+        "lng": 114.1440778,
+        "name": {
+            "zh-HK": "山頂公園",
+            "zh-CN": "山顶公园",
+            "en": "Victoria Peak Garden"
+        },
+        "description": {
+            "zh-HK": "《TVB多部劇集》：大家族發生爭執、主角散步談情，或作為豪宅區背景的場景。",
+            "zh-CN": "《TVB多部剧集》：大家族发生争执、主角散步谈情，或作为豪宅区背景的场景。",
+            "en": "'TVB Dramas': Setting for family disputes, romantic walks, or wealthy residential backdrops."
+        },
+        "images": []
+    },
+    {
+        "id": "movie_022",
+        "category": "landmark",
+        "region": "wan-chai",
+        "lat": 22.2797269,
+        "lng": 114.1862505,
+        "name": {
+            "zh-HK": "怡和街圓形天橋",
+            "zh-CN": "怡和街圆形天桥",
+            "en": "Yee Wo Street Circular Footbridge"
+        },
+        "description": {
+            "zh-HK": "《難哄》：白敬亭在天橋上尋找章若楠，以及兩人情感發展的場景。",
+            "zh-CN": "《难哄》：白敬亭在天桥上寻找章若楠，以及两人情感发展的场景。",
+            "en": "'Nan Hong': Where Bai Jingting looks for Zhang Ruonan, and a key spot for their relationship development."
+        },
+        "images": []
+    }
+]

@@ -1,0 +1,416 @@
+[
+    {
+        "id": "spot_001",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3010111,
+        "lng": 114.177655,
+        "name": {
+            "zh-HK": "香港科學館",
+            "zh-CN": "香港科学馆",
+            "en": "Hong Kong Science Museum"
+        },
+        "description": {
+            "zh-HK": "互動展品多，偏「玩住學」型娛樂。",
+            "zh-CN": "互动展品多，偏“玩中学”型娱乐。",
+            "en": "Features many interactive exhibits, focusing on 'edutainment' where learning meets fun."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_002",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.294288,
+        "lng": 114.171901,
+        "name": {
+            "zh-HK": "香港太空館",
+            "zh-CN": "香港太空馆",
+            "en": "Hong Kong Space Museum"
+        },
+        "description": {
+            "zh-HK": "有天文館/展品，屬科學天文類休閒去處。",
+            "zh-CN": "有天文馆/展品，属科学天文类休闲去处。",
+            "en": "Features a planetarium and exhibits, a leisure spot for science and astronomy."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_003",
+        "category": "indoor",
+        "region": "wan-chai",
+        "lat": 22.2781212,
+        "lng": 114.1830201,
+        "name": {
+            "zh-HK": "LOST HK（銅鑼灣）",
+            "zh-CN": "LOST HK（铜锣湾）",
+            "en": "LOST HK (Causeway Bay)"
+        },
+        "description": {
+            "zh-HK": "香港最大密室逃脫連鎖店，提供多個驚險主題",
+            "zh-CN": "香港最大密室逃脱连锁店，提供多个惊险主题",
+            "en": "Hong Kong's largest escape room chain offering various thrilling themes."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_004",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3162781,
+        "lng": 114.1704807,
+        "name": {
+            "zh-HK": "逃出香港（旺角）",
+            "zh-CN": "逃出香港（旺角）",
+            "en": "Freeing HK (Mong Kok)"
+        },
+        "description": {
+            "zh-HK": "密室逃脫",
+            "zh-CN": "密室逃脱",
+            "en": "Room escape game."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_005",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3148706,
+        "lng": 114.1705653,
+        "name": {
+            "zh-HK": "Lost Escape迷逃（旺角）",
+            "zh-CN": "Lost Escape迷逃（旺角）",
+            "en": "Lost Escape (Mong Kok)"
+        },
+        "description": {
+            "zh-HK": "密室逃脫",
+            "zh-CN": "密室逃脱",
+            "en": "Room escape game."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_006",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.306746,
+        "lng": 114.1686034,
+        "name": {
+            "zh-HK": "密室梯逃（佐敦）",
+            "zh-CN": "密室梯逃（佐敦）",
+            "en": "Mission Escape (Jordan)"
+        },
+        "description": {
+            "zh-HK": "營業至午夜12點",
+            "zh-CN": "营业至午夜12点",
+            "en": "Open until midnight."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_007",
+        "category": "indoor",
+        "region": "kwun-tong",
+        "lat": 22.3121,
+        "lng": 114.2255,
+        "name": {
+            "zh-HK": "Fox in a Box Hong Kong（觀塘）",
+            "zh-CN": "Fox in a Box Hong Kong（观塘）",
+            "en": "Fox in a Box Hong Kong (Kwun Tong)"
+        },
+        "description": {
+            "zh-HK": "密室逃脫",
+            "zh-CN": "密室逃脱",
+            "en": "Room escape game."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_008",
+        "category": "indoor",
+        "region": "sham-shui-po",
+        "lat": 22.3396,
+        "lng": 114.1486,
+        "name": {
+            "zh-HK": "VAR LIVE VR（九龍）",
+            "zh-CN": "VAR LIVE VR（九龙）",
+            "en": "VAR LIVE VR (Kowloon)"
+        },
+        "description": {
+            "zh-HK": "VR 虛擬實境體驗館，偏多人同玩嘅沉浸式娛樂。",
+            "zh-CN": "VR 虚拟实境体验馆，偏多人同玩的沉浸式娱乐。",
+            "en": "VR experience center focusing on immersive multiplayer entertainment."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_009",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.2942962,
+        "lng": 114.1729583,
+        "name": {
+            "zh-HK": "Legoland（尖沙咀）",
+            "zh-CN": "Legoland（尖沙咀）",
+            "en": "LEGOLAND Discovery Centre (Tsim Sha Tsui)"
+        },
+        "description": {
+            "zh-HK": "樂高天地任玩3小時",
+            "zh-CN": "乐高天地任玩3小时",
+            "en": "3 hours of unlimited LEGO fun."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_010",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3175316,
+        "lng": 114.1553381,
+        "name": {
+            "zh-HK": "SuperPark",
+            "zh-CN": "SuperPark",
+            "en": "SuperPark"
+        },
+        "description": {
+            "zh-HK": "親子跳彈床室內遊樂場",
+            "zh-CN": "亲子跳弹床室内游乐场",
+            "en": "Indoor activity park with trampolines for families."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_011",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3176161,
+        "lng": 114.1556654,
+        "name": {
+            "zh-HK": "SUPER SPORTS PARK（鄰近奧海城）",
+            "zh-CN": "SUPER SPORTS PARK（邻近奥海城）",
+            "en": "SUPER SPORTS PARK (Near Olympian City)"
+        },
+        "description": {
+            "zh-HK": "全港最大室內運動Playhouse",
+            "zh-CN": "全港最大室内运动Playhouse",
+            "en": "The largest indoor sports playhouse in Hong Kong."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_012",
+        "category": "indoor",
+        "region": "kwun-tong",
+        "lat": 22.3218,
+        "lng": 114.2125,
+        "name": {
+            "zh-HK": "Namco（九龍灣）",
+            "zh-CN": "Namco（九龙湾）",
+            "en": "Namco (Kowloon Bay)"
+        },
+        "description": {
+            "zh-HK": "室內運動競技遊樂場",
+            "zh-CN": "室内运动竞技游乐场",
+            "en": "Indoor sports and arcade arena."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_013",
+        "category": "indoor",
+        "region": "sham-shui-po",
+        "lat": 22.3396,
+        "lng": 114.1486,
+        "name": {
+            "zh-HK": "D2 Place PowerPlay Arena（荔枝角）",
+            "zh-CN": "D2 Place PowerPlay Arena（荔枝角）",
+            "en": "D2 Place PowerPlay Arena (Lai Chi Kok)"
+        },
+        "description": {
+            "zh-HK": "主打室內飄移車，另有推銀機、氣墊球、彩虹池等",
+            "zh-CN": "主打室内飘移车，另有推银机、气垫球、彩虹池等",
+            "en": "Features indoor drift cars, coin pushers, air hockey, and rainbow pools."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_014",
+        "category": "indoor",
+        "region": "tuen-mun",
+        "lat": 22.3997962,
+        "lng": 113.9690914,
+        "name": {
+            "zh-HK": "Welcome On Board桌遊天地（屯門）",
+            "zh-CN": "Welcome On Board桌游天地（屯门）",
+            "en": "Welcome On Board (Tuen Mun)"
+        },
+        "description": {
+            "zh-HK": "提供過百款桌遊體驗",
+            "zh-CN": "提供过百款桌游体验",
+            "en": "Offers over a hundred board game experiences."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_015",
+        "category": "indoor",
+        "region": "yuen-long",
+        "lat": 22.3997962,
+        "lng": 113.9690914,
+        "name": {
+            "zh-HK": "Welcome On Board桌遊天地（元朗）",
+            "zh-CN": "Welcome On Board桌游天地（元朗）",
+            "en": "Welcome On Board (Yuen Long)"
+        },
+        "description": {
+            "zh-HK": "桌遊連鎖店",
+            "zh-CN": "桌游连锁店",
+            "en": "Board game chain store."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_016",
+        "category": "indoor",
+        "region": "kwun-tong",
+        "lat": 22.3082729,
+        "lng": 114.2351478,
+        "name": {
+            "zh-HK": "100FUN（藍田啟田商場）",
+            "zh-CN": "100FUN（蓝田启田商场）",
+            "en": "100FUN (Lam Tin Kai Tin Shopping Centre)"
+        },
+        "description": {
+            "zh-HK": "親子遊樂場",
+            "zh-CN": "亲子游乐场",
+            "en": "Family indoor playground."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_017",
+        "category": "indoor",
+        "region": "kwun-tong",
+        "lat": 22.3106,
+        "lng": 114.2238,
+        "name": {
+            "zh-HK": "SPARKLES PLAYHOUSE（觀塘）",
+            "zh-CN": "SPARKLES PLAYHOUSE（观塘）",
+            "en": "SPARKLES PLAYHOUSE (Kwun Tong)"
+        },
+        "description": {
+            "zh-HK": "波波池超多波波，設變裝室",
+            "zh-CN": "波波池超多波波，设变装室",
+            "en": "Huge ball pit with a dressing room."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_018",
+        "category": "indoor",
+        "region": "kwai-tsing",
+        "lat": 22.3615,
+        "lng": 114.1288,
+        "name": {
+            "zh-HK": "WEMOMENT WONDERLAND（葵興）",
+            "zh-CN": "WEMOMENT WONDERLAND（葵兴）",
+            "en": "WEMOMENT WONDERLAND (Kwai Hing)"
+        },
+        "description": {
+            "zh-HK": "佔地4,500平方尺親子室內遊樂場",
+            "zh-CN": "占地4,500平方尺亲子室内游乐场",
+            "en": "4,500 sq. ft. indoor family playground."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_019",
+        "category": "indoor",
+        "region": "sha-tin",
+        "lat": 22.3888,
+        "lng": 114.2084,
+        "name": {
+            "zh-HK": "2Gather聚好玩兒童室內遊樂場（石門）",
+            "zh-CN": "2Gather聚好玩儿童室内游乐场（石门）",
+            "en": "2Gather Playhouse (Shek Mun)"
+        },
+        "description": {
+            "zh-HK": "適合親子活動",
+            "zh-CN": "适合亲子活动",
+            "en": "Suitable for family activities."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_020",
+        "category": "indoor",
+        "region": "wan-chai",
+        "lat": 22.2781212,
+        "lng": 114.1830201,
+        "name": {
+            "zh-HK": "LOST派對場地（銅鑼灣）",
+            "zh-CN": "LOST派对场地（铜锣湾）",
+            "en": "LOST Party (Causeway Bay)"
+        },
+        "description": {
+            "zh-HK": "提供派對室服務，適合團隊建設",
+            "zh-CN": "提供派对室服务，适合团队建设",
+            "en": "Provides party room services, suitable for team building."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_021",
+        "category": "indoor",
+        "region": "southern",
+        "lat": 22.2353891,
+        "lng": 114.1982467,
+        "name": {
+            "zh-HK": "LOST HK（淺水灣）",
+            "zh-CN": "LOST HK（浅水湾）",
+            "en": "LOST HK (Repulse Bay)"
+        },
+        "description": {
+            "zh-HK": "密室逃脫分店",
+            "zh-CN": "密室逃脱分店",
+            "en": "Escape room branch."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_022",
+        "category": "indoor",
+        "region": "yau-tsim-mong",
+        "lat": 22.3197356,
+        "lng": 114.1700074,
+        "name": {
+            "zh-HK": "LOST HK（旺角）",
+            "zh-CN": "LOST HK（旺角）",
+            "en": "LOST HK (Mong Kok)"
+        },
+        "description": {
+            "zh-HK": "共有37個不同主題，香港最大連鎖店",
+            "zh-CN": "共有37个不同主题，香港最大连锁店",
+            "en": "Features 37 different themes, Hong Kong's largest chain."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_023",
+        "category": "indoor",
+        "region": "sham-shui-po",
+        "lat": 22.3396,
+        "lng": 114.1486,
+        "name": {
+            "zh-HK": "LOST HK（荔枝角）",
+            "zh-CN": "LOST HK（荔枝角）",
+            "en": "LOST HK (Lai Chi Kok)"
+        },
+        "description": {
+            "zh-HK": "密室逃脫分店",
+            "zh-CN": "密室逃脱分店",
+            "en": "Escape room branch."
+        },
+        "images": []
+    }
+]

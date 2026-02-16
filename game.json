@@ -1,0 +1,218 @@
+[
+    {
+        "id": "spot_028",
+        "category": "game",
+        "region": "sha-tin",
+        "lat": 22.3997555,
+        "lng": 114.2040051,
+        "name": {
+            "zh-HK": "沙田馬場",
+            "zh-CN": "沙田马场",
+            "en": "Sha Tin Racecourse"
+        },
+        "description": {
+            "zh-HK": "觀賽型娛樂（賽馬）重點地點之一。",
+            "zh-CN": "观赛型娱乐（赛马）重点地点之一。",
+            "en": "A key venue for spectator sports (horse racing)."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_029",
+        "category": "game",
+        "region": "wan-chai",
+        "lat": 22.2718214,
+        "lng": 114.1806169,
+        "name": {
+            "zh-HK": "跑馬地馬場",
+            "zh-CN": "跑马地马场",
+            "en": "Happy Valley Racecourse"
+        },
+        "description": {
+            "zh-HK": "香港特色觀賽型娛樂之一（賽馬日氣氛好）。",
+            "zh-CN": "香港特色观赛型娱乐之一（赛马日气氛好）。",
+            "en": "One of Hong Kong's unique spectator spots (great atmosphere on race days)."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_030",
+        "category": "game",
+        "region": "eastern",
+        "lat": 22.2917,
+        "lng": 114.2064,
+        "name": {
+            "zh-HK": "Ryze",
+            "zh-CN": "Ryze",
+            "en": "Ryze Ultimate Trampoline Park"
+        },
+        "description": {
+            "zh-HK": "必去超大室內彈床遊樂場",
+            "zh-CN": "必去超大室内弹床游乐场",
+            "en": "A must-visit huge indoor trampoline park."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_031",
+        "category": "game",
+        "region": "sha-tin",
+        "lat": 22.3833,
+        "lng": 114.1986,
+        "name": {
+            "zh-HK": "Climbing Park（沙田）",
+            "zh-CN": "Climbing Park（沙田）",
+            "en": "Hong Kong Climbing Park (Sha Tin)"
+        },
+        "description": {
+            "zh-HK": "全港最大室內攀石場",
+            "zh-CN": "全港最大室内攀石场",
+            "en": "The largest indoor climbing gym in Hong Kong."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_032",
+        "category": "game",
+        "region": "tai-po",
+        "lat": 22.4361461,
+        "lng": 114.1894238,
+        "name": {
+            "zh-HK": "Core Aqua Park水上競技樂園（大尾篤）",
+            "zh-CN": "Core Aqua Park水上竞技乐园（大尾篤）",
+            "en": "Core Aqua Park (Tai Mei Tuk)"
+        },
+        "description": {
+            "zh-HK": "12個充氣水上障礙，包括垂直滑梯等",
+            "zh-CN": "12个充气水上障碍，包括垂直滑梯等",
+            "en": "12 inflatable water obstacles, including vertical slides."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_033",
+        "category": "game",
+        "region": "eastern",
+        "lat": 22.2870415,
+        "lng": 114.2173786,
+        "name": {
+            "zh-HK": "太古城中心冰上皇宮",
+            "zh-CN": "太古城中心冰上皇宫",
+            "en": "Cityplaza Ice Palace"
+        },
+        "description": {
+            "zh-HK": "商場內溜冰場，屬「運動＋休閒」玩法。",
+            "zh-CN": "商场内溜冰场，属“运动＋休闲”玩法。",
+            "en": "Mall ice rink, offering a mix of sports and leisure."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_034",
+        "category": "game",
+        "region": "kwun-tong",
+        "lat": 22.3198,
+        "lng": 114.2082,
+        "name": {
+            "zh-HK": "溜冰場 Mega Ice",
+            "zh-CN": "溜冰场 Mega Ice",
+            "en": "Mega Ice"
+        },
+        "description": {
+            "zh-HK": "溜冰/曲棍球相關設施齊，屬運動型娛樂。",
+            "zh-CN": "溜冰/曲棍球相关设施齐，属运动型娱乐。",
+            "en": "Well-equipped for skating/hockey, sports-oriented entertainment."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_035",
+        "category": "game",
+        "region": "sham-shui-po",
+        "lat": 22.3373,
+        "lng": 114.1749,
+        "name": {
+            "zh-HK": "歡天雪地溜冰場",
+            "zh-CN": "欢天雪地溜冰场",
+            "en": "Glacier (Festival Walk)"
+        },
+        "description": {
+            "zh-HK": "商場溜冰場，屬運動休閒型娛樂。",
+            "zh-CN": "商场溜冰场，属运动休闲型娱乐。",
+            "en": "Mall ice rink, sports and leisure entertainment."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_036",
+        "category": "game",
+        "region": "yau-tsim-mong",
+        "lat": 22.3048,
+        "lng": 114.1615,
+        "name": {
+            "zh-HK": "The Rink（Elements）",
+            "zh-CN": "The Rink（Elements）",
+            "en": "The Rink (Elements)"
+        },
+        "description": {
+            "zh-HK": "市區溜冰場，適合拍拖/朋友活動。",
+            "zh-CN": "市区溜冰场，适合拍拖/朋友活动。",
+            "en": "Urban ice rink, great for dates or hanging out with friends."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_037",
+        "category": "game",
+        "region": "kowloon-city",
+        "lat": 22.3265374,
+        "lng": 114.1963058,
+        "name": {
+            "zh-HK": "Top Bowl Tenpin Bowling（啟德體育園）",
+            "zh-CN": "Top Bowl Tenpin Bowling（启德体育园）",
+            "en": "Top Bowl Tenpin Bowling (Kai Tak Sports Park)"
+        },
+        "description": {
+            "zh-HK": "40條國際標準球道",
+            "zh-CN": "40条国际标准球道",
+            "en": "40 international standard lanes."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_038",
+        "category": "game",
+        "region": "tsuen-wan",
+        "lat": 22.3705,
+        "lng": 114.1197,
+        "name": {
+            "zh-HK": "荃灣迪高保齡球館",
+            "zh-CN": "荃湾迪高保龄球馆",
+            "en": "Dragon Bowling (Tsuen Wan)"
+        },
+        "description": {
+            "zh-HK": "32條球道，提供桌球、飛鏢機、足球機等",
+            "zh-CN": "32条球道，提供桌球、飞镖机、足球机等",
+            "en": "32 lanes, offering billiards, dart machines, football tables, etc."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_039",
+        "category": "game",
+        "region": "sha-tin",
+        "lat": 22.3833,
+        "lng": 114.1986,
+        "name": {
+            "zh-HK": "美樂保齡球場",
+            "zh-CN": "美乐保龄球场",
+            "en": "Belair Bowling"
+        },
+        "description": {
+            "zh-HK": "24條球道，收費親民，另有飛鏢、桌球、氣墊球等",
+            "zh-CN": "24条球道，收费亲民，另有飞镖、桌球、气垫球等",
+            "en": "24 lanes, affordable pricing, with darts, billiards, air hockey, etc."
+        },
+        "images": []
+    }
+]

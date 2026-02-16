@@ -1,0 +1,362 @@
+[
+    {
+        "id": "spot_040",
+        "category": "outdoor",
+        "region": "southern",
+        "lat": 22.2369295,
+        "lng": 114.2432252,
+        "name": {
+            "zh-HK": "龍脊",
+            "zh-CN": "龙脊",
+            "en": "Dragon's Back"
+        },
+        "description": {
+            "zh-HK": "位於石澳郊野公園，曾被選為亞洲最佳市區遠足徑，可飽覽大浪灣和南中國海的壯麗景色。",
+            "zh-CN": "位于石澳郊野公园，曾被选为亚洲最佳市区远足径，可饱览大浪湾和南中国海的壮丽景色。",
+            "en": "Located in Shek O Country Park, once voted the best urban hiking trail in Asia, offering magnificent views of Big Wave Bay and the South China Sea."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_041",
+        "category": "outdoor",
+        "region": "tsuen-wan",
+        "lat": 22.4088464,
+        "lng": 114.1379499,
+        "name": {
+            "zh-HK": "大帽山",
+            "zh-CN": "大帽山",
+            "en": "Tai Mo Shan"
+        },
+        "description": {
+            "zh-HK": "香港最高峰，可俯瞰全港景色，雲海和日出景色著名。",
+            "zh-CN": "香港最高峰，可俯瞰全港景色，云海和日出景色著名。",
+            "en": "Hong Kong's highest peak, offering panoramic views of the city, famous for sea of clouds and sunrise views."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_042",
+        "category": "outdoor",
+        "region": "sai-kung",
+        "lat": 22.3645432,
+        "lng": 114.3755648,
+        "name": {
+            "zh-HK": "香港聯合國教科文組織世界地質公園",
+            "zh-CN": "香港联合国教科文组织世界地质公园",
+            "en": "Hong Kong UNESCO Global Geopark (Sai Kung)"
+        },
+        "description": {
+            "zh-HK": "世界級的地質景觀，包含萬宜水庫東壩等著名地標。",
+            "zh-CN": "世界级的地质景观，包含万宜水库东坝等著名地标。",
+            "en": "World-class geological landscapes, featuring famous landmarks like the High Island Reservoir East Dam."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_043",
+        "category": "outdoor",
+        "region": "sai-kung",
+        "lat": 22.3715559,
+        "lng": 114.3549353,
+        "name": {
+            "zh-HK": "萬宜水庫東壩",
+            "zh-CN": "万宜水库东坝",
+            "en": "High Island Reservoir East Dam"
+        },
+        "description": {
+            "zh-HK": "觀賞壯觀的六角形岩柱群、海蝕洞及防波堤，是世界級的地質景觀。",
+            "zh-CN": "观赏壮观的六角形岩柱群、海蚀洞及防波堤，是世界级的地质景观。",
+            "en": "View spectacular hexagonal volcanic rock columns, sea caves, and the dolosse dam; a world-class geological site."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_044",
+        "category": "outdoor",
+        "region": "sai-kung",
+        "lat": 22.3632148,
+        "lng": 114.2940282,
+        "name": {
+            "zh-HK": "橋咀洲",
+            "zh-CN": "桥咀洲",
+            "en": "Sharp Island"
+        },
+        "description": {
+            "zh-HK": "退潮時會出現連島沙洲，可步行前往，以此處的「菠蘿包石」聞名。",
+            "zh-CN": "退潮时会出现连岛沙洲，可步行前往，以此处的「菠萝包石」闻名。",
+            "en": "Features a tombolo accessible during low tide, famous for its 'pineapple bun' rocks."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_045",
+        "category": "outdoor",
+        "region": "islands",
+        "lat": 22.2267,
+        "lng": 114.1135,
+        "name": {
+            "zh-HK": "南丫島",
+            "zh-CN": "南丫岛",
+            "en": "Lamma Island"
+        },
+        "description": {
+            "zh-HK": "以悠閒氛圍和海鮮聞名的離島。",
+            "zh-CN": "以悠闲氛围和海鲜闻名的离岛。",
+            "en": "An outlying island famous for its relaxed atmosphere and seafood."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_046",
+        "category": "outdoor",
+        "region": "islands",
+        "lat": 22.2085,
+        "lng": 114.0293,
+        "name": {
+            "zh-HK": "長洲",
+            "zh-CN": "长洲",
+            "en": "Cheung Chau"
+        },
+        "description": {
+            "zh-HK": "充滿傳統節慶氣氛和特色小吃的熱門小島。",
+            "zh-CN": "充满傳统节庆气氛和特色小吃的热门小岛。",
+            "en": "A popular island full of traditional festive atmosphere and local snacks."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_047",
+        "category": "outdoor",
+        "region": "yuen-long",
+        "lat": 22.434989,
+        "lng": 113.948271,
+        "name": {
+            "zh-HK": "下白泥",
+            "zh-CN": "下白泥",
+            "en": "Ha Pak Nai"
+        },
+        "description": {
+            "zh-HK": "位於元朗流浮山，擁有廣闊的泥灘和紅樹林，是全港欣賞日落最美的地方之一。",
+            "zh-CN": "位于元朗流浮山，拥有广阔的泥滩和红树林，是全港欣赏日落最美的地方之一。",
+            "en": "Located at Lau Fau Shan, Yuen Long, featuring vast mudflats and mangroves, one of the best places to watch the sunset in Hong Kong."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_048",
+        "category": "outdoor",
+        "region": "tsuen-wan",
+        "lat": 22.3860011,
+        "lng": 114.1472591,
+        "name": {
+            "zh-HK": "城門水塘",
+            "zh-CN": "城门水塘",
+            "en": "Shing Mun Reservoir"
+        },
+        "description": {
+            "zh-HK": "以白千層樹林聞名，水浸時景色如鏡面般優美，是熱門攝影地。",
+            "zh-CN": "以白千层树林闻名，水浸时景色如镜面般优美，是热门攝影地。",
+            "en": "Famous for its paperbark tree groves, offering mirror-like reflections when flooded; a popular photography spot."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_049",
+        "category": "outdoor",
+        "region": "tuen-mun",
+        "lat": 22.3842445,
+        "lng": 114.0292614,
+        "name": {
+            "zh-HK": "大欖涌水塘",
+            "zh-CN": "大榄涌水塘",
+            "en": "Tai Lam Chung Reservoir (Thousand Islands Lake)"
+        },
+        "description": {
+            "zh-HK": "位於大欖郊野公園，從觀景台可俯瞰數十個小島散落在水塘中，景色如畫。",
+            "zh-CN": "位于大榄郊野公园，從观景台可俯瞰数十个小岛散落在水塘中，景色如画。",
+            "en": "Located in Tai Lam Country Park, offering picturesque views of dozens of small islands scattered in the reservoir from the lookout."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_050",
+        "category": "outdoor",
+        "region": "yuen-long",
+        "lat": 22.4700585,
+        "lng": 114.0065831,
+        "name": {
+            "zh-HK": "香港濕地公園",
+            "zh-CN": "香港湿地公园",
+            "en": "Hong Kong Wetland Park"
+        },
+        "description": {
+            "zh-HK": "位於天水圍，擁有豐富的濕地生態，是觀鳥和認識自然生態的好地方。",
+            "zh-CN": "位于天水围，拥有豐富的湿地生态，是观鳥和认识自然生态的好地方。",
+            "en": "Located in Tin Shui Wai, featuring rich wetland ecology, a great place for bird watching and learning about nature."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_051",
+        "category": "outdoor",
+        "region": "tai-po",
+        "lat": 22.4332,
+        "lng": 114.1179,
+        "name": {
+            "zh-HK": "嘉道理農場暨植物園",
+            "zh-CN": "嘉道理农场暨植物园",
+            "en": "Kadoorie Farm and Botanic Garden"
+        },
+        "description": {
+            "zh-HK": "自然生態景點",
+            "zh-CN": "自然生态景點",
+            "en": "Nature and ecology attraction."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_052",
+        "category": "outdoor",
+        "region": "tai-po",
+        "lat": 22.4620332,
+        "lng": 114.1819154,
+        "name": {
+            "zh-HK": "蝶豆花園農莊",
+            "zh-CN": "蝶豆花园农莊",
+            "en": "Butterfly Valley"
+        },
+        "description": {
+            "zh-HK": "動物、花海、天鵝湖等打卡位，設遊樂設施",
+            "zh-CN": "动物、花海、天鹅湖等打卡位，设游乐设施",
+            "en": "Features animals, flower fields, swan lake, and play facilities."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_053",
+        "category": "outdoor",
+        "region": "central-and-western",
+        "lat": 22.2773967,
+        "lng": 114.1561675,
+        "name": {
+            "zh-HK": "香港動植物公園",
+            "zh-CN": "香港动植物公园",
+            "en": "Hong Kong Zoological and Botanical Gardens"
+        },
+        "description": {
+            "zh-HK": "歷史悠久的公園，可觀賞多種靈長類動物及植物。",
+            "zh-CN": "历史悠久的公园，可观赏多種灵长类动物及植物。",
+            "en": "A historic park where you can see various primates and plants."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_054",
+        "category": "outdoor",
+        "region": "southern",
+        "lat": 22.2602161,
+        "lng": 114.1692021,
+        "name": {
+            "zh-HK": "香港仔郊野公園",
+            "zh-CN": "香港仔郊野公园",
+            "en": "Aberdeen Country Park"
+        },
+        "description": {
+            "zh-HK": "可行山/走自然教育徑，屬戶外郊野型娛樂。",
+            "zh-CN": "可行山/走自然教育径，属户外郊野型娛乐。",
+            "en": "Suitable for hiking and nature trails, an outdoor countryside recreation spot."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_055",
+        "category": "outdoor",
+        "region": "tai-po",
+        "lat": 22.4525575,
+        "lng": 114.1845378,
+        "name": {
+            "zh-HK": "大埔海濱公園",
+            "zh-CN": "大埔海滨公园",
+            "en": "Tai Po Waterfront Park"
+        },
+        "description": {
+            "zh-HK": "大型海濱公園，有恐龍公園、海濱長廊和單車徑",
+            "zh-CN": "大型海滨公园，有恐龙公园、海滨长廊和单车径",
+            "en": "Large waterfront park with a dinosaur park, promenade, and cycling track."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_056",
+        "category": "outdoor",
+        "region": "tuen-mun",
+        "lat": 22.3733,
+        "lng": 113.9667,
+        "name": {
+            "zh-HK": "屯門海濱公園",
+            "zh-CN": "屯门海滨公园",
+            "en": "Tuen Mun Promenade"
+        },
+        "description": {
+            "zh-HK": "遊樂設施和海景步道",
+            "zh-CN": "游乐设施和海景步道",
+            "en": "Playground facilities and sea view promenade."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_057",
+        "category": "outdoor",
+        "region": "tuen-mun",
+        "lat": 22.372,
+        "lng": 113.9908,
+        "name": {
+            "zh-HK": "屯門黃金海岸",
+            "zh-CN": "屯门黄金海岸",
+            "en": "Gold Coast"
+        },
+        "description": {
+            "zh-HK": "沙灘、露天餐廳，有度假感覺",
+            "zh-CN": "沙滩、露天餐厅，有度假感觉",
+            "en": "Beach, alfresco dining, offering a resort-like vibe."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_058",
+        "category": "outdoor",
+        "region": "sha-tin",
+        "lat": 22.40901,
+        "lng": 114.220554,
+        "name": {
+            "zh-HK": "馬鞍山海濱長廊",
+            "zh-CN": "马鞍山海滨长廊",
+            "en": "Ma On Shan Promenade"
+        },
+        "description": {
+            "zh-HK": "沙田區第二大海濱長廊，可遠眺八仙嶺山脈，環境開揚。",
+            "zh-CN": "沙田区第二大海滨长廊，可远眺八仙岭山脉，环境开扬。",
+            "en": "The second largest waterfront promenade in Sha Tin, offering open views of the Pat Sin Leng mountain range."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_059",
+        "category": "outdoor",
+        "region": "eastern",
+        "lat": 22.288426,
+        "lng": 114.215451,
+        "name": {
+            "zh-HK": "鰂魚涌公園",
+            "zh-CN": "鰂鱼涌公园",
+            "en": "Quarry Bay Park"
+        },
+        "description": {
+            "zh-HK": "擁有大型海濱長廊，可欣賞東九龍沿岸景色，內有葛量洪號滅火輪展覽館。",
+            "zh-CN": "拥有大型海滨长廊，可欣赏东九龙沿岸景色，内有葛量洪号灭火轮展览馆。",
+            "en": "Features a large waterfront promenade with views of East Kowloon, housing the Fireboat Alexander Grantham Exhibition Gallery."
+        },
+        "images": []
+    }
+]

@@ -1,0 +1,236 @@
+[
+    {
+        "id": "spot_013",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2806973,
+        "lng": 114.1555456,
+        "name": {
+            "zh-HK": "蘭桂坊",
+            "zh-CN": "兰桂坊",
+            "en": "Lan Kwai Fong"
+        },
+        "description": {
+            "zh-HK": "香港最著名娛樂區，匯聚超過90家酒吧、餐廳和夜店。",
+            "zh-CN": "香港最著名娱乐区，汇聚超过90家酒吧、餐厅和夜店。",
+            "en": "Hong Kong's most famous entertainment district, home to over 90 bars, restaurants, and nightclubs."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_014",
+        "category": "nightlife",
+        "region": "wan-chai",
+        "lat": 22.2762411,
+        "lng": 114.1714557,
+        "name": {
+            "zh-HK": "灣仔酒吧區",
+            "zh-CN": "湾仔酒吧区",
+            "en": "Wan Chai Bar District"
+        },
+        "description": {
+            "zh-HK": "位於駱克道及軒尼詩道一帶，聚集多間卡拉OK、酒吧和夜店。",
+            "zh-CN": "位于骆克道及轩尼诗道一带，聚集多间卡拉OK、酒吧和夜店。",
+            "en": "Located around Lockhart Road and Hennessy Road, featuring numerous karaoke lounges, bars, and nightclubs."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_015",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2835238,
+        "lng": 114.1509492,
+        "name": {
+            "zh-HK": "Bar Leone",
+            "zh-CN": "Bar Leone",
+            "en": "Bar Leone"
+        },
+        "description": {
+            "zh-HK": "位於中環四季酒店大堂，2025年亞洲及世界50最佳酒吧冠軍，由著名調酒大師Lorenzo Antinori創辦。",
+            "zh-CN": "位于中环四季酒店大堂，2025年亚洲及世界50最佳酒吧冠军，由著名调酒大师Lorenzo Antinori创办。",
+            "en": "Located in the lobby of Four Seasons Hotel Central, crowned Asia's and World's Best Bar in 2025, founded by renowned mixologist Lorenzo Antinori."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_016",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2864416,
+        "lng": 114.157066,
+        "name": {
+            "zh-HK": "Argo",
+            "zh-CN": "Argo",
+            "en": "Argo"
+        },
+        "description": {
+            "zh-HK": "香港四季酒店旗艦酒吧，2025年亞洲50最佳酒吧排名第11位。",
+            "zh-CN": "香港四季酒店旗舰酒吧，2025年亚洲50最佳酒吧排名第11位。",
+            "en": "The flagship bar of Four Seasons Hong Kong, ranked 11th in Asia's 50 Best Bars 2025."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_017",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2840082,
+        "lng": 114.1520992,
+        "name": {
+            "zh-HK": "COA",
+            "zh-CN": "COA",
+            "en": "COA"
+        },
+        "description": {
+            "zh-HK": "墨西哥主題酒吧，連續3年蟬聯亞洲冠軍，2025年排名第17位，位於中環。",
+            "zh-CN": "墨西哥主题酒吧，连续3年蝉联亚洲冠军，2025年排名第17位，位于中环。",
+            "en": "A Mexican-themed bar in Central, crowned Asia's Best Bar for three consecutive years, ranked 17th in 2025."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_018",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2946098,
+        "lng": 114.1752139,
+        "name": {
+            "zh-HK": "DarkSide",
+            "zh-CN": "DarkSide",
+            "en": "DarkSide"
+        },
+        "description": {
+            "zh-HK": "位於中環的人氣酒吧。",
+            "zh-CN": "位于中环的人气酒吧。",
+            "en": "A popular bar located in Central."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_019",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2819802,
+        "lng": 114.1545553,
+        "name": {
+            "zh-HK": "The Iron Fairies Hong Kong",
+            "zh-CN": "The Iron Fairies Hong Kong",
+            "en": "The Iron Fairies Hong Kong"
+        },
+        "description": {
+            "zh-HK": "位於中環的特色酒吧。",
+            "zh-CN": "位于中环的特色酒吧。",
+            "en": "A distinctive themed bar located in Central."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_020",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2802246,
+        "lng": 114.1564511,
+        "name": {
+            "zh-HK": "Gokan",
+            "zh-CN": "Gokan",
+            "en": "Gokan"
+        },
+        "description": {
+            "zh-HK": "2024年開幕的日式酒吧，2025年首度入榜亞洲50最佳酒吧排名第33位。",
+            "zh-CN": "2024年开幕的日式酒吧，2025年首度入榜亚洲50最佳酒吧排名第33位。",
+            "en": "A Japanese-style bar opened in 2024, debuting at 33rd place in Asia's 50 Best Bars 2025."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_021",
+        "category": "nightlife",
+        "region": "wan-chai",
+        "lat": 22.2785429,
+        "lng": 114.1715642,
+        "name": {
+            "zh-HK": "Wanch酒吧",
+            "zh-CN": "Wanch酒吧",
+            "en": "The Wanch"
+        },
+        "description": {
+            "zh-HK": "灣仔著名酒吧。",
+            "zh-CN": "湾仔著名酒吧。",
+            "en": "A well-known bar in Wan Chai."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_022",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2807626,
+        "lng": 114.1553731,
+        "name": {
+            "zh-HK": "Volar夜店",
+            "zh-CN": "Volar夜店",
+            "en": "Volar Nightclub"
+        },
+        "description": {
+            "zh-HK": "位於蘭桂坊中心的香港人氣夜店，設計和音樂不斷創新。",
+            "zh-CN": "位于兰桂坊中心的香港人气夜店，设计和音乐不断创新。",
+            "en": "A popular nightclub in Lan Kwai Fong, known for innovative design and music."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_023",
+        "category": "nightlife",
+        "region": "central-and-western",
+        "lat": 22.2805456,
+        "lng": 114.1547233,
+        "name": {
+            "zh-HK": "Dragon-i餐廳酒吧",
+            "zh-CN": "Dragon-i餐厅酒吧",
+            "en": "Dragon-i Restaurant & Bar"
+        },
+        "description": {
+            "zh-HK": "尖沙咀著名夜店。",
+            "zh-CN": "尖沙咀著名夜店。",
+            "en": "A famous nightclub in Tsim Sha Tsui."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_024",
+        "category": "nightlife",
+        "region": "yau-tsim-mong",
+        "lat": 22.3161973,
+        "lng": 114.1697708,
+        "name": {
+            "zh-HK": "Neway（唱K）",
+            "zh-CN": "Neway（唱K）",
+            "en": "Neway Karaoke"
+        },
+        "description": {
+            "zh-HK": "連鎖卡拉OK，適合朋友聚會或生日局。",
+            "zh-CN": "连锁卡拉OK，适合朋友聚会或生日局。",
+            "en": "A karaoke chain popular for gatherings and birthday parties."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_025",
+        "category": "nightlife",
+        "region": "yau-tsim-mong",
+        "lat": 22.3184968,
+        "lng": 114.1689962,
+        "name": {
+            "zh-HK": "RED MR（唱K）",
+            "zh-CN": "RED MR（唱K）",
+            "en": "RED MR Karaoke"
+        },
+        "description": {
+            "zh-HK": "連鎖卡拉OK，適合多人唱K聚會。",
+            "zh-CN": "连锁卡拉OK，适合多人唱K聚会。",
+            "en": "A karaoke chain ideal for group singing parties."
+        },
+        "images": []
+    }
+]

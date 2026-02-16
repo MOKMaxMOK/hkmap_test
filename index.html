@@ -1,0 +1,441 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>HK Multi-Category Map</title>
+    <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
+    <style>
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: sans-serif;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+        }
+
+        /* 導航欄：增加滾動條隱藏 */
+        .controls-bar {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.95);
+            backdrop-filter: blur(10px);
+            -webkit-backdrop-filter: blur(10px);
+            display: flex;
+            align-items: center;
+            padding: 0 10px;
+            gap: 8px;
+            z-index: 2000;
+            overflow-x: auto;
+            scrollbar-width: none;
+        }
+
+        .controls-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        .btn {
+            padding: 8px 14px;
+            border-radius: 20px;
+            border: 1px solid #ddd;
+            background: white;
+            font-size: 14px;
+            cursor: pointer;
+            white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .btn:active {
+            background: #f0f0f0;
+        }
+
+        /* 菜單/彈窗 */
+        #modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            z-index: 9998;
+            display: none;
+        }
+
+        #modal-content {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 85%;
+            max-width: 320px;
+            background: white;
+            border-radius: 16px;
+            z-index: 9999;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .menu-header {
+            padding: 15px;
+            border-bottom: 1px solid #eee;
+            font-weight: bold;
+            background: #f9f9f9;
+            display: flex;
+            justify-content: space-between;
+        }
+
+        .menu-list {
+            overflow-y: auto;
+            max-height: 60vh;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-item {
+            padding: 14px 20px;
+            border-bottom: 1px solid #f5f5f5;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .menu-item.active {
+            color: #4285F4;
+            font-weight: bold;
+            background: #f0f7ff;
+        }
+
+        /* 複選框樣式 */
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border: 2px solid #ddd;
+            border-radius: 4px;
+            flex-shrink: 0;
+        }
+
+        .active .checkbox {
+            background: #4285F4;
+            border-color: #4285F4;
+            position: relative;
+        }
+
+        .active .checkbox::after {
+            content: '✓';
+            color: white;
+            position: absolute;
+            top: -2px;
+            left: 2px;
+            font-size: 14px;
+        }
+
+        /* 圖例 */
+        .legend-card {
+            position: fixed;
+            top: 70px;
+            right: 15px;
+            background: rgba(255, 255, 255, 0.4);
+            padding: 10px;
+            border-radius: 10px;
+            z-index: 1000;
+            display: none;
+            border: 1px solid rgba(255, 255, 255, 0.3);
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            margin-bottom: 4px;
+            font-size: 12px;
+            font-weight: bold;
+            color: #333;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            margin-right: 8px;
+        }
+
+        /* Popup 修復 */
+        .maplibregl-popup-content {
+            background: transparent !important;
+            padding: 0 !important;
+            box-shadow: none !important;
+        }
+
+        .custom-popup {
+            background: white;
+            width: 260px;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 5px 25px rgba(0, 0, 0, 0.3);
+        }
+
+        .popup-img {
+            width: 100%;
+            height: 130px;
+            background-size: cover;
+            background-position: center;
+            background-color: #eee;
+        }
+
+        .popup-body {
+            padding: 12px;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .action-link {
+            flex: 1;
+            text-align: center;
+            padding: 8px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 12px;
+            text-decoration: none;
+            color: #333;
+            background: #f9f9f9;
+        }
+    </style>
+</head>
+
+<body>
+
+    <div class="controls-bar">
+        <div class="btn" onclick="openMenu('lang')">🌐 <span id="lbl-lang">Language</span></div>
+        <div class="btn" onclick="openMenu('category')">🏷️ <span id="lbl-type">Type</span></div>
+        <div class="btn" onclick="toggleLegend()">🗺️ <span id="lbl-legend">Legend</span></div>
+    </div>
+
+    <div id="map"></div>
+
+    <div class="legend-card" id="legend-card"></div>
+
+    <div id="modal-overlay" onclick="closeMenu()"></div>
+    <div id="modal-content"></div>
+
+    <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
+    <script>
+        let map;
+        let allSpots = [];
+        let markers = []; // 用於存儲當前地圖上的 Marker
+        let currentLang = 'zh-HK';
+        let selectedCategories = []; // 用於存儲被選中的類型
+
+        const jsonFiles = [
+            { name: 'film.json', cat: 'film', color: '#FF6D00' },
+            { name: 'landmark.json', cat: 'landmark', color: '#0F9D58' },
+            { name: 'nightlife.json', cat: 'nightlife', color: '#673AB7' },
+            { name: 'modern.json', cat: 'modern', color: '#4285F4' },
+            { name: 'heritage.json', cat: 'heritage', color: '#DB4437' },
+            { name: 'indoor.json', cat: 'indoor', color: '#F4B400' },
+            { name: 'outdoor.json', cat: 'outdoor', color: '#795548' },
+            { name: 'themepark.json', cat: 'themepark', color: '#E91E63' },
+            { name: 'game.json', cat: 'game', color: '#00BCD4' }
+        ];
+
+        // 初始化選中所有類型
+        selectedCategories = jsonFiles.map(f => f.cat);
+
+        const dict = {
+            lang: { 'zh-HK': '語言', 'zh-CN': '语言', 'en': 'Language' },
+            type: { 'zh-HK': '類型', 'zh-CN': '类型', 'en': 'Type' },
+            legend: { 'zh-HK': '圖例', 'zh-CN': '图例', 'en': 'Legend' },
+            selectAll: { 'zh-HK': '全選', 'zh-CN': '全选', 'en': 'All' }
+        };
+
+        const catLabels = {
+            film: { 'zh-HK': '影視取景', 'en': 'Film' },
+            landmark: { 'zh-HK': '地標建築', 'en': 'Landmark' },
+            nightlife: { 'zh-HK': '夜生活', 'en': 'Nightlife' },
+            modern: { 'zh-HK': '現代景觀', 'en': 'Modern' },
+            heritage: { 'zh-HK': '歷史文化', 'en': 'Heritage' },
+            indoor: { 'zh-HK': '室內娛樂', 'en': 'Indoor' },
+            outdoor: { 'zh-HK': '自然郊遊', 'en': 'Outdoor' },
+            themepark: { 'zh-HK': '主題樂園', 'en': 'Theme Park' },
+            game: { 'zh-HK': '運動競技', 'en': 'Game' }
+        };
+
+        window.onload = async () => {
+            map = new maplibregl.Map({
+                container: 'map',
+                style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
+                center: [114.1694, 22.3193],
+                zoom: 11
+            });
+
+            // 🔥 關鍵修復：等待地圖加載完畢再進行後續操作
+            map.on('load', async () => {
+                await loadAllData();
+                renderMarkers();
+                renderLegend();
+                updateUILabels();
+            });
+        };
+
+        async function loadAllData() {
+            const promises = jsonFiles.map(file =>
+                fetch(file.name)
+                    .then(res => res.json())
+                    .then(data => data.map(item => ({ ...item, category: file.cat })))
+                    .catch(e => [])
+            );
+            const results = await Promise.all(promises);
+            allSpots = results.flat();
+        }
+
+        // 🔥 渲染 Marker 的函數 (支持刷新)
+        function renderMarkers() {
+            // 先清除舊 Marker
+            markers.forEach(m => m.remove());
+            markers = [];
+
+            const filtered = allSpots.filter(spot => selectedCategories.includes(spot.category));
+
+            filtered.forEach(spot => {
+                const config = jsonFiles.find(f => f.cat === spot.category);
+                const el = document.createElement('div');
+                el.style.width = '42px'; el.style.height = '42px';
+                el.style.backgroundImage = `url(${generatePin(config.color)})`;
+                el.style.backgroundSize = 'contain';
+                el.style.cursor = 'pointer';
+
+                el.onclick = (e) => {
+                    e.stopPropagation();
+                    showPopup(spot, config.color);
+                };
+
+                const marker = new maplibregl.Marker({ element: el, anchor: 'bottom' })
+                    .setLngLat([spot.lng, spot.lat])
+                    .addTo(map);
+
+                markers.push(marker);
+            });
+        }
+
+        function generatePin(color) {
+            const canvas = document.createElement('canvas');
+            canvas.width = 64; canvas.height = 64;
+            const ctx = canvas.getContext('2d');
+            ctx.fillStyle = color;
+            ctx.beginPath(); ctx.arc(32, 24, 20, 0, Math.PI * 2); ctx.fill(); // 圓頭
+            ctx.beginPath(); ctx.moveTo(12, 24); ctx.lineTo(32, 60); ctx.lineTo(52, 24); ctx.fill(); // 尖尖
+            ctx.fillStyle = 'white';
+            ctx.beginPath(); ctx.arc(32, 24, 8, 0, Math.PI * 2); ctx.fill(); // 中心白點
+            return canvas.toDataURL();
+        }
+
+        function showPopup(spot, color) {
+            const name = spot.name[currentLang] || spot.name.en;
+            const desc = spot.description[currentLang] || "";
+            const catLabel = catLabels[spot.category][currentLang] || spot.category;
+            const imgHtml = spot.images && spot.images.length > 0 ? `<div class="popup-img" style="background-image:url('${spot.images[0]}')"></div>` : '';
+            const query = encodeURIComponent(name + ' HK');
+
+            const html = `
+                <div class="custom-popup">
+                    ${imgHtml}
+                    <div class="popup-body">
+                        <strong style="font-size:17px;">${name}</strong><br>
+                        <span style="background:${color};color:white;font-size:11px;padding:2px 6px;border-radius:4px;margin-top:5px;display:inline-block;">${catLabel}</span>
+                        <p style="font-size:14px;color:#555;margin:10px 0;line-height:1.4;">${desc}</p>
+                        <div class="popup-actions">
+                            <a class="action-link" target="_blank" href="https://www.google.com/maps/search/?api=1&query=${query}">Google Map</a>
+                            <a class="action-link" target="_blank" href="https://www.amap.com/search?query=${query}">高德地圖</a>
+                        </div>
+                    </div>
+                </div>
+            `;
+            new maplibregl.Popup({ offset: 20 }).setLngLat([spot.lng, spot.lat]).setHTML(html).addTo(map);
+            map.flyTo({ center: [spot.lng, spot.lat], zoom: 15 });
+        }
+
+        // 🔥 統一選單處理器
+        function openMenu(type) {
+            const content = document.getElementById('modal-content');
+            content.innerHTML = `<div class="menu-header"><span>Select</span><span onclick="closeMenu()">✕</span></div>`;
+            const list = document.createElement('div');
+            list.className = 'menu-list';
+
+            if (type === 'lang') {
+                const langs = [{ c: 'zh-HK', l: '繁體中文' }, { c: 'zh-CN', l: '简体中文' }, { c: 'en', l: 'English' }];
+                langs.forEach(lang => {
+                    const item = document.createElement('div');
+                    item.className = `menu-item ${currentLang === lang.c ? 'active' : ''}`;
+                    item.innerHTML = `<span>${lang.l}</span>`;
+                    item.onclick = () => { currentLang = lang.c; updateUILabels(); renderLegend(); closeMenu(); };
+                    list.appendChild(item);
+                });
+            } else if (type === 'category') {
+                jsonFiles.forEach(file => {
+                    const label = catLabels[file.cat][currentLang] || file.cat;
+                    const isActive = selectedCategories.includes(file.cat);
+                    const item = document.createElement('div');
+                    item.className = `menu-item ${isActive ? 'active' : ''}`;
+                    item.innerHTML = `<div class="checkbox"></div><span>${label}</span>`;
+                    item.onclick = () => {
+                        if (isActive) selectedCategories = selectedCategories.filter(c => c !== file.cat);
+                        else selectedCategories.push(file.cat);
+                        renderMarkers(); // 實時更新地圖上的 Pin
+                        openMenu('category'); // 刷新菜單選中狀態
+                    };
+                    list.appendChild(item);
+                });
+            }
+
+            content.appendChild(list);
+            document.getElementById('modal-overlay').style.display = 'block';
+            content.style.display = 'flex';
+        }
+
+        function closeMenu() {
+            document.getElementById('modal-overlay').style.display = 'none';
+            document.getElementById('modal-content').style.display = 'none';
+        }
+
+        function toggleLegend() {
+            const card = document.getElementById('legend-card');
+            card.style.display = card.style.display === 'block' ? 'none' : 'block';
+        }
+
+        function renderLegend() {
+            const card = document.getElementById('legend-card');
+            card.innerHTML = '';
+            jsonFiles.forEach(file => {
+                const label = catLabels[file.cat][currentLang] || file.cat;
+                const div = document.createElement('div');
+                div.className = 'legend-item';
+                div.innerHTML = `<div class="legend-dot" style="background:${file.color}"></div>${label}`;
+                card.appendChild(div);
+            });
+        }
+
+        function updateUILabels() {
+            document.getElementById('lbl-lang').innerText = dict.lang[currentLang];
+            document.getElementById('lbl-type').innerText = dict.type[currentLang];
+            document.getElementById('lbl-legend').innerText = dict.legend[currentLang];
+        }
+    </script>
+</body>
+
+</html>

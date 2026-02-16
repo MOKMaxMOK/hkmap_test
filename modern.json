@@ -1,0 +1,110 @@
+[
+    {
+        "id": "spot_001",
+        "category": "modern",
+        "region": "central-and-western",
+        "lat": 22.2758835,
+        "lng": 114.145532,
+        "name": {
+            "zh-HK": "太平山頂",
+            "zh-CN": "太平山顶",
+            "en": "Victoria Peak"
+        },
+        "description": {
+            "zh-HK": "香港最高點之一，可俯瞰維港及中環高樓大廈的全景，是攝影愛好者的必去之地。",
+            "zh-CN": "香港最高点之一，可俯瞰维港及中环高楼大厦的全景，是摄影爱好者的必去之地。",
+            "en": "One of Hong Kong's highest points, offering panoramic views of Victoria Harbour and Central's skyscrapers. A must-visit for photography enthusiasts."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_002",
+        "category": "modern",
+        "region": "yau-tsim-mong",
+        "lat": 22.3033986,
+        "lng": 114.1601865,
+        "name": {
+            "zh-HK": "OZONE頂樓酒吧",
+            "zh-CN": "OZONE顶楼酒吧",
+            "en": "OZONE Rooftop Bar"
+        },
+        "description": {
+            "zh-HK": "位於香港麗思卡爾頓酒店118樓，是世界最高的酒吧之一，並有現場DJ演奏。",
+            "zh-CN": "位于香港丽思卡尔顿酒店118楼，是世界最高的酒吧之一，并有现场DJ演奏。",
+            "en": "Located on the 118th floor of The Ritz-Carlton Hong Kong, OZONE is one of the world's highest bars, featuring live DJ performances."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_003",
+        "category": "modern",
+        "region": "central-and-western",
+        "lat": 22.2892717,
+        "lng": 114.1496948,
+        "name": {
+            "zh-HK": "中西區海濱長廊（上環段）",
+            "zh-CN": "中西区海滨长廊（上环段）",
+            "en": "Central and Western District Promenade (Sheung Wan Section)"
+        },
+        "description": {
+            "zh-HK": "連接信德中心，環境清幽，可欣賞維港西面景色及日落。",
+            "zh-CN": "连接信德中心，环境清幽，可欣赏维港西面景色及日落。",
+            "en": "Connecting to Shun Tak Centre, this tranquil promenade offers views of the western side of Victoria Harbour and beautiful sunsets."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_004",
+        "category": "modern",
+        "region": "yau-tsim-mong",
+        "lat": 22.2970156,
+        "lng": 114.1780597,
+        "name": {
+            "zh-HK": "尖沙咀海濱長廊 & 星光大道",
+            "zh-CN": "尖沙咀海滨长廊 & 星光大道",
+            "en": "Tsim Sha Tsui Promenade & Avenue of Stars"
+        },
+        "description": {
+            "zh-HK": "欣賞維多利亞港天際線的最佳位置，晚上可觀賞「幻彩詠香江」燈光秀。",
+            "zh-CN": "欣赏维多利亚港天际线的最佳位置，晚上可观赏「幻彩詠香江」灯光秀。",
+            "en": "The best spot to enjoy Victoria Harbour's skyline, with nightly views of the 'Symphony of Lights' show."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_005",
+        "category": "modern",
+        "region": "kwun-tong",
+        "lat": 22.3124127,
+        "lng": 114.2169821,
+        "name": {
+            "zh-HK": "觀塘海濱花園",
+            "zh-CN": "观塘海滨花园",
+            "en": "Kwun Tong Promenade"
+        },
+        "description": {
+            "zh-HK": "擁有長達一公里的海濱木棧道，設有特色塔樓地標，是欣賞日落和夜景的熱門地點。",
+            "zh-CN": "拥有长达一公里的海滨木栈道，设有特色塔楼地标，是欣赏日落和夜景的热门地点。",
+            "en": "Featuring a one-kilometer-long waterfront boardwalk and iconic tower landmarks, it is a popular spot for sunsets and night views."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_006",
+        "category": "modern",
+        "region": "yau-tsim-mong",
+        "lat": 22.2991007,
+        "lng": 114.1551603,
+        "name": {
+            "zh-HK": "西九文化區藝術公園",
+            "zh-CN": "西九文化区艺术公园",
+            "en": "West Kowloon Cultural District Art Park"
+        },
+        "description": {
+            "zh-HK": "擁有大片草地和海濱長廊，是野餐和欣賞維港日落的絕佳地點。",
+            "zh-CN": "拥有大片草地和海滨长廊，是野餐和欣赏维港日落的绝佳地点。",
+            "en": "With expansive lawns and a waterfront promenade, this park is perfect for picnics and watching the sunset over Victoria Harbour."
+        },
+        "images": []
+    }
+]

@@ -1,0 +1,110 @@
+[
+    {
+        "id": "spot_007",
+        "category": "heritage",
+        "region": "central-and-western",
+        "lat": 22.2811686,
+        "lng": 114.154023,
+        "name": {
+            "zh-HK": "大館",
+            "zh-CN": "大馆",
+            "en": "Tai Kwun"
+        },
+        "description": {
+            "zh-HK": "前中區警署建築群，經保育活化後開放，可參觀監獄操場、法院及歷史展覽，建築風格獨特。",
+            "zh-CN": "前中区警署建筑群，经保育活化后开放，可参观监狱操场、法院及历史展览，建筑风格独特。",
+            "en": "The former Central Police Station compound, revitalized and opened to the public. Visitors can explore the prison yard, courtrooms, and historical exhibitions, with unique architectural styles."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_008",
+        "category": "heritage",
+        "region": "central-and-western",
+        "lat": 22.2839729,
+        "lng": 114.1501999,
+        "name": {
+            "zh-HK": "文武廟",
+            "zh-CN": "文武庙",
+            "en": "Man Mo Temple"
+        },
+        "description": {
+            "zh-HK": "位於荷李活道，是香港最古老的廟宇之一，塔香繚繞，極具傳統氛圍。",
+            "zh-CN": "位于荷李活道，是香港最古老的庙宇之一，塔香缭绕，极具传统氛围。",
+            "en": "Located on Hollywood Road, Man Mo Temple is one of Hong Kong's oldest temples, filled with incense coils and a strong traditional atmosphere."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_009",
+        "category": "heritage",
+        "region": "central-and-western",
+        "lat": 22.2820287,
+        "lng": 114.1508983,
+        "name": {
+            "zh-HK": "孫中山紀念館",
+            "zh-CN": "孙中山纪念馆",
+            "en": "Dr Sun Yat-sen Museum"
+        },
+        "description": {
+            "zh-HK": "位於中環半山，介紹孫中山先生的生平及與香港的關係，建築本身為法定古蹟。",
+            "zh-CN": "位于中环半山，介绍孙中山先生的生平及与香港的关系，建筑本身为法定古迹。",
+            "en": "Located in Mid-Levels Central, the museum showcases the life of Dr Sun Yat-sen and his connection with Hong Kong. The building itself is a declared monument."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_010",
+        "category": "heritage",
+        "region": "kowloon-city",
+        "lat": 22.3321296,
+        "lng": 114.1903285,
+        "name": {
+            "zh-HK": "九龍寨城公園",
+            "zh-CN": "九龙寨城公园",
+            "en": "Kowloon Walled City Park"
+        },
+        "description": {
+            "zh-HK": "由傳奇的九龍寨城改建而成的江南園林，保留了衙門建築和部分遺跡，歷史感濃厚。",
+            "zh-CN": "由传奇的九龙寨城改建而成的江南园林，保留了衙门建筑和部分遗迹，历史感浓厚。",
+            "en": "Transformed from the legendary Kowloon Walled City, this Jiangnan-style garden preserves the yamen building and remnants of the past, rich in historical atmosphere."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_011",
+        "category": "heritage",
+        "region": "wong-tai-sin",
+        "lat": 22.3396114,
+        "lng": 114.2045149,
+        "name": {
+            "zh-HK": "南蓮園池",
+            "zh-CN": "南莲园池",
+            "en": "Nan Lian Garden"
+        },
+        "description": {
+            "zh-HK": "位於鑽石山，仿唐代園林設計，環境恬靜，有金閣寺風格的圓滿閣，是鬧市中的淨土。",
+            "zh-CN": "位于钻石山，仿唐代园林设计，环境恬静，有金阁寺风格的圆满阁，是闹市中的净土。",
+            "en": "Located in Diamond Hill, Nan Lian Garden is designed in the Tang dynasty style. With its serene environment and the Pavilion of Absolute Perfection, it is a peaceful oasis in the city."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_012",
+        "category": "heritage",
+        "region": "wong-tai-sin",
+        "lat": 22.340498,
+        "lng": 114.2050575,
+        "name": {
+            "zh-HK": "志蓮淨苑",
+            "zh-CN": "志莲净苑",
+            "en": "Chi Lin Nunnery"
+        },
+        "description": {
+            "zh-HK": "與南蓮園池相連，是大型仿唐木構建築群，氣勢宏偉，全木結構無釘設計。",
+            "zh-CN": "与南莲园池相连，是大型仿唐木构建筑群，气势宏伟，全木结构无钉设计。",
+            "en": "Connected to Nan Lian Garden, Chi Lin Nunnery is a grand Tang-style wooden architectural complex, built entirely without nails."
+        },
+        "images": []
+    }
+]

@@ -1,0 +1,74 @@
+[
+    {
+        "id": "spot_024",
+        "category": "themepark",
+        "region": "islands",
+        "lat": 22.3129666,
+        "lng": 114.0412819,
+        "name": {
+            "zh-HK": "香港迪士尼樂園",
+            "zh-CN": "香港迪士尼乐园",
+            "en": "Hong Kong Disneyland"
+        },
+        "description": {
+            "zh-HK": "世界級主題公園，適合家庭和迪士尼粉絲",
+            "zh-CN": "世界级主题公园，适合家庭和迪士尼粉丝",
+            "en": "World-class theme park, suitable for families and Disney fans."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_025",
+        "category": "themepark",
+        "region": "southern",
+        "lat": 22.2480821,
+        "lng": 114.1745713,
+        "name": {
+            "zh-HK": "海洋公園",
+            "zh-CN": "海洋公园",
+            "en": "Ocean Park Hong Kong"
+        },
+        "description": {
+            "zh-HK": "大型主題公園，設有過山車、水樂園、動物園",
+            "zh-CN": "大型主题公园，设有过山车、水乐园、动物园",
+            "en": "Large theme park featuring roller coasters, a water park, and a zoo."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_026",
+        "category": "themepark",
+        "region": "southern",
+        "lat": 22.245769,
+        "lng": 114.175914,
+        "name": {
+            "zh-HK": "海洋公園水上樂園（黃竹坑）",
+            "zh-CN": "海洋公园水上乐园（黄竹坑）",
+            "en": "Water World Ocean Park (Wong Chuk Hang)"
+        },
+        "description": {
+            "zh-HK": "亞洲首個全天候海濱水上樂園，設5大主題區域和27個遊樂設施",
+            "zh-CN": "亚洲首个全天候海滨水上乐园，设5大主题区域和27个游乐设施",
+            "en": "Asia's first all-weather seaside water park, featuring 5 themed zones and 27 attractions."
+        },
+        "images": []
+    },
+    {
+        "id": "spot_027",
+        "category": "themepark",
+        "region": "central-and-western",
+        "lat": 22.2701292,
+        "lng": 114.1497077,
+        "name": {
+            "zh-HK": "大富翁夢想世界（山頂）",
+            "zh-CN": "大富翁梦想世界（山顶）",
+            "en": "Monopoly Dreams (The Peak)"
+        },
+        "description": {
+            "zh-HK": "二萬呎遊樂場",
+            "zh-CN": "二万呎游乐场",
+            "en": "20,000 sq. ft. monopoly-themed attraction."
+        },
+        "images": []
+    }
+]
