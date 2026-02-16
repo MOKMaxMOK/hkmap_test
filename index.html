@@ -3,11 +3,15 @@
 
 <head>
     <meta charset="UTF-8">
+    <!-- 禁止縮放，適配手機屏幕 -->
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HK Ultimate Map</title>
+    <!-- 引入 MapLibre 地圖樣式 -->
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-        /* --- 0. 全局重置 --- */
+        /* =========================================
+           1. 全局基礎樣式 (Global Reset)
+           ========================================= */
         body,
         html {
             margin: 0;
@@ -24,45 +28,56 @@
             -webkit-tap-highlight-color: transparent;
         }
 
-        /* --- 1. 頂部導航欄 (Bar) - 極致緊湊版 --- */
+        /* =========================================
+           2. 頂部導航欄 (Top Navigation Bar)
+           ========================================= */
         .controls-bar {
             position: fixed;
             top: 0;
             left: 0;
             right: 0;
-            height: 52px;
-            /* 稍微變矮 */
+            height: 56px;
             background: rgba(255, 255, 255, 0.98);
             backdrop-filter: blur(12px);
             -webkit-backdrop-filter: blur(12px);
+            /* 毛玻璃效果 */
             border-bottom: 1px solid rgba(0, 0, 0, 0.06);
             display: flex;
             align-items: center;
-            justify-content: space-between;
-            /* 兩端對齊 */
-            padding: 0 8px;
-            gap: 6px;
+            padding: 0 10px;
+            gap: 8px;
             z-index: 2000;
-            padding-top: max(env(safe-area-inset-top), 6px);
+            padding-top: max(env(safe-area-inset-top), 8px);
+            /* 適配劉海屏 */
+            overflow-x: auto;
+            scrollbar-width: none;
+            white-space: nowrap;
+            /* 允許橫向滑動 */
         }
 
+        .controls-bar::-webkit-scrollbar {
+            display: none;
+        }
+
+        /* 視圖切換按鈕組 (地圖/列表) */
         .view-group {
             display: flex;
             background: #f1f3f4;
-            padding: 2px;
+            padding: 3px;
             border-radius: 8px;
             flex-shrink: 0;
+            margin-right: 4px;
         }
 
         .view-btn {
-            padding: 6px 10px;
+            padding: 6px 12px;
             font-size: 13px;
             font-weight: 500;
             border-radius: 6px;
             cursor: pointer;
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             color: #5f6368;
             transition: all 0.2s;
         }
@@ -74,31 +89,20 @@
             font-weight: 600;
         }
 
-        .view-btn span:last-child {
-            display: none;
-        }
-
-        /* 手機默認隱藏文字，只留圖標 */
-        @media (min-width: 360px) {
-            .view-btn span:last-child {
-                display: inline;
-            }
-        }
-
-        /* 寬屏顯示文字 */
-
+        /* 分隔線 */
         .divider {
             width: 1px;
-            height: 20px;
+            height: 24px;
             background: #e0e0e0;
-            margin: 0 2px;
+            margin: 0 4px;
             flex-shrink: 0;
         }
 
+        /* 篩選器按鈕 (Chips) */
         .filter-chip {
-            height: 32px;
-            padding: 0 10px;
-            border-radius: 16px;
+            height: 34px;
+            padding: 0 12px;
+            border-radius: 17px;
             border: 1px solid #e0e0e0;
             background: white;
             color: #3c4043;
@@ -106,11 +110,10 @@
             font-weight: 500;
             display: flex;
             align-items: center;
-            gap: 3px;
+            gap: 4px;
             cursor: pointer;
             white-space: nowrap;
             flex-shrink: 0;
-            transition: background 0.1s;
         }
 
         .filter-chip:active {
@@ -118,16 +121,18 @@
         }
 
         .filter-chip.icon-only {
-            width: 32px;
+            width: 34px;
             padding: 0;
             justify-content: center;
             font-size: 16px;
         }
 
-        /* --- 2. 主視圖 --- */
+        /* =========================================
+           3. 主內容容器 (Main Container)
+           ========================================= */
         #main-container {
             position: absolute;
-            top: 52px;
+            top: 56px;
             bottom: 0;
             width: 100%;
             overflow: hidden;
@@ -136,9 +141,12 @@
         #map {
             width: 100%;
             height: 100%;
+            display: block;
         }
 
-        /* 列表模式 */
+        /* =========================================
+           4. 列表模式樣式 (List View)
+           ========================================= */
         #list-view {
             width: 100%;
             height: 100%;
@@ -158,11 +166,6 @@
             gap: 12px;
             box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
             cursor: pointer;
-        }
-
-        .list-card:active {
-            transform: scale(0.99);
-            background: #fafafa;
         }
 
         .list-img {
@@ -188,9 +191,9 @@
             font-weight: bold;
             color: #202124;
             margin-bottom: 4px;
-            white-space: nowrap;
             overflow: hidden;
             text-overflow: ellipsis;
+            white-space: nowrap;
         }
 
         .list-tags {
@@ -222,7 +225,145 @@
             line-height: 1.5;
         }
 
-        /* --- 3. 彈窗 (Modals) --- */
+        /* =========================================
+           5. 全屏頁面樣式 (關於/聯絡)
+           ========================================= */
+        .page-view {
+            position: absolute;
+            top: 56px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f8f9fa;
+            overflow-y: auto;
+            display: none;
+            padding: 20px 16px;
+            z-index: 1500;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        /* 頁面標題區 */
+        .page-header {
+            text-align: center;
+            margin-bottom: 30px;
+            background: white;
+            padding: 30px 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .page-header h1 {
+            font-size: 24px;
+            color: #333;
+            margin: 0 0 16px 0;
+        }
+
+        /* 聯絡卡片網格 */
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 16px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 24px;
+            border-radius: 16px;
+            text-decoration: none;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .contact-card.highlight {
+            border-color: #4285f4;
+        }
+
+        .card-icon {
+            font-size: 32px;
+            margin-bottom: 12px;
+        }
+
+        .card-title {
+            color: #333;
+            margin: 0 0 8px 0;
+            font-size: 18px;
+            font-weight: bold;
+        }
+
+        .card-desc {
+            color: #777;
+            font-size: 13px;
+            margin: 0 0 16px 0;
+            line-height: 1.4;
+        }
+
+        .card-btn {
+            color: #4285f4;
+            font-weight: 600;
+            font-size: 14px;
+        }
+
+        /* 更新日誌列表 */
+        .changelog-section h2 {
+            margin: 30px 0 16px;
+            color: #444;
+            font-size: 18px;
+            border-left: 4px solid #1976d2;
+            padding-left: 12px;
+        }
+
+        .log-item {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 12px;
+            display: flex;
+            gap: 16px;
+            border: 1px solid #eee;
+        }
+
+        .version-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 13px;
+            height: fit-content;
+            white-space: nowrap;
+        }
+
+        .log-content ul {
+            margin: 0;
+            padding-left: 18px;
+            color: #4a4a4a;
+        }
+
+        .log-content li {
+            margin-bottom: 6px;
+            font-size: 14px;
+            line-height: 1.5;
+        }
+
+        .log-date {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            font-family: monospace;
+        }
+
+        /* =========================================
+           6. 彈窗與菜單 (Modals)
+           ========================================= */
         .modal-overlay {
             position: fixed;
             top: 0;
@@ -281,6 +422,7 @@
             font-weight: 600;
             color: #202124;
             font-size: 16px;
+            flex-shrink: 0;
         }
 
         .header-btn {
@@ -296,14 +438,16 @@
             -webkit-overflow-scrolling: touch;
         }
 
-        /* 選項行 */
+        /* 菜單行樣式 */
         .menu-row {
             padding: 14px 16px;
             border-bottom: 1px solid #f8f9fa;
             cursor: pointer;
             display: flex;
             align-items: center;
-            justify-content: space-between;
+            gap: 12px;
+            font-size: 15px;
+            color: #3c4043;
         }
 
         .menu-row:active {
@@ -314,8 +458,7 @@
             display: flex;
             align-items: center;
             gap: 12px;
-            font-size: 15px;
-            color: #3c4043;
+            width: 100%;
         }
 
         .checkbox {
@@ -324,11 +467,13 @@
             border-radius: 4px;
             border: 2px solid #dadce0;
             position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
         }
 
         .menu-row.checked .checkbox {
-            background: #1a73e8;
-            border-color: #1a73e8;
+            background: #4285f4;
+            border-color: #4285f4;
         }
 
         .menu-row.checked .checkbox::after {
@@ -343,7 +488,217 @@
             transform: rotate(45deg);
         }
 
-        /* 大區快捷選擇 */
+        /* 關於菜單行 */
+        .about-menu-item {
+            padding: 16px;
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            font-size: 16px;
+            color: #333;
+        }
+
+        .about-menu-item:active {
+            background: #f9f9f9;
+        }
+
+        .about-icon {
+            font-size: 20px;
+            width: 30px;
+            text-align: center;
+        }
+
+        /* =========================================
+           7. 地圖彈窗與詳情卡片 (Popups)
+           ========================================= */
+        .maplibregl-popup-content {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+        }
+
+        .maplibregl-popup-tip {
+            display: none !important;
+        }
+
+        .detail-card {
+            background: white;
+            width: 100%;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            font-family: sans-serif;
+            pointer-events: auto;
+        }
+
+        .popup-img {
+            height: 160px;
+            background-size: cover;
+            background-position: center;
+            background-color: #f1f3f4;
+            position: relative;
+        }
+
+        .close-popup-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 28px;
+            height: 28px;
+            text-align: center;
+            line-height: 28px;
+            cursor: pointer;
+            font-size: 18px;
+            backdrop-filter: blur(4px);
+        }
+
+        .popup-info {
+            padding: 16px;
+        }
+
+        .popup-title {
+            margin: 0 0 8px;
+            font-size: 18px;
+            font-weight: 700;
+            color: #202124;
+            line-height: 1.3;
+        }
+
+        .popup-desc {
+            font-size: 14px;
+            color: #5f6368;
+            line-height: 1.6;
+            margin-bottom: 16px;
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 10px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 12px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 10px 0;
+            border-radius: 8px;
+            text-align: center;
+            font-size: 13px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #dadce0;
+            color: #3c4043;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 6px;
+            background: #f8f9fa;
+        }
+
+        /* =========================================
+           8. 地圖控件與圖例 (Controls & Legend)
+           ========================================= */
+
+        /* --- A. 圖例 (Legend) - 位於右上角 --- */
+        .legend-group {
+            position: absolute;
+            top: 70px;
+            right: 10px;
+            /* 位置定義 */
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1000;
+        }
+
+        /* 圓形展開按鈕 */
+        .legend-btn {
+            width: 44px;
+            height: 44px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            display: none;
+            /* 默認隱藏，展開面板顯示 */
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            font-size: 22px;
+            transition: transform 0.2s;
+        }
+
+        .legend-btn:active {
+            transform: scale(0.95);
+        }
+
+        /* 展開後的面板 */
+        .legend-card {
+            background: rgba(255, 255, 255, 0.85);
+            /* 85% 透明度 */
+            backdrop-filter: blur(8px);
+            padding: 14px 18px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: block;
+            /* 默認展開 */
+            font-size: 13px;
+            margin-bottom: 10px;
+            position: relative;
+            min-width: 130px;
+        }
+
+        /* 圖例關閉按鈕 */
+        .legend-close {
+            position: absolute;
+            top: 6px;
+            right: 6px;
+            cursor: pointer;
+            color: #777;
+            font-size: 16px;
+            background: rgba(0, 0, 0, 0.05);
+            width: 24px;
+            height: 24px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 24px;
+        }
+
+        /* 圖例項目 */
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 8px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .legend-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            border: 2px solid white;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+        }
+
+        /* --- B. 地圖自帶控件 (+/- & 指南針) - 強制移動到右下角 --- */
+        /* 使用 !important 覆蓋 MapLibre 默認的 top-right 樣式 */
+        .maplibregl-ctrl-top-right {
+            top: auto !important;
+            bottom: 30px !important;
+            right: 10px !important;
+        }
+
+        /* --- C. 大區快捷按鈕 (Macro Chips) --- */
         .macro-panel {
             padding: 12px 16px;
             background: #f8f9fa;
@@ -356,7 +711,6 @@
             font-weight: bold;
             margin-bottom: 10px;
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
         .chip-grid {
@@ -374,6 +728,7 @@
             font-size: 12px;
             color: #5f6368;
             cursor: pointer;
+            transition: all 0.2s;
         }
 
         .macro-chip.active {
@@ -382,216 +737,95 @@
             border-color: #e8f0fe;
             font-weight: 600;
         }
-
-        /* --- 4. Popup & Legend & Controls --- */
-        .maplibregl-popup-content {
-            background: transparent !important;
-            box-shadow: none !important;
-            padding: 0 !important;
-        }
-
-        .maplibregl-popup-tip {
-            display: none !important;
-        }
-
-        /* 確保 Marker 可點擊 */
-        .maplibregl-marker {
-            cursor: pointer;
-            pointer-events: auto !important;
-        }
-
-        .custom-popup {
-            background: white;
-            width: 280px;
-            border-radius: 12px;
-            overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
-            font-family: sans-serif;
-            animation: fadeIn 0.2s;
-            pointer-events: auto;
-        }
-
-        .popup-img {
-            height: 140px;
-            background-size: cover;
-            background-position: center;
-            background-color: #f1f3f4;
-            position: relative;
-        }
-
-        .close-popup-btn {
-            position: absolute;
-            top: 8px;
-            right: 8px;
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border-radius: 50%;
-            width: 24px;
-            height: 24px;
-            text-align: center;
-            line-height: 24px;
-            cursor: pointer;
-            font-size: 16px;
-        }
-
-        .popup-info {
-            padding: 16px;
-        }
-
-        .popup-title {
-            margin: 0 0 6px;
-            font-size: 18px;
-            font-weight: 700;
-            color: #202124;
-            line-height: 1.3;
-        }
-
-        .popup-badges {
-            display: flex;
-            gap: 6px;
-            margin-bottom: 12px;
-        }
-
-        .popup-desc {
-            font-size: 14px;
-            color: #5f6368;
-            line-height: 1.5;
-            margin-bottom: 16px;
-        }
-
-        .popup-actions {
-            display: flex;
-            gap: 10px;
-            border-top: 1px solid #f0f0f0;
-            padding-top: 12px;
-        }
-
-        .action-btn {
-            flex: 1;
-            padding: 8px;
-            border-radius: 6px;
-            text-align: center;
-            font-size: 13px;
-            font-weight: 500;
-            text-decoration: none;
-            border: 1px solid #dadce0;
-            color: #3c4043;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            gap: 6px;
-        }
-
-        /* 地圖右上角的控件組 (Legend + Zoom + Compass) */
-        .map-controls-group {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            z-index: 1000;
-        }
-
-        /* 獨立的圖例按鈕 */
-        .legend-btn {
-            width: 36px;
-            height: 36px;
-            background: white;
-            border-radius: 4px;
-            box-shadow: 0 0 0 2px rgba(0, 0, 0, 0.1);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            cursor: pointer;
-            font-size: 20px;
-        }
-
-        /* 圖例面板 (顯示在地圖右上角) */
-        .legend-card {
-            background: rgba(255, 255, 255, 0.95);
-            backdrop-filter: blur(4px);
-            padding: 10px 14px;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            display: none;
-            font-size: 12px;
-            margin-bottom: 10px;
-        }
-
-        .legend-item {
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            margin-bottom: 6px;
-            color: #3c4043;
-            font-weight: 500;
-        }
-
-        .legend-dot {
-            width: 10px;
-            height: 10px;
-            border-radius: 50%;
-        }
-
-        /* 修復 MapLibre 默認控件位置 */
-        .maplibregl-ctrl-top-right {
-            top: 60px !important;
-        }
     </style>
 </head>
 
 <body>
 
-    <!-- 頂部 Bar (極致緊湊) -->
+    <!-- 1. 頂部導航欄 -->
     <div class="controls-bar">
+        <!-- 左側：視圖切換 -->
         <div class="view-group">
-            <div class="view-btn active" id="btn-map" onclick="switchView('map')">
-                <span>🗺️</span> <span data-t="map">地圖</span>
-            </div>
-            <div class="view-btn" id="btn-list" onclick="switchView('list')">
-                <span>📝</span> <span data-t="list">列表</span>
-            </div>
+            <div class="view-btn active" id="btn-map" onclick="switchView('map')"><span>🗺️</span><span
+                    data-t="map">地圖</span></div>
+            <div class="view-btn" id="btn-list" onclick="switchView('list')"><span>📝</span><span
+                    data-t="list">列表</span></div>
         </div>
-
         <div class="divider"></div>
-
+        <!-- 右側：功能按鈕 -->
         <div class="filter-chip icon-only" onclick="openModal('lang')">🌐</div>
-        <div class="filter-chip" onclick="openModal('category')">
-            <span data-t="type">類型</span>
-        </div>
-        <div class="filter-chip" onclick="openModal('region')">
-            <span data-t="region">地區</span>
-        </div>
-        <div class="filter-chip icon-only" onclick="openModal('about')">ℹ️</div>
+        <div class="filter-chip" onclick="openModal('category')"><span data-t="type">類型</span></div>
+        <div class="filter-chip" onclick="openModal('region')"><span data-t="region">地區</span></div>
+        <div class="filter-chip icon-only" onclick="openModal('about-menu')">ℹ️</div>
     </div>
 
-    <!-- 主內容 -->
+    <!-- 2. 主內容區域 -->
     <div id="main-container">
+        <!-- A. 地圖視圖 -->
         <div id="map"></div>
 
-        <!-- 自定義地圖控件 (右上角) -->
-        <div class="map-controls-group">
-            <div class="legend-btn" onclick="toggleLegend()">🗺️</div>
-            <div class="legend-card" id="legend-card"></div>
+        <!-- B. 圖例組件 (右上角) -->
+        <div class="legend-group">
+            <div class="legend-btn" id="legend-btn" onclick="toggleLegend(true)">🗺️</div>
+            <div class="legend-card" id="legend-card">
+                <div class="legend-close" onclick="toggleLegend(false)">✕</div>
+                <div id="legend-content"></div>
+            </div>
         </div>
 
+        <!-- C. 列表視圖 (默認隱藏) -->
         <div id="list-view"></div>
+
+        <!-- D. 關於網站頁面 -->
+        <div id="about-site-view" class="page-view">
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 data-t="aboutSiteTitle">關於網站</h1>
+                    <p data-t="siteIntro">本網站旨在為旅客提供最全面的香港旅遊指南。</p>
+                </div>
+                <div class="changelog-section">
+                    <h2 data-t="changelog">更新日誌</h2>
+                    <div id="changelog-list"></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- E. 聯絡我們頁面 -->
+        <div id="contact-view" class="page-view">
+            <div class="page-content">
+                <div class="page-header">
+                    <h1 data-t="contactTitle">聯絡我們</h1>
+                    <p data-t="teamIntro">我們團隊由幾個人類組成，歡迎聯絡！</p>
+                </div>
+                <div class="contact-grid">
+                    <a href="#" id="mail-tech" class="contact-card">
+                        <div class="card-icon">🔧</div>
+                        <div class="card-title" data-t="techSupport">技術支持</div>
+                        <div class="card-desc" data-t="techDesc">發現Bug或建議？</div>
+                        <div class="card-btn" data-t="sendEmail">發送郵件 &rarr;</div>
+                    </a>
+                    <a href="#" id="mail-biz" class="contact-card highlight">
+                        <div class="card-icon">💼</div>
+                        <div class="card-title" data-t="bizInquiry">商業聯絡</div>
+                        <div class="card-desc" data-t="bizDesc">合作提案或廣告。</div>
+                        <div class="card-btn" data-t="sendEmail">發送郵件 &rarr;</div>
+                    </a>
+                </div>
+            </div>
+        </div>
     </div>
 
-    <!-- 彈窗層 -->
+    <!-- 3. 彈窗層 (Overlay & Modals) -->
     <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
 
-    <!-- 1. 語言 -->
+    <!-- 語言選擇彈窗 -->
     <div class="modal-card" id="modal-lang">
-        <div class="modal-header">
-            <span data-t="selectLang">選擇語言</span>
-            <span class="header-btn" onclick="closeModal()">✕</span>
-        </div>
+        <div class="modal-header"><span data-t="selectLang">選擇語言</span><span class="header-btn"
+                onclick="closeModal()">✕</span></div>
         <div class="modal-body" id="lang-list"></div>
     </div>
 
-    <!-- 2. 類型 -->
+    <!-- 類型選擇彈窗 -->
     <div class="modal-card" id="modal-category">
         <div class="modal-header">
             <span class="header-btn" onclick="toggleAll('category', true)" data-t="all">全選</span>
@@ -601,7 +835,7 @@
         <div class="modal-body" id="cat-list"></div>
     </div>
 
-    <!-- 3. 地區 -->
+    <!-- 地區選擇彈窗 -->
     <div class="modal-card" id="modal-region">
         <div class="modal-header">
             <span class="header-btn" onclick="toggleAll('region', true)" data-t="all">全選</span>
@@ -617,39 +851,79 @@
         </div>
     </div>
 
-    <!-- 4. 關於 -->
-    <div class="modal-card" id="modal-about">
-        <div class="modal-header"><span data-t="about">關於</span><span class="header-btn" onclick="closeModal()">✕</span>
+    <!-- 關於菜單彈窗 -->
+    <div class="modal-card" id="modal-about-menu" style="width: 80%; max-width: 300px;">
+        <div class="about-menu-item" onclick="switchView('contact')">
+            <span class="about-icon">📞</span>
+            <span data-t="contactTitle">聯絡我們</span>
         </div>
-        <div class="modal-body">
-            <div class="menu-row">
-                <div class="row-left">📞 <span data-t="contact">聯絡我們</span></div>
-            </div>
-            <div class="menu-row">
-                <div class="row-left">💻 <span data-t="aboutSite">關於網站</span></div>
-            </div>
+        <div class="about-menu-item" onclick="switchView('aboutSite')">
+            <span class="about-icon">💻</span>
+            <span data-t="aboutSiteTitle">關於網站</span>
         </div>
+    </div>
+
+    <!-- 景點詳情彈窗 (用於列表模式) -->
+    <div class="modal-card" id="modal-spot-detail" style="background:transparent; box-shadow:none;">
+        <div id="spot-detail-content"></div>
     </div>
 
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
     <script>
-        // --- 核心數據配置 ---
+        // =========================================
+        // 1. 數據配置 (Data Configuration)
+        // =========================================
+
+        // 多語言字典
         const i18n = {
             map: { 'zh-HK': '地圖', 'zh-CN': '地图', en: 'Map' },
             list: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' },
             type: { 'zh-HK': '類型', 'zh-CN': '类型', en: 'Type' },
             region: { 'zh-HK': '地區', 'zh-CN': '地区', en: 'Region' },
-            about: { 'zh-HK': '關於', 'zh-CN': '关于', en: 'About' },
             all: { 'zh-HK': '全選', 'zh-CN': '全选', en: 'All' },
             none: { 'zh-HK': '清空', 'zh-CN': '清空', en: 'None' },
             quickSelect: { 'zh-HK': '大區快捷', 'zh-CN': '大区快捷', en: 'Quick Select' },
             selectLang: { 'zh-HK': '選擇語言', 'zh-CN': '选择语言', en: 'Language' },
-            contact: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' },
-            aboutSite: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' },
             google: { 'zh-HK': 'Google 地圖', 'zh-CN': 'Google 地图', en: 'Google Maps' },
-            amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' }
+            amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' },
+            aboutSiteTitle: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' },
+            siteIntro: { 'zh-HK': '本網站旨在為旅客提供最全面的香港旅遊指南。', 'zh-CN': '本网站旨在为旅客提供最全面的香港旅游指南。', en: 'Comprehensive Hong Kong travel guide.' },
+            changelog: { 'zh-HK': '更新日誌', 'zh-CN': '更新日志', en: 'Changelog' },
+            contactTitle: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' },
+            teamIntro: { 'zh-HK': '我們團隊由幾個人類組成，歡迎聯絡！', 'zh-CN': '我们团队由几个人类组成，任何问题都可以联系我们！', en: 'Our team is made up of a few humans.' },
+            techSupport: { 'zh-HK': '技術支持', 'zh-CN': '技术支持', en: 'Tech Support' },
+            techDesc: { 'zh-HK': '發現Bug或有建議？', 'zh-CN': '发现Bug或有建议？', en: 'Found a bug?' },
+            bizInquiry: { 'zh-HK': '商業聯絡', 'zh-CN': '商业联络', en: 'Business' },
+            bizDesc: { 'zh-HK': '合作提案或廣告投放。', 'zh-CN': '合作提案或广告投放。', en: 'Partnerships & Ads.' },
+            sendEmail: { 'zh-HK': '發送郵件', 'zh-CN': '发送邮件', en: 'Send Email' },
+            subjectTech: { 'zh-HK': '技術支持與反饋', 'zh-CN': '技术支持与反馈', en: 'Tech Support' },
+            subjectBiz: { 'zh-HK': '商業合作諮詢', 'zh-CN': '商业合作咨询', en: 'Business Inquiry' }
         };
 
+        // 更新日誌數據
+        const versions = [
+            {
+                id: 'v1.1.0',
+                date: '2030-02-10',
+                updates: [
+                    { 'zh-HK': '初始版本', 'zh-CN': '初始版本', 'en': 'Initial Version' }
+                ]
+            },
+            {
+                id: 'v1.1.1',
+                date: '',
+                updates: [
+                    { 'zh-HK': '新增 AI 行程規劃功能', 'zh-CN': '新增 AI 行程规划功能', 'en': 'Added AI Trip Planner' },
+                    { 'zh-HK': '新增行程儲存功能', 'zh-CN': '新增行程保存功能', 'en': 'Added Trip Saving' },
+                    { 'zh-HK': '新增景點評分功能', 'zh-CN': '新增景点评分功能', 'en': 'Added Attraction Ratings' },
+                    { 'zh-HK': '新增景點收藏功能', 'zh-CN': '新增景点收藏功能', 'en': 'Added Attraction Bookmarking' },
+                    { 'zh-HK': '新增景點圖片上傳功能', 'zh-CN': '新增景点图片上传功能', 'en': 'Added Photo Uploads' },
+                    { 'zh-HK': '新增景點投稿功能', 'zh-CN': '新增景点投稿功能', 'en': 'Added New Attraction Submission' }
+                ]
+            }
+        ];
+
+        // 類型配置 (對應 JSON 文件)
         const files = [
             { id: 'film', file: 'film.json', color: '#FF6D00', label: { 'zh-HK': '影視取景', 'zh-CN': '影视取景', en: 'Film' } },
             { id: 'landmark', file: 'landmark.json', color: '#0F9D58', label: { 'zh-HK': '地標建築', 'zh-CN': '地标建筑', en: 'Landmark' } },
@@ -662,6 +936,7 @@
             { id: 'game', file: 'game.json', color: '#00BCD4', label: { 'zh-HK': '運動競技', 'zh-CN': '运动竞技', en: 'Sports' } }
         ];
 
+        // 地區配置 (18區)
         const regions = [
             { id: 'central-and-western', m: 'hk', n: { 'zh-HK': '中西區', 'zh-CN': '中西区', en: 'Central & Western' } },
             { id: 'eastern', m: 'hk', n: { 'zh-HK': '東區', 'zh-CN': '东区', en: 'Eastern' } },
@@ -683,6 +958,7 @@
             { id: 'sai-kung', m: 'nt', n: { 'zh-HK': '西貢', 'zh-CN': '西贡', en: 'Sai Kung' } }
         ];
 
+        // 大區快捷鍵
         const macros = [
             { id: 'hk', n: { 'zh-HK': '港島', 'zh-CN': '港岛', en: 'HK Island' } },
             { id: 'kln', n: { 'zh-HK': '九龍', 'zh-CN': '九龙', en: 'Kowloon' } },
@@ -690,228 +966,214 @@
             { id: 'isl', n: { 'zh-HK': '離島', 'zh-CN': '离岛', en: 'Islands' } }
         ];
 
-        let map;
-        let allData = [];
-        let filteredData = [];
-        let markers = [];
-        let curLang = 'zh-HK';
-        let selCats = files.map(f => f.id);
-        let selRegs = regions.map(r => r.id);
-        let lastCenter = null;
-        let lastZoom = null;
-        let activePopup = null;
+        // =========================================
+        // 2. 初始化變量與語言邏輯
+        // =========================================
 
+        let map, allData = [], filteredData = [], markers = [];
+        let curLang = 'zh-HK'; // 默認語言，會被下面的邏輯覆蓋
+        let selCats = files.map(f => f.id), selRegs = regions.map(r => r.id);
+        let lastCenter = null, lastZoom = null, activePopup = null;
+
+        // 🔥 自動語言檢測邏輯
+        try {
+            const sysLang = navigator.language.toLowerCase();
+            if (sysLang === 'zh-cn' || sysLang === 'zh-sg') {
+                curLang = 'zh-CN'; // 簡體中文
+            } else if (sysLang.startsWith('zh')) {
+                curLang = 'zh-HK'; // 繁體中文 (HK, TW, MO)
+            } else {
+                curLang = 'en'; // 其他語言 -> 英文
+            }
+        } catch (e) { console.log('Lang detection failed, using zh-HK'); }
+
+        // =========================================
+        // 3. 核心初始化流程
+        // =========================================
         window.onload = async () => {
             initMap();
             await loadData();
             updateUI();
         };
 
+        // 初始化地圖
         function initMap() {
             map = new maplibregl.Map({
                 container: 'map',
                 style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json',
-                center: [114.1694, 22.3193],
-                zoom: 11,
+                center: [114.1694, 22.3193], zoom: 11,
                 maxBounds: [[113.76, 22.13], [114.50, 22.57]],
                 attributionControl: false
             });
-            // 🔥 啟用指南針
+            // 添加控件 (默認在右上角，通過 CSS 強制移到底部)
             map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
 
-            map.on('click', (e) => {
-                if (e.defaultPrevented) return;
-                closePopup();
-            });
+            // 點擊地圖空白處關閉彈窗
+            map.on('click', () => { closePopup(); });
         }
 
+        // 加載數據
         async function loadData() {
-            const reqs = files.map(f => fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => []));
-            const res = await Promise.all(reqs);
-            allData = res.flat();
-            filterData();
+            const res = await Promise.all(files.map(f => fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => [])));
+            allData = res.flat(); filterData();
         }
 
+        // 篩選數據
         function filterData() {
             filteredData = allData.filter(d => selCats.includes(d.cat) && selRegs.includes(d.region));
-            renderMarkers();
-            renderList();
+            renderMarkers(); renderList();
         }
 
+        // 渲染地圖標記 (Markers)
         function renderMarkers() {
-            markers.forEach(m => m.remove());
-            markers = [];
-
+            markers.forEach(m => m.remove()); markers = [];
             filteredData.forEach(d => {
                 const conf = files.find(f => f.id === d.cat);
                 const el = document.createElement('div');
-                el.style.backgroundImage = `url(${getPin(conf.color)})`;
-                el.style.width = '42px'; el.style.height = '42px';
-                el.style.backgroundSize = 'contain';
+                el.style.cssText = `background-image:url(${getPin(conf.color)});width:42px;height:42px;background-size:contain;cursor:pointer;pointer-events:auto;`;
 
-                // 🔥 修復點擊無反應
-                el.style.cursor = 'pointer';
-                el.style.pointerEvents = 'auto'; // 確保元素能接收點擊
+                // 防誤觸邏輯
+                let startX, startY, isDrag = false;
+                el.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDrag = false; }, { passive: true });
+                el.addEventListener('touchmove', (e) => { if (Math.abs(e.touches[0].clientX - startX) > 5 || Math.abs(e.touches[0].clientY - startY) > 5) isDrag = true; }, { passive: true });
 
-                // 綁定事件
-                const onClick = (e) => {
-                    e.stopPropagation(); // 阻止傳遞給地圖
+                const clickHandler = (e) => {
+                    if (isDrag) return;
+                    e.stopPropagation(); e.preventDefault();
                     if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
                     map.flyTo({ center: [d.lng, d.lat], zoom: 15.5, padding: { bottom: 150 } });
                     showPopup(d, conf.color);
                 };
-
-                // 同時綁定 click 和 touchstart 以兼容所有移動設備
-                el.addEventListener('click', onClick);
-                el.addEventListener('touchstart', onClick, { passive: false });
-
+                el.addEventListener('touchend', clickHandler); el.addEventListener('click', clickHandler);
                 markers.push(new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([d.lng, d.lat]).addTo(map));
             });
         }
 
+        // =========================================
+        // 4. UI 渲染與交互函數
+        // =========================================
+
+        // 生成卡片 HTML (Popup & List Detail)
+        function generateCardHTML(d, color, isPopup) {
+            const name = d.name[curLang] || d.name.en, desc = d.description[curLang] || "", catName = files.find(f => f.id === d.cat).label[curLang];
+            const q = encodeURIComponent(name + ' Hong Kong');
+            const closeBtn = isPopup ? `<div class="close-popup-btn" onclick="closePopup()">✕</div>` : `<div class="close-popup-btn" onclick="closeModal()">✕</div>`;
+            const imgHtml = (d.images && d.images[0]) ? `<div class="popup-img" style="background-image:url('${d.images[0]}')">${closeBtn}</div>` : `<div style="position:relative;height:10px;">${isPopup ? closeBtn : ''}</div>`;
+            return `<div class="detail-card">${imgHtml}<div class="popup-info"><div class="popup-title">${name}</div><div class="popup-badges"><span class="tag" style="background:${color}">${catName}</span></div><div class="popup-desc">${desc}</div><div class="popup-actions"><a class="action-btn" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank">🗺️ ${i18n.google[curLang]}</a><a class="action-btn" href="https://www.amap.com/search?query=${q}" target="_blank">📍 ${i18n.amap[curLang]}</a></div></div></div>`;
+        }
+
+        // 顯示地圖 Popup
         function showPopup(d, color) {
             if (activePopup) activePopup.remove();
-
-            const name = d.name[curLang] || d.name.en;
-            const desc = d.description[curLang] || "";
-            const catName = files.find(f => f.id === d.cat).label[curLang];
-            const q = encodeURIComponent(name + ' Hong Kong');
-
-            // 🔥 圖片空值檢查：只有當 images 存在且不為空時才渲染圖片區域
-            const imgHtml = (d.images && d.images.length > 0 && d.images[0])
-                ? `<div class="popup-img" style="background-image:url('${d.images[0]}')"><div class="close-popup-btn" onclick="closePopup()">✕</div></div>`
-                : `<div style="position:relative; height:10px;"><div class="close-popup-btn" style="top:-5px; right:5px; color:#666; background:#eee;" onclick="closePopup()">✕</div></div>`;
-
-            const html = `
-                <div class="custom-popup">
-                    ${imgHtml}
-                    <div class="popup-info">
-                        <div class="popup-title">${name}</div>
-                        <div class="popup-badges">
-                            <span class="tag" style="background:${color}">${catName}</span>
-                        </div>
-                        <div class="popup-desc">${desc}</div>
-                        <div class="popup-actions">
-                            <a class="action-btn" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank">🗺️ ${i18n.google[curLang]}</a>
-                            <a class="action-btn" href="https://www.amap.com/search?query=${q}" target="_blank">📍 ${i18n.amap[curLang]}</a>
-                        </div>
-                    </div>
-                </div>
-            `;
-
-            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: '300px' })
-                .setLngLat([d.lng, d.lat])
-                .setHTML(html)
-                .addTo(map);
+            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: '300px' }).setLngLat([d.lng, d.lat]).setHTML(generateCardHTML(d, color, true)).addTo(map);
         }
 
-        window.closePopup = () => {
-            if (activePopup) {
-                activePopup.remove(); activePopup = null;
-                if (lastCenter && lastZoom) { map.flyTo({ center: lastCenter, zoom: lastZoom }); lastCenter = null; }
-            }
-        };
+        // 顯示列表詳情 Modal
+        function showListModal(d) {
+            const conf = files.find(f => f.id === d.cat);
+            document.getElementById('spot-detail-content').innerHTML = generateCardHTML(d, conf.color, false);
+            openModal('spot-detail');
+        }
 
+        window.closePopup = () => { if (activePopup) { activePopup.remove(); activePopup = null; if (lastCenter) { map.flyTo({ center: lastCenter, zoom: lastZoom }); lastCenter = null; } } };
+
+        // 更新 UI 文字與狀態
         function updateUI() {
-            document.querySelectorAll('[data-t]').forEach(el => {
-                const k = el.getAttribute('data-t');
-                if (i18n[k]) el.innerText = i18n[k][curLang];
-            });
-            renderLangList(); renderCatList(); renderRegionList(); renderLegend(); renderList();
-            if (activePopup) activePopup.remove();
+            document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); if (i18n[k]) el.innerText = i18n[k][curLang]; });
+            renderLangList(); renderCatList(); renderRegionList(); renderLegend(); renderList(); renderChangelog();
+            document.getElementById('mail-tech').href = `mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectTech[curLang])}`;
+            document.getElementById('mail-biz').href = `mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectBiz[curLang])}`;
         }
 
-        function renderList() {
-            const con = document.getElementById('list-view'); con.innerHTML = '';
-            filteredData.forEach(d => {
-                const conf = files.find(f => f.id === d.cat);
-                const reg = regions.find(r => r.id === d.region);
-                const name = d.name[curLang] || d.name.en;
-                const rName = reg ? reg.n[curLang] : '';
-
-                // 列表視圖的圖片檢查
-                const imgStyle = (d.images && d.images[0]) ? `background-image:url('${d.images[0]}')` : 'background-color:#eee;';
-
-                const card = document.createElement('div'); card.className = 'list-card';
-                card.onclick = () => {
-                    switchView('map');
-                    lastCenter = map.getCenter(); lastZoom = map.getZoom();
-                    map.flyTo({ center: [d.lng, d.lat], zoom: 15.5 });
-                    setTimeout(() => showPopup(d, conf.color), 600);
-                };
-                card.innerHTML = `
-                    <div class="list-img" style="${imgStyle}"></div>
-                    <div class="list-content">
-                        <div class="list-title">${name}</div>
-                        <div class="list-tags">
-                            <span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span>
-                            <span class="tag reg">${rName}</span>
-                        </div>
-                        <div class="list-desc">${d.description[curLang] || ''}</div>
-                    </div>
-                `;
-                con.appendChild(card);
-            });
-        }
-
+        // 渲染區域選擇列表
         function renderRegionList() {
-            const macroCon = document.getElementById('macro-list'); macroCon.innerHTML = '';
+            const mc = document.getElementById('macro-list'); mc.innerHTML = '';
             macros.forEach(m => {
-                const el = document.createElement('div'); el.className = 'macro-chip'; el.innerText = m.n[curLang];
-                el.onclick = () => {
-                    const subIds = regions.filter(r => r.m === m.id).map(r => r.id);
-                    const allIn = subIds.every(id => selRegs.includes(id));
-                    if (allIn) selRegs = selRegs.filter(id => !subIds.includes(id)); else selRegs = [...new Set([...selRegs, ...subIds])];
-                    filterData(); updateUI();
-                };
-                macroCon.appendChild(el);
+                const d = document.createElement('div'); d.className = 'macro-chip'; d.innerText = m.n[curLang];
+                const subIds = regions.filter(r => r.m === m.id).map(r => r.id);
+                const isAll = subIds.every(id => selRegs.includes(id));
+                if (isAll) d.classList.add('active'); // 狀態同步
+                d.onclick = () => { const s = regions.filter(r => r.m === m.id).map(r => r.id); const a = s.every(x => selRegs.includes(x)); selRegs = a ? selRegs.filter(x => !s.includes(x)) : [...new Set([...selRegs, ...s])]; filterData(); updateUI(); };
+                mc.appendChild(d);
             });
-            const list = document.getElementById('region-list'); list.innerHTML = '';
+            const rl = document.getElementById('region-list'); rl.innerHTML = '';
             regions.forEach(r => {
-                const row = document.createElement('div'); const isChk = selRegs.includes(r.id);
-                row.className = `menu-row ${isChk ? 'checked' : ''}`;
-                row.innerHTML = `<div class="row-left"><div class="checkbox"></div>${r.n[curLang]}</div>`;
-                row.onclick = () => { if (isChk) selRegs = selRegs.filter(x => x !== r.id); else selRegs.push(r.id); filterData(); updateUI(); };
-                list.appendChild(row);
+                const d = document.createElement('div'); d.className = `menu-row ${selRegs.includes(r.id) ? 'checked' : ''}`;
+                d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${r.n[curLang]}</span></div>`;
+                d.onclick = () => { selRegs.includes(r.id) ? selRegs = selRegs.filter(x => x !== r.id) : selRegs.push(r.id); filterData(); updateUI(); };
+                rl.appendChild(d);
             });
         }
 
+        // 渲染類型選擇列表
         function renderCatList() {
-            const list = document.getElementById('cat-list'); list.innerHTML = '';
+            const l = document.getElementById('cat-list'); l.innerHTML = '';
             files.forEach(f => {
-                const row = document.createElement('div'); const isChk = selCats.includes(f.id);
-                row.className = `menu-row ${isChk ? 'checked' : ''}`;
-                row.innerHTML = `<div class="row-left"><div class="checkbox"></div>${f.label[curLang]}</div>`;
-                row.onclick = () => { if (isChk) selCats = selCats.filter(x => x !== f.id); else selCats.push(f.id); filterData(); updateUI(); };
-                list.appendChild(row);
+                const d = document.createElement('div'); d.className = `menu-row ${selCats.includes(f.id) ? 'checked' : ''}`;
+                d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${f.label[curLang]}</span></div>`;
+                d.onclick = () => { selCats.includes(f.id) ? selCats = selCats.filter(x => x !== f.id) : selCats.push(f.id); filterData(); updateUI(); };
+                l.appendChild(d);
             });
         }
 
-        function renderLangList() {
-            const list = document.getElementById('lang-list'); list.innerHTML = '';
-            [{ c: 'zh-HK', n: '繁體中文' }, { c: 'zh-CN', n: '简体中文' }, { c: 'en', n: 'English' }].forEach(l => {
-                const row = document.createElement('div'); row.className = `menu-row ${curLang === l.c ? 'checked' : ''}`;
-                row.innerHTML = `<div class="row-left"><div class="checkbox"></div>${l.n}</div>`;
-                row.onclick = () => { curLang = l.c; updateUI(); closeModal(); };
-                list.appendChild(row);
-            });
-        }
-
+        // 視圖切換邏輯
         function switchView(mode) {
-            document.getElementById('map').style.display = mode === 'map' ? 'block' : 'none';
-            document.getElementById('list-view').style.display = mode === 'list' ? 'block' : 'none';
-            document.getElementById('btn-map').className = `view-btn ${mode === 'map' ? 'active' : ''}`;
-            document.getElementById('btn-list').className = `view-btn ${mode === 'list' ? 'active' : ''}`;
-            document.querySelector('.map-controls-group').style.display = mode === 'map' ? 'flex' : 'none'; // 隱藏控件
-            if (mode === 'map') map.resize();
+            closeModal();
+            const views = ['map', 'list-view', 'about-site-view', 'contact-view'];
+            views.forEach(v => document.getElementById(v).style.display = 'none');
+            // 地圖控件只在地圖模式顯示 (右下角控件 + 右上角圖例)
+            document.querySelector('.map-controls-group').style.display = 'none'; // MapLibre 原生控件
+            document.querySelector('.legend-group').style.display = 'none'; // 自定義圖例
+
+            document.getElementById('btn-map').className = 'view-btn';
+            document.getElementById('btn-list').className = 'view-btn';
+
+            if (mode === 'map') {
+                document.getElementById('map').style.display = 'block';
+                document.querySelector('.map-controls-group').style.display = 'flex';
+                document.querySelector('.legend-group').style.display = 'flex';
+                document.getElementById('btn-map').className = 'view-btn active';
+                map.resize();
+            } else if (mode === 'list') {
+                document.getElementById('list-view').style.display = 'block';
+                document.getElementById('btn-list').className = 'view-btn active';
+            } else if (mode === 'aboutSite') {
+                document.getElementById('about-site-view').style.display = 'block';
+            } else if (mode === 'contact') {
+                document.getElementById('contact-view').style.display = 'block';
+            }
         }
 
+        // 圖例切換
+        function toggleLegend(show) {
+            document.getElementById('legend-card').style.display = show ? 'block' : 'none';
+            document.getElementById('legend-btn').style.display = show ? 'none' : 'flex';
+        }
+
+        // 渲染語言選擇列表
+        function renderLangList() { const l = document.getElementById('lang-list'); l.innerHTML = '';[{ c: 'zh-HK', n: '繁體中文' }, { c: 'zh-CN', n: '简体中文' }, { c: 'en', n: 'English' }].forEach(x => { const d = document.createElement('div'); d.className = `menu-row ${curLang === x.c ? 'checked' : ''}`; d.innerHTML = `<div class="row-left"><div class="checkbox"></div>${x.n}</div>`; d.onclick = () => { curLang = x.c; updateUI(); closeModal(); }; l.appendChild(d); }); }
+
+        // 渲染更新日誌
+        function renderChangelog() {
+            const c = document.getElementById('changelog-list'); c.innerHTML = '';
+            versions.forEach((v, i) => {
+                const ver = document.createElement('div'); ver.className = 'log-item';
+                let updates = '';
+                v.updates.forEach(u => updates += `<li>${u[curLang] || u.en}</li>`);
+                ver.innerHTML = `<div class="version-badge" style="background:${i === 0 ? '#e3f2fd' : '#f5f5f5'};color:${i === 0 ? '#1976d2' : '#666'}">${v.id}</div><div class="log-content"><div class="log-date">${v.date}</div><ul>${updates}</ul></div>`;
+                c.appendChild(ver);
+            });
+        }
+
+        // 渲染列表視圖
+        function renderList() { const con = document.getElementById('list-view'); con.innerHTML = ''; filteredData.forEach(d => { const conf = files.find(f => f.id === d.cat), reg = regions.find(r => r.id === d.region); const card = document.createElement('div'); card.className = 'list-card'; const imgStyle = (d.images && d.images[0]) ? `background-image:url('${d.images[0]}')` : 'background-color:#eee;'; card.onclick = () => showListModal(d); card.innerHTML = `<div class="list-img" style="${imgStyle}"></div><div class="list-content"><div class="list-title">${d.name[curLang] || d.name.en}</div><div class="list-tags"><span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span><span class="tag reg">${reg ? reg.n[curLang] : ''}</span></div><div class="list-desc">${d.description[curLang] || ''}</div></div>`; con.appendChild(card); }); }
+
+        // 輔助函數 (彈窗, 全選, 繪圖等)
         function openModal(id) { document.getElementById('overlay').classList.add('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); document.getElementById('modal-' + id).classList.add('show'); }
         window.closeModal = () => { document.getElementById('overlay').classList.remove('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); };
-        function toggleAll(type, val) { if (type === 'category') selCats = val ? files.map(f => f.id) : []; if (type === 'region') selRegs = val ? regions.map(r => r.id) : []; filterData(); updateUI(); }
-        function getPin(color) { const c = document.createElement('canvas'); c.width = 64; c.height = 64; const x = c.getContext('2d'); x.fillStyle = color; x.beginPath(); x.arc(32, 24, 20, 0, Math.PI * 2); x.fill(); x.beginPath(); x.moveTo(12, 24); x.lineTo(32, 60); x.lineTo(52, 24); x.fill(); x.fillStyle = 'white'; x.beginPath(); x.arc(32, 24, 8, 0, Math.PI * 2); x.fill(); return c.toDataURL(); }
-        function renderLegend() { const c = document.getElementById('legend-card'); c.innerHTML = ''; files.forEach(f => { const d = document.createElement('div'); d.className = 'legend-item'; d.innerHTML = `<div class="legend-dot" style="background:${f.color}"></div>${f.label[curLang]}`; c.appendChild(d); }); }
-        window.toggleLegend = () => { const e = document.getElementById('legend-card'); e.style.display = e.style.display === 'block' ? 'none' : 'block'; };
+        function toggleAll(t, v) { if (t === 'category') selCats = v ? files.map(f => f.id) : []; if (t === 'region') selRegs = v ? regions.map(r => r.id) : []; filterData(); updateUI(); }
+        function getPin(c) { const x = document.createElement('canvas'); x.width = 64; x.height = 64; const z = x.getContext('2d'); z.fillStyle = c; z.beginPath(); z.arc(32, 24, 20, 0, Math.PI * 2); z.fill(); z.beginPath(); z.moveTo(12, 24); z.lineTo(32, 60); z.lineTo(52, 24); z.fill(); z.fillStyle = 'white'; z.beginPath(); z.arc(32, 24, 8, 0, Math.PI * 2); z.fill(); return x.toDataURL(); }
+        function renderLegend() { const c = document.getElementById('legend-content'); c.innerHTML = ''; files.forEach(f => { const d = document.createElement('div'); d.className = 'legend-item'; d.innerHTML = `<div class="legend-dot" style="background:${f.color}"></div>${f.label[curLang]}`; c.appendChild(d); }); }
     </script>
 </body>
 
