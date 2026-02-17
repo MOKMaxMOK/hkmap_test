@@ -918,9 +918,9 @@
                     if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
 
                     if (isDouble) {
-                        // 🔥 [修復] 雙擊放大到 18（合理的街道級別）
+                        // 🔥 [修復] 雙擊放大到 15（合理的街道級別）
                         map.setMaxBounds(hkBounds);
-                        map.easeTo({ center: [d.lng, d.lat], zoom: 18, duration: 600 });
+                        map.easeTo({ center: [d.lng, d.lat], zoom: 15, duration: 600 });
                     } else {
                         map.setMaxBounds(extendedBounds);
                         map.easeTo({ center: [d.lng, d.lat], zoom: map.getZoom(), offset: [0, 150], duration: 500 });
