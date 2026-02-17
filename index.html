@@ -140,7 +140,7 @@
         }
 
         /* =========================================
-           [圖例] 智能方向 & 拖動
+           [圖例]
            ========================================= */
         .legend-group {
             position: absolute;
@@ -154,7 +154,6 @@
             user-select: none;
         }
 
-        /* 當圖例在左側時，內容向左對齊 */
         .legend-group.expand-left {
             align-items: flex-start;
         }
@@ -207,7 +206,6 @@
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
         }
 
-        /* 左側展開時，關閉按鈕在左上角 */
         .legend-group.expand-left .legend-close {
             right: auto;
             left: -8px;
@@ -602,7 +600,6 @@
         /* =========================================
            [地圖 Popup] 樣式
            ========================================= */
-        /* 1. 隱藏默認的白色背景和三角形，因為我們使用自定義內容或 Hover Label */
         .maplibregl-popup-content {
             background: transparent !important;
             box-shadow: none !important;
@@ -614,7 +611,6 @@
             display: none !important;
         }
 
-        /* 2. 主詳情卡片 (點擊後顯示的) */
         .detail-card {
             background: white;
             width: 100%;
@@ -692,7 +688,7 @@
             background: #f8f9fa;
         }
 
-        /* 3. 🔥 [新增] 懸浮提示樣式 (Hover Tooltip) */
+        /* 🔥 [Hover Tooltip] */
         .hover-label {
             background: rgba(0, 0, 0, 0.75);
             color: white;
@@ -703,9 +699,7 @@
             white-space: nowrap;
             backdrop-filter: blur(2px);
             pointer-events: none;
-            /* 確保不擋住鼠標點擊 */
             margin-top: -10px;
-            /* 稍微向上偏移，不擋住 marker */
         }
 
         /* Macro Chips */
@@ -852,7 +846,7 @@
 
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
     <script>
-        const i18n = { map: { 'zh-HK': '地圖', 'zh-CN': '地图', en: 'Map' }, list: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' }, type: { 'zh-HK': '類型', 'zh-CN': '类型', en: 'Type' }, region: { 'zh-HK': '地區', 'zh-CN': '地区', en: 'Region' }, all: { 'zh-HK': '全選', 'zh-CN': '全选', en: 'All' }, none: { 'zh-HK': '清空', 'zh-CN': '清空', en: 'None' }, quickSelect: { 'zh-HK': '大區快捷', 'zh-CN': '大区快捷', en: 'Quick Select' }, selectLang: { 'zh-HK': '選擇語言', 'zh-CN': '选择语言', en: 'Language' }, google: { 'zh-HK': 'Google 地圖', 'zh-CN': 'Google 地图', en: 'Google Maps' }, amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' }, aboutSiteTitle: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' }, siteIntro: { 'zh-HK': '本網站旨在為旅客提供最全面的香港旅遊指南。', 'zh-CN': '本网站旨在为旅客提供最全面的香港旅游指南。', en: 'Comprehensive Hong Kong travel guide.' }, changelog: { 'zh-HK': '更新日誌', 'zh-CN': '更新日志', en: 'Changelog' }, contactTitle: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' }, teamIntro: { 'zh-HK': '我們團隊由幾個人類組成，歡迎聯絡！', 'zh-CN': '我们团队由几个人类组成，任何问题都可以联系我们！', en: 'Our team is made up of a few humans.' }, techSupport: { 'zh-HK': '技術支持', 'zh-CN': '技术支持', en: 'Tech Support' }, techDesc: { 'zh-HK': '發現Bug或有建議？', 'zh-CN': '发现Bug或有建议？', en: 'Found a bug?' }, bizInquiry: { 'zh-HK': '商業聯絡', 'zh-CN': '商业联络', en: 'Business' }, bizDesc: { 'zh-HK': '合作提案或廣告投放。', 'zh-CN': '合作提案或广告投放。', en: 'Partnerships & Ads.' }, sendEmail: { 'zh-HK': '發送郵件', 'zh-CN': '发送邮件', en: 'Send Email' }, subjectTech: { 'zh-HK': '技術支持與反饋', 'zh-CN': '技术支持与反馈', en: 'Tech Support' }, subjectBiz: { 'zh-HK': '商業合作諮詢', 'zh-CN': '商业合作咨询', en: 'Business Inquiry' } };
+        const i18n = { map: { 'zh-HK': '地圖', 'zh-CN': '地图', en: 'Map' }, list: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' }, type: { 'zh-HK': '類型', 'zh-CN': '类型', en: 'Type' }, region: { 'zh-HK': '地區', 'zh-CN': '地区', en: 'Region' }, all: { 'zh-HK': '全選', 'zh-CN': '全选', en: 'All' }, none: { 'zh-HK': '清空', 'zh-CN': '清空', en: 'None' }, quickSelect: { 'zh-HK': '大區快捷', 'zh-CN': '大区快捷', en: 'Quick Select' }, selectLang: { 'zh-HK': '選擇語言', 'zh-CN': '选择语言', en: 'Language' }, google: { 'zh-HK': 'Google 地圖', 'zh-CN': 'Google 地图', en: 'Google Maps' }, amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' }, aboutSiteTitle: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' }, siteIntro: { 'zh-HK': '本網站旨在為旅客提供最全面的香港旅遊指南。', 'zh-CN': '本网站旨在为旅客提供最全面的香港旅游指南。', en: 'Comprehensive Hong Kong travel guide.' }, changelog: { 'zh-HK': '更新日誌', 'zh-CN': '更新日志', en: 'Changelog' }, contactTitle: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' }, teamIntro: { 'zh-HK': '我們團隊由幾個人類組成，歡迎聯絡！', 'zh-CN': '我们团队由几个人类组成，任何问题都可以联系我们！', en: 'Our team is made up of a few humans.' }, techSupport: { 'zh-HK': '技術支持', 'zh-CN': '技术支持', en: 'Tech Support' }, techDesc: { 'zh-HK': '發現Bug或有建議？', 'zh-CN': '发现Bug或有建議？', en: 'Found a bug?' }, bizInquiry: { 'zh-HK': '商業聯絡', 'zh-CN': '商业联络', en: 'Business' }, bizDesc: { 'zh-HK': '合作提案或廣告投放。', 'zh-CN': '合作提案或广告投放。', en: 'Partnerships & Ads.' }, sendEmail: { 'zh-HK': '發送郵件', 'zh-CN': '发送邮件', en: 'Send Email' }, subjectTech: { 'zh-HK': '技術支持與反饋', 'zh-CN': '技术支持与反馈', en: 'Tech Support' }, subjectBiz: { 'zh-HK': '商業合作諮詢', 'zh-CN': '商业合作咨询', en: 'Business Inquiry' } };
         const versions = [{ id: 'v1.1.0', date: '2030-02-10', updates: [{ 'zh-HK': '初始版本', 'zh-CN': '初始版本', en: 'Initial Version' }] }, { id: 'v1.1.1', date: '', updates: [{ 'zh-HK': '新增 AI 行程規劃功能', 'zh-CN': '新增 AI 行程规划功能', en: 'Added AI Trip Planner' }, { 'zh-HK': '新增行程儲存功能', 'zh-CN': '新增行程保存功能', en: 'Added Trip Saving' }, { 'zh-HK': '新增景點評分功能', 'zh-CN': '新增景点评分功能', en: 'Added Attraction Ratings' }, { 'zh-HK': '新增景點收藏功能', 'zh-CN': '新增景点收藏功能', en: 'Added Attraction Bookmarking' }, { 'zh-HK': '新增景點圖片上傳功能', 'zh-CN': '新增景点图片上传功能', en: 'Added Photo Uploads' }, { 'zh-HK': '新增景點投稿功能', 'zh-CN': '新增景点投稿功能', en: 'Added New Attraction Submission' }] }];
         const files = [{ id: 'film', file: 'film.json', color: '#FF6D00', label: { 'zh-HK': '影視取景', 'zh-CN': '影视取景', en: 'Film' } }, { id: 'landmark', file: 'landmark.json', color: '#0F9D58', label: { 'zh-HK': '地標建築', 'zh-CN': '地标建筑', en: 'Landmark' } }, { id: 'nightlife', file: 'nightlife.json', color: '#673AB7', label: { 'zh-HK': '夜生活', 'zh-CN': '夜生活', en: 'Nightlife' } }, { id: 'modern', file: 'modern.json', color: '#4285F4', label: { 'zh-HK': '現代景觀', 'zh-CN': '現代景觀', en: 'Modern' } }, { id: 'heritage', file: 'heritage.json', color: '#DB4437', label: { 'zh-HK': '歷史文化', 'zh-CN': '历史文化', en: 'Heritage' } }, { id: 'indoor', file: 'indoor.json', color: '#F4B400', label: { 'zh-HK': '室內娛樂', 'zh-CN': '室内娱乐', en: 'Indoor' } }, { id: 'outdoor', file: 'outdoor.json', color: '#795548', label: { 'zh-HK': '自然郊遊', 'zh-CN': '自然郊游', en: 'Outdoor' } }, { id: 'themepark', file: 'themepark.json', color: '#E91E63', label: { 'zh-HK': '主題樂園', 'zh-CN': '主题乐园', en: 'Theme Park' } }, { id: 'game', file: 'game.json', color: '#00BCD4', label: { 'zh-HK': '運動競技', 'zh-CN': '运动竞技', en: 'Sports' } }];
         const regions = [{ id: 'central-and-western', m: 'hk', n: { 'zh-HK': '中西區', 'zh-CN': '中西区', en: 'Central & Western' } }, { id: 'eastern', m: 'hk', n: { 'zh-HK': '東區', 'zh-CN': '东区', en: 'Eastern' } }, { id: 'southern', m: 'hk', n: { 'zh-HK': '南區', 'zh-CN': '南区', en: 'Southern' } }, { id: 'wan-chai', m: 'hk', n: { 'zh-HK': '灣仔', 'zh-CN': '湾仔', en: 'Wan Chai' } }, { id: 'kowloon-city', m: 'kln', n: { 'zh-HK': '九龍城', 'zh-CN': '九龙城', en: 'Kowloon City' } }, { id: 'kwun-tong', m: 'kln', n: { 'zh-HK': '觀塘', 'zh-CN': '观塘', en: 'Kwun Tong' } }, { id: 'sham-shui-po', m: 'kln', n: { 'zh-HK': '深水埗', 'zh-CN': '深水埗', en: 'Sham Shui Po' } }, { id: 'wong-tai-sin', m: 'kln', n: { 'zh-HK': '黃大仙', 'zh-CN': '黄大仙', en: 'Wong Tai Sin' } }, { id: 'yau-tsim-mong', m: 'kln', n: { 'zh-HK': '油尖旺', 'zh-CN': '油尖旺', en: 'Yau Tsim Mong' } }, { id: 'islands', m: 'isl', n: { 'zh-HK': '離島', 'zh-CN': '离岛', en: 'Islands' } }, { id: 'kwai-tsing', m: 'nt', n: { 'zh-HK': '葵青', 'zh-CN': '葵青', en: 'Kwai Tsing' } }, { id: 'north', m: 'nt', n: { 'zh-HK': '北區', 'zh-CN': '北区', en: 'North' } }, { id: 'sha-tin', m: 'nt', n: { 'zh-HK': '沙田', 'zh-CN': '沙田', en: 'Sha Tin' } }, { id: 'tai-po', m: 'nt', n: { 'zh-HK': '大埔', 'zh-CN': '大埔', en: 'Tai Po' } }, { id: 'tsuen-wan', m: 'nt', n: { 'zh-HK': '荃灣', 'zh-CN': '荃湾', en: 'Tsuen Wan' } }, { id: 'tuen-mun', m: 'nt', n: { 'zh-HK': '屯門', 'zh-CN': '屯门', en: 'Tuen Mun' } }, { id: 'yuen-long', m: 'nt', n: { 'zh-HK': '元朗', 'zh-CN': '元朗', en: 'Yuen Long' } }, { id: 'sai-kung', m: 'nt', n: { 'zh-HK': '西貢', 'zh-CN': '西贡', en: 'Sai Kung' } }];
@@ -862,27 +856,37 @@
         const extendedBounds = [[113.70, 22.10], [114.60, 22.65]];
 
         let map, allData = [], filteredData = [], markers = [], curLang = 'zh-HK', selCats = files.map(f => f.id), selRegs = regions.map(r => r.id), lastCenter = null, lastZoom = null, activePopup = null, currentSpotData = null;
-
-        // 🔥 [新增] 用於存儲懸浮 Popup 的變量
-        let hoverPopup = null;
+        let hoverPopup = null; // Popup for Hover
 
         try { const s = navigator.language.toLowerCase(); curLang = s === 'zh-cn' || s === 'zh-sg' ? 'zh-CN' : s.startsWith('zh') ? 'zh-HK' : 'en'; } catch (e) { }
 
-        window.onload = async () => { initMap(); await loadData(); updateUI(); makeDraggable(document.getElementById('legend-drag')); };
+        window.onload = async () => {
+            initMap();
+            await loadData();
+            updateUI();
+            makeDraggable(document.getElementById('legend-drag'));
+        };
 
         function initMap() {
-            // 🔥 [修改] 這裡增加了 maxZoom: 25，否則雙擊放大到 25 會被限制住
-            map = new maplibregl.Map({ container: 'map', style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center: [114.1694, 22.3193], zoom: 11, maxZoom: 25, maxBounds: hkBounds, attributionControl: false });
+            // 🔥 [修復] maxZoom 改回 22（安全且夠大）
+            map = new maplibregl.Map({ container: 'map', style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center: [114.1694, 22.3193], zoom: 11, maxZoom: 22, maxBounds: hkBounds, attributionControl: false });
             map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
             map.on('click', () => closePopup());
         }
 
         async function loadData() {
-            const res = await Promise.all(files.map(f => fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => [])));
-            allData = res.flat(); filterData();
+            const res = await Promise.all(files.map(f =>
+                fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => [])
+            ));
+            allData = res.flat();
+            filterData();
         }
 
-        function filterData() { filteredData = allData.filter(d => selCats.includes(d.cat) && selRegs.includes(d.region)); renderMarkers(); renderList(); }
+        function filterData() {
+            filteredData = allData.filter(d => selCats.includes(d.cat) && selRegs.includes(d.region));
+            renderMarkers();
+            renderList();
+        }
 
         function renderMarkers() {
             markers.forEach(m => m.remove()); markers = [];
@@ -895,39 +899,29 @@
                 el.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDrag = false; }, { passive: true });
                 el.addEventListener('touchmove', (e) => { if (Math.abs(e.touches[0].clientX - startX) > 5 || Math.abs(e.touches[0].clientY - startY) > 5) isDrag = true; }, { passive: true });
 
-                // 🔥 [新增] 鼠標懸浮事件 (Mouse Hover)
+                // 🔥 [Mouse Hover 顯示 Popup]
                 el.addEventListener('mouseenter', () => {
-                    // 如果當前已經有點擊打開的 Popup，可以選擇不顯示 Hover，或者同時顯示
-                    // 這裡設定為始終顯示 Hover
+                    // Hover Popup
                     const name = d.name[curLang] || d.name.en;
                     if (hoverPopup) hoverPopup.remove();
-                    hoverPopup = new maplibregl.Popup({
-                        closeButton: false,
-                        closeOnClick: false,
-                        offset: [0, -35], // 讓 Label 在 Marker 上方
-                        className: 'hover-popup-container' // 雖然 CSS 設置了通用規則，但內容我們會自己控制
-                    })
+                    hoverPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: [0, -35], /* Label 在 Marker 上方 */ className: 'hover-popup-container' /* 自定義 CSS */ })
                         .setLngLat([d.lng, d.lat])
-                        .setHTML(`<div class="hover-label">${name}</div>`) // 使用新樣式
+                        .setHTML(`<div class="hover-label">${name}</div>`)
                         .addTo(map);
                 });
 
                 el.addEventListener('mouseleave', () => {
-                    if (hoverPopup) {
-                        hoverPopup.remove();
-                        hoverPopup = null;
-                    }
+                    if (hoverPopup) { hoverPopup.remove(); hoverPopup = null; }
                 });
 
                 const handleAction = (isDouble) => {
                     if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
 
                     if (isDouble) {
-                        // 🔥 [修改] 雙擊放大層級：25
+                        // 🔥 [修復] 雙擊放大到 18（合理的街道級別）
                         map.setMaxBounds(hkBounds);
-                        map.easeTo({ center: [d.lng, d.lat], zoom: 25, duration: 600 });
+                        map.easeTo({ center: [d.lng, d.lat], zoom: 18, duration: 600 });
                     } else {
-                        // 單擊預覽
                         map.setMaxBounds(extendedBounds);
                         map.easeTo({ center: [d.lng, d.lat], zoom: map.getZoom(), offset: [0, 150], duration: 500 });
                     }
@@ -1084,5 +1078,3 @@
 </body>
 
 </html>
-
-//d
