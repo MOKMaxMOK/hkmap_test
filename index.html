@@ -4,7 +4,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>HK Ultimate Map</title>
+    <title>HKT Map</title>
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
         /* =========================================
@@ -621,12 +621,48 @@
             pointer-events: auto;
         }
 
-        .popup-img {
+        /* 🔥 新增：Popup 內圖片延遲載入容器 */
+        .popup-media {
             height: 150px;
-            background-size: cover;
-            background-position: center;
-            background-color: #f1f3f4;
+            background: #f1f3f4;
             position: relative;
+            overflow: hidden;
+        }
+
+        .popup-media .spinner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            margin-left: -13px;
+            margin-top: -13px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.15);
+            border-top-color: rgba(0, 0, 0, 0.55);
+            animation: popupSpin 0.8s linear infinite;
+        }
+
+        @keyframes popupSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .popup-img-strip {
+            height: 150px;
+            display: flex;
+            gap: 8px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .popup-img-strip img {
+            height: 150px;
+            width: auto;
+            object-fit: cover;
+            flex: 0 0 auto;
+            display: block;
         }
 
         .close-popup-btn {
@@ -643,6 +679,7 @@
             cursor: pointer;
             font-size: 16px;
             backdrop-filter: blur(4px);
+            z-index: 10;
         }
 
         .popup-info {
@@ -748,10 +785,10 @@
 
     <div class="controls-bar">
         <div class="view-group">
-            <div class="view-btn active" id="btn-map" onclick="switchView('map')"><span>🗺️</span><span
+            <div class="view-btn active" id="btn-map" onclick="switchView('map')"><span></span><span
                     data-t="map">地圖</span></div>
-            <div class="view-btn" id="btn-list" onclick="switchView('list')"><span>📝</span><span
-                    data-t="list">列表</span></div>
+            <div class="view-btn" id="btn-list" onclick="switchView('list')"><span></span><span data-t="list">列表</span>
+            </div>
         </div>
         <div class="divider"></div>
         <div class="filter-chip icon-only" onclick="openModal('lang')">🌐</div>
@@ -764,7 +801,7 @@
         <div id="map"></div>
 
         <div class="legend-group" id="legend-drag">
-            <div class="legend-btn" id="legend-btn" onclick="toggleLegend(true)">🗺️</div>
+            <div class="legend-btn" id="legend-btn" onclick="toggleLegend(true)">❓</div>
             <div class="legend-card" id="legend-card">
                 <div class="legend-close" onclick="toggleLegend(false)">✕</div>
                 <div id="legend-content"></div>
@@ -855,8 +892,88 @@
         const hkBounds = [[113.76, 22.13], [114.50, 22.57]];
         const extendedBounds = [[113.70, 22.10], [114.60, 22.65]];
 
+        // 🔥 [圖片載入邏輯]
+        const IMAGE_BASE = 'images/';
+        const MAX_AUTO_IMAGES = 3;
+        const IMAGE_EXT = '.jpg';
+        let popupLoadToken = 0;
+
+        function resolveImageUrl(img) {
+            if (!img) return '';
+            if (/^(https?:)?\/\//i.test(img) || img.startsWith('data:')) return img;
+            return encodeURI(IMAGE_BASE + img);
+        }
+
+        function sanitizeFileBase(s) {
+            return (s || '').replace(/[\\/:*?"<>|]/g, '').trim();
+        }
+
+        function buildAutoImageUrlsByEnName(enName) {
+            const base = sanitizeFileBase(enName);
+            if (!base) return [];
+            const urls = [];
+            urls.push(resolveImageUrl(base + IMAGE_EXT));
+            for (let i = 2; i <= MAX_AUTO_IMAGES; i++) {
+                urls.push(resolveImageUrl(`${base}(${i})${IMAGE_EXT}`));
+            }
+            return urls;
+        }
+
+        function hydratePopupImages(spotData, token, isModal = false) {
+            // isModal=true 時，尋找 list-modal 內的容器；否則找 map-popup 內的
+            const container = isModal ? document.getElementById('spot-detail-content') : activePopup?.getElement?.();
+            if (!container) return;
+
+            const media = container.querySelector('.popup-media');
+            const strip = container.querySelector('.popup-img-strip');
+            const spinner = container.querySelector('.popup-media .spinner');
+            if (!media || !strip || !spinner) return;
+
+            const enName = spotData?.name?.en || '';
+            const urls = buildAutoImageUrlsByEnName(enName);
+
+            if (!urls.length) {
+                spinner.style.display = 'none';
+                return;
+            }
+
+            let loadedAny = false;
+            let idx = 0;
+
+            const loadNext = () => {
+                if (token !== popupLoadToken) return;
+
+                if (idx >= urls.length) {
+                    if (!loadedAny) spinner.style.display = 'none';
+                    return;
+                }
+
+                const url = urls[idx++];
+                const img = new Image();
+                img.decoding = 'async';
+                img.alt = enName;
+
+                img.onload = () => {
+                    if (token !== popupLoadToken) return;
+                    loadedAny = true;
+                    spinner.style.display = 'none';
+                    strip.appendChild(img);
+                    loadNext();
+                };
+
+                img.onerror = () => {
+                    if (token !== popupLoadToken) return;
+                    loadNext();
+                };
+
+                img.src = url;
+            };
+
+            loadNext();
+        }
+
         let map, allData = [], filteredData = [], markers = [], curLang = 'zh-HK', selCats = files.map(f => f.id), selRegs = regions.map(r => r.id), lastCenter = null, lastZoom = null, activePopup = null, currentSpotData = null;
-        let hoverPopup = null; // Popup for Hover
+        let hoverPopup = null;
 
         try { const s = navigator.language.toLowerCase(); curLang = s === 'zh-cn' || s === 'zh-sg' ? 'zh-CN' : s.startsWith('zh') ? 'zh-HK' : 'en'; } catch (e) { }
 
@@ -868,7 +985,6 @@
         };
 
         function initMap() {
-            // 🔥 [修復] maxZoom 改回 22（安全且夠大）
             map = new maplibregl.Map({ container: 'map', style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center: [114.1694, 22.3193], zoom: 11, maxZoom: 22, maxBounds: hkBounds, attributionControl: false });
             map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
             map.on('click', () => closePopup());
@@ -899,12 +1015,10 @@
                 el.addEventListener('touchstart', (e) => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDrag = false; }, { passive: true });
                 el.addEventListener('touchmove', (e) => { if (Math.abs(e.touches[0].clientX - startX) > 5 || Math.abs(e.touches[0].clientY - startY) > 5) isDrag = true; }, { passive: true });
 
-                // 🔥 [Mouse Hover 顯示 Popup]
                 el.addEventListener('mouseenter', () => {
-                    // Hover Popup
                     const name = d.name[curLang] || d.name.en;
                     if (hoverPopup) hoverPopup.remove();
-                    hoverPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: [0, -35], /* Label 在 Marker 上方 */ className: 'hover-popup-container' /* 自定義 CSS */ })
+                    hoverPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: [0, -35], className: 'hover-popup-container' })
                         .setLngLat([d.lng, d.lat])
                         .setHTML(`<div class="hover-label">${name}</div>`)
                         .addTo(map);
@@ -918,7 +1032,6 @@
                     if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
 
                     if (isDouble) {
-                        // 🔥 [修復] 雙擊放大到 15（合理的街道級別）
                         map.setMaxBounds(hkBounds);
                         map.easeTo({ center: [d.lng, d.lat], zoom: 15, duration: 600 });
                     } else {
@@ -966,21 +1079,72 @@
         }
 
         function generateCardHTML(d, c, p) {
-            const n = d.name[curLang] || d.name.en, de = d.description[curLang] || "", cn = files.find(f => f.id === d.cat).label[curLang], q = encodeURIComponent(n + ' Hong Kong');
-            const cb = p ? `<div class="close-popup-btn" onclick="closePopup()">✕</div>` : `<div class="close-popup-btn" onclick="closeModal()">✕</div>`;
-            const im = (d.images && d.images[0]) ? `<div class="popup-img" style="background-image:url('${d.images[0]}')">${cb}</div>` : `<div style="position:relative;height:10px;">${p ? cb : ''}</div>`;
-            return `<div class="detail-card">${im}<div class="popup-info"><div class="popup-title">${n}</div><div class="popup-badges"><span class="tag" style="background:${c}">${cn}</span></div><div class="popup-desc">${de}</div><div class="popup-actions"><a class="action-btn" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" data-t="google">${i18n.google[curLang]}</a><a class="action-btn" href="https://www.amap.com/search?query=${q}" target="_blank" data-t="amap">${i18n.amap[curLang]}</a></div></div></div>`;
+            const n = d.name[curLang] || d.name.en;
+            const de = d.description[curLang] || "";
+            const cn = files.find(f => f.id === d.cat).label[curLang];
+            const q = encodeURIComponent(n + ' Hong Kong');
+
+            const cb = p
+                ? `<div class="close-popup-btn" onclick="closePopup()">✕</div>`
+                : `<div class="close-popup-btn" onclick="closeModal()">✕</div>`;
+
+            const media = `
+                <div class="popup-media">
+                ${cb}
+                <div class="spinner"></div>
+                <div class="popup-img-strip"></div>
+                </div>
+            `;
+
+            return `
+                <div class="detail-card">
+                ${media}
+                <div class="popup-info">
+                    <div class="popup-title">${n}</div>
+                    <div class="popup-badges">
+                    <span class="tag" style="background:${c}">${cn}</span>
+                    </div>
+                    <div class="popup-desc">${de}</div>
+                    <div class="popup-actions">
+                    <a class="action-btn" href="https://www.google.com/maps/search/?api=1&query=${q}" target="_blank" data-t="google">${i18n.google[curLang]}</a>
+                    <a class="action-btn" href="https://www.amap.com/search?query=${q}" target="_blank" data-t="amap">${i18n.amap[curLang]}</a>
+                    </div>
+                </div>
+                </div>
+            `;
         }
 
         function showPopup(d, c) {
             currentSpotData = { d, c, isPopup: true };
+
             if (activePopup) activePopup.remove();
-            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: '300px' }).setLngLat([d.lng, d.lat]).setHTML(generateCardHTML(d, c, true)).addTo(map);
+
+            popupLoadToken++;
+            const token = popupLoadToken;
+
+            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: '300px' })
+                .setLngLat([d.lng, d.lat])
+                .setHTML(generateCardHTML(d, c, true))
+                .addTo(map);
+
+            requestAnimationFrame(() => hydratePopupImages(d, token, false));
         }
-        function showListModal(d) { currentSpotData = { d, c: files.find(f => f.id === d.cat).color, isPopup: false }; document.getElementById('spot-detail-content').innerHTML = generateCardHTML(d, files.find(f => f.id === d.cat).color, false); openModal('spot-detail'); }
+
+        function showListModal(d) {
+            currentSpotData = { d, c: files.find(f => f.id === d.cat).color, isPopup: false };
+
+            popupLoadToken++;
+            const token = popupLoadToken;
+
+            document.getElementById('spot-detail-content').innerHTML = generateCardHTML(d, currentSpotData.c, false);
+            openModal('spot-detail');
+
+            requestAnimationFrame(() => hydratePopupImages(d, token, true));
+        }
 
         window.closePopup = () => {
             currentSpotData = null;
+            popupLoadToken++; // 取消加載
             if (activePopup) {
                 activePopup.remove(); activePopup = null;
                 map.setMaxBounds(hkBounds);
@@ -1012,7 +1176,30 @@
         function renderCatList() { const l = document.getElementById('cat-list'); l.innerHTML = ''; files.forEach(f => { const d = document.createElement('div'); d.className = `menu-row ${selCats.includes(f.id) ? 'checked' : ''}`; d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${f.label[curLang]}</span></div>`; d.onclick = () => { selCats.includes(f.id) ? selCats = selCats.filter(x => x !== f.id) : selCats.push(f.id); filterData(); updateUI(); }; l.appendChild(d); }); }
         function renderRegionList() { const mc = document.getElementById('macro-list'); mc.innerHTML = ''; macros.forEach(m => { const d = document.createElement('div'); d.className = 'macro-chip'; d.innerText = m.n[curLang]; if (regions.filter(r => r.m === m.id).map(r => r.id).every(id => selRegs.includes(id))) d.classList.add('active'); d.onclick = () => { const s = regions.filter(r => r.m === m.id).map(r => r.id); const a = s.every(x => selRegs.includes(x)); selRegs = a ? selRegs.filter(x => !s.includes(x)) : [...new Set([...selRegs, ...s])]; filterData(); updateUI(); }; mc.appendChild(d); }); const rl = document.getElementById('region-list'); rl.innerHTML = ''; regions.forEach(r => { const d = document.createElement('div'); d.className = `menu-row ${selRegs.includes(r.id) ? 'checked' : ''}`; d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${r.n[curLang]}</span></div>`; d.onclick = () => { selRegs.includes(r.id) ? selRegs = selRegs.filter(x => x !== r.id) : selRegs.push(r.id); filterData(); updateUI(); }; rl.appendChild(d); }); }
         function renderChangelog() { const c = document.getElementById('changelog-list'); c.innerHTML = ''; versions.forEach((v, i) => { const ver = document.createElement('div'); ver.className = 'log-item'; let updates = ''; v.updates.forEach(u => updates += `<li>${u[curLang] || u.en}</li>`); ver.innerHTML = `<div class="version-badge" style="background:${i === 0 ? '#e3f2fd' : '#f5f5f5'};color:${i === 0 ? '#1976d2' : '#666'}">${v.id}</div><div class="log-content"><div class="log-date">${v.date}</div><ul>${updates}</ul></div>`; c.appendChild(ver); }); }
-        function renderList() { const con = document.getElementById('list-view'); con.innerHTML = ''; filteredData.forEach(d => { const conf = files.find(f => f.id === d.cat), reg = regions.find(r => r.id === d.region); const card = document.createElement('div'); card.className = 'list-card'; const imgStyle = (d.images && d.images[0]) ? `background-image:url('${d.images[0]}')` : 'background-color:#eee;'; card.onclick = () => showListModal(d); card.innerHTML = `<div class="list-img" style="${imgStyle}"></div><div class="list-content"><div class="list-title">${d.name[curLang] || d.name.en}</div><div class="list-tags"><span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span><span class="tag reg">${reg ? reg.n[curLang] : ''}</span></div><div class="list-desc">${d.description[curLang] || ''}</div></div>`; con.appendChild(card); }); }
+        function renderList() {
+            const con = document.getElementById('list-view');
+            con.innerHTML = '';
+            filteredData.forEach(d => {
+                const conf = files.find(f => f.id === d.cat), reg = regions.find(r => r.id === d.region);
+                const card = document.createElement('div');
+                card.className = 'list-card';
+
+                // 列表封面載入第1張
+                const imgUrl = buildAutoImageUrlsByEnName(d.name.en)[0];
+
+                card.onclick = () => showListModal(d);
+                card.innerHTML = `
+                    <div class="list-img" style="position:relative; overflow:hidden; background-color:#eee;">
+                        <img src="${imgUrl}" onerror="this.style.display='none'" style="position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover;">
+                    </div>
+                    <div class="list-content">
+                        <div class="list-title">${d.name[curLang] || d.name.en}</div>
+                        <div class="list-tags"><span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span><span class="tag reg">${reg ? reg.n[curLang] : ''}</span></div>
+                        <div class="list-desc">${d.description[curLang] || ''}</div>
+                    </div>`;
+                con.appendChild(card);
+            });
+        }
 
         function openModal(id) { document.getElementById('overlay').classList.add('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); document.getElementById('modal-' + id).classList.add('show'); }
         window.closeModal = () => { document.getElementById('overlay').classList.remove('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); };
@@ -1078,5 +1265,3 @@
 </body>
 
 </html>
-
-//version

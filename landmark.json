@@ -15,7 +15,11 @@
             "zh-CN": "底部呈“龙尾”结构，从大地汲取能量；外墙玻璃在特定光线下呈现鳞片质感，是全港最高建筑 (484米) 。",
             "en": "The base features a 'dragon tail' structure, drawing energy from the earth; the glass facade resembles scales under specific lighting. It is the tallest building in Hong Kong (484m)."
         },
-        "images": []
+        "images": [
+            "International Commerce Centre (ICC).jpg",
+            "International Commerce Centre (ICC).jpg(2)",
+            "International Commerce Centre (ICC).jpg(3)"
+        ]
     },
     {
         "id": "spot_002",
@@ -33,7 +37,11 @@
             "zh-CN": "顶部设计像“皇冠”或“剃刀”，代表金融权力；因其纤细外形与突出的高度。",
             "en": "The top design resembles a 'crown' or 'razor', representing financial power; noted for its slender profile and prominent height."
         },
-        "images": []
+        "images": [
+            "Two International Finance Centre (Two IFC).jpg",
+            "Two International Finance Centre (Two IFC).jpg(2)",
+            "Two International Finance Centre (Two IFC).jpg(3)"
+        ]
     },
     {
         "id": "spot_003",
@@ -51,7 +59,11 @@
             "zh-CN": "几何三角棱柱体，灵感来自“节节高升的竹子”，象征力量与生机，但也因尖角被视为风水上的“利刃”。",
             "en": "A geometric triangular prism inspired by 'growing bamboo shoots', symbolizing strength and vitality, though its sharp angles are seen as 'blades' in Feng Shui."
         },
-        "images": []
+        "images": [
+            "Bank of China Tower (BOC Tower).jpg",
+            "Bank of China Tower (BOC Tower).jpg(2)",
+            "Bank of China Tower (BOC Tower).jpg(3)"
+        ]
     },
     {
         "id": "spot_004",
@@ -69,7 +81,11 @@
             "zh-CN": "像一座“海上钻油台”，内部无柱。所有组件（楼梯、洗手间）均为预制模组挂在钢架上，象征灵活与可拆卸带走。",
             "en": "Resembles an 'offshore oil rig' with no internal columns. All components (stairs, restrooms) are prefabricated modules hung on a steel frame, symbolizing flexibility and portability."
         },
-        "images": []
+        "images": [
+            "HSBC Main Building.jpg",
+            "HSBC Main Building.jpg(2)",
+            "HSBC Main Building.jpg(3)"
+        ]
     },
     {
         "id": "spot_005",
@@ -87,7 +103,11 @@
             "zh-CN": "流线型有机玻璃曲面，模仿“含苞待放的洋紫荆”，底部架空创造城市绿洲，象征自然与生命力。",
             "en": "Streamlined organic glass curves mimicking a 'budding Bauhinia flower'; the elevated base creates an urban oasis, symbolizing nature and vitality."
         },
-        "images": []
+        "images": [
+            "The Henderson.jpg",
+            "The Henderson.jpg(2)",
+            "The Henderson.jpg(3)"
+        ]
     },
     {
         "id": "spot_006",
@@ -105,7 +125,11 @@
             "zh-CN": "凹凸不平的蓝色玻璃外墙，设计灵感来自“攀爬树干的树袋熊”，突出的部分其实是为了增加景观的凸窗。",
             "en": "Uneven blue glass facade inspired by 'koalas climbing a tree trunk'; the protruding sections are actually bay windows designed to maximize views."
         },
-        "images": []
+        "images": [
+            "Lippo Centre.jpg",
+            "Lippo Centre.jpg(2)",
+            "Lippo Centre.jpg(3)"
+        ]
     },
     {
         "id": "spot_007",
@@ -123,7 +147,11 @@
             "zh-CN": "布满圆形窗户（千孔大厦）。圆形窗框是为了在轻薄外墙下提供更强的结构支撑力。",
             "en": "Covered in circular windows (known as the 'Thousand Hole Building'). The circular frames provide stronger structural support within the thin facade."
         },
-        "images": []
+        "images": [
+            "Jardine House.jpg",
+            "Jardine House.jpg(2)",
+            "Jardine House.jpg(3)"
+        ]
     },
     {
         "id": "spot_008",
@@ -141,7 +169,11 @@
             "zh-CN": "方正的盒子，外层像穿了锁子甲。为了抵挡隔壁中银的“刀”与汇丰的“炮”，采用了风水上最稳阵的“四面盾牌”设计。",
             "en": "A square box resembling a figure in chainmail. Designed as a 'four-sided shield' in Feng Shui to withstand the 'blade' of the neighboring BOC Tower and the 'cannon' of the HSBC building."
         },
-        "images": []
+        "images": [
+            "Cheung Kong Center.jpg",
+            "Cheung Kong Center.jpg(2)",
+            "Cheung Kong Center.jpg(3)"
+        ]
     },
     {
         "id": "spot_009",
@@ -159,7 +191,11 @@
             "zh-CN": "三角形平面图，为了让更多办公室享有海景；顶部塔尖内藏全球最高教堂，象征精神升华。",
             "en": "Triangular floor plan designed to offer sea views to more offices; the spire houses the world's highest church, symbolizing spiritual elevation."
         },
-        "images": []
+        "images": [
+            "Central Plaza.jpg",
+            "Central Plaza.jpg(2)",
+            "Central Plaza.jpg(3)"
+        ]
     },
     {
         "id": "spot_010",
@@ -177,7 +213,11 @@
             "zh-CN": "全港首座圆柱形摩天大楼，顶部有旋转餐厅，造型像“UFO”，圆形设计是为了减低高空风阻。",
             "en": "Hong Kong's first cylindrical skyscraper, featuring a revolving restaurant at the top. Its 'UFO'-like shape and circular design reduce wind resistance at high altitudes."
         },
-        "images": []
+        "images": [
+            "Hopewell Centre.jpg",
+            "Hopewell Centre.jpg(2)",
+            "Hopewell Centre.jpg(3)"
+        ]
     },
     {
         "id": "spot_011",
@@ -195,7 +235,11 @@
             "zh-CN": "全钢结构，平面呈八角星形（双正方形交叠），夜间拥有可变色霓虹灯系统，曾是全球最大户外灯光秀之一。",
             "en": "All-steel structure with an eight-pointed star floor plan (two overlapping squares). Features a color-changing neon light system at night, once one of the world's largest outdoor light shows."
         },
-        "images": []
+        "images": [
+            "The Center.jpg",
+            "The Center.jpg(2)",
+            "The Center.jpg(3)"
+        ]
     },
     {
         "id": "spot_012",
@@ -213,7 +257,11 @@
             "zh-CN": "一高一低两座大楼由天桥连接，象征龚如心与亡夫王德辉“手牵手”，是爱情纪念碑。",
             "en": "Two towers, one high and one low, connected by a skybridge. It symbolizes Nina Wang and her late husband Teddy Wang 'holding hands', serving as a monument to their love."
         },
-        "images": []
+        "images": [
+            "Nina Tower.jpg",
+            "Nina Tower.jpg(2)",
+            "Nina Tower.jpg(3)"
+        ]
     },
     {
         "id": "spot_013",
@@ -231,7 +279,11 @@
             "zh-CN": "菱形平面设计，为了避开前方建筑遮挡并最大化海景，视觉上更加修长挺拔。",
             "en": "Rhomboid floor plan designed to avoid obstruction by buildings in front and maximize sea views, creating a visually slender and tall appearance."
         },
-        "images": []
+        "images": [
+            "One Island East.jpg",
+            "One Island East.jpg(2)",
+            "One Island East.jpg(3)"
+        ]
     },
     {
         "id": "spot_014",
@@ -249,7 +301,11 @@
             "zh-CN": "全金色的玻璃幕墙，像一根金条或“镶金牙”，在灰色的商业区中极为抢眼，象征财富。",
             "en": "Featuring a fully golden glass curtain wall, resembling a gold bar or a 'gold tooth'. It stands out vividly in the grey business district, symbolizing wealth."
         },
-        "images": []
+        "images": [
+            "Far East Finance Centre.jpg",
+            "Far East Finance Centre.jpg(2)",
+            "Far East Finance Centre.jpg(3)"
+        ]
     },
     {
         "id": "spot_015",
@@ -267,7 +323,11 @@
             "zh-CN": "两座极度细长的摩天住宅并排矗立，因其形状被称为“筷子” (The Chopsticks)，是香港在此地形限制下发展出的“铅笔楼”极致代表。",
             "en": "Two extremely slender residential skyscrapers standing side by side. Known as 'The Chopsticks' due to their shape, they are the ultimate examples of 'pencil towers' developed under Hong Kong's terrain constraints."
         },
-        "images": []
+        "images": [
+            "Highcliff & The Summit.jpg",
+            "Highcliff & The Summit.jpg(2)",
+            "Highcliff & The Summit.jpg(3)"
+        ]
     },
     {
         "id": "spot_016",
@@ -285,7 +345,11 @@
             "zh-CN": "扭曲的螺旋造型，灵感来自“随风摇曳的芦苇”，确保每个豪宅单位都有独特的维港视角。",
             "en": "Features a twisted spiral shape inspired by 'reeds swaying in the wind', ensuring that each luxury unit has a unique view of Victoria Harbour."
         },
-        "images": []
+        "images": [
+            "Opus Hong Kong.jpg",
+            "Opus Hong Kong.jpg(2)",
+            "Opus Hong Kong.jpg(3)"
+        ]
     },
     {
         "id": "spot_017",
@@ -303,7 +367,11 @@
             "zh-CN": "主打医疗健康，外墙采铜色抗UV玻璃，概念为“城市滤镜”，过滤喧嚣与污染。",
             "en": "Focused on health and wellness, featuring a copper-colored UV-resistant glass facade. The concept is an 'urban filter', filtering out noise and pollution."
         },
-        "images": []
+        "images": [
+            "H Zentre.jpg",
+            "H Zentre.jpg(2)",
+            "H Zentre.jpg(3)"
+        ]
     },
     {
         "id": "spot_018",
@@ -321,7 +389,11 @@
             "zh-CN": "巨大的方洞位于建筑中央，为的是留出“风廊”让海风吹向后方社区，改善微气候。",
             "en": "A huge square opening in the center of the building serves as a 'wind corridor', allowing sea breezes to reach the community behind and improving the microclimate."
         },
-        "images": []
+        "images": [
+            "The Quayside.jpg",
+            "The Quayside.jpg(2)",
+            "The Quayside.jpg(3)"
+        ]
     },
     {
         "id": "spot_019",
@@ -339,7 +411,11 @@
             "zh-CN": "外墙如梯田般层层退台，大量绿化，旨在打造“文化硅谷”与海边的城市绿洲。",
             "en": "The facade features stepped terraces resembling rice paddies with extensive greenery, aiming to create a 'Cultural Silicon Valley' and an urban oasis by the sea."
         },
-        "images": []
+        "images": [
+            "K11 MUSEA / Victoria Dockside.jpg",
+            "K11 MUSEA / Victoria Dockside.jpg(2)",
+            "K11 MUSEA / Victoria Dockside.jpg(3)"
+        ]
     },
     {
         "id": "spot_020",
@@ -357,7 +433,11 @@
             "zh-CN": "倒转的“T”字型，因地下有铁路隧道无法打桩，建筑师顺势挖掘出“潜空间”；巨型 LED 外墙是为了将艺术投射给对岸的城市。",
             "en": "An inverted 'T' shape. Unable to pile due to underground railway tunnels, the architect excavated a 'Found Space'; the giant LED facade projects art to the city across the harbour."
         },
-        "images": []
+        "images": [
+            "M+ Museum.jpg",
+            "M+ Museum.jpg(2)",
+            "M+ Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_021",
@@ -375,7 +455,11 @@
             "zh-CN": "上宽下窄的造型致敬古代青铜器“鼎”，米金色外墙呼应紫禁城的琉璃瓦与尊贵。",
             "en": "The shape, wider at the top and narrower at the bottom, pays homage to the ancient bronze 'Ding'. The beige-gold facade echoes the glazed tiles and prestige of the Forbidden City."
         },
-        "images": []
+        "images": [
+            "Hong Kong Palace Museum.jpg",
+            "Hong Kong Palace Museum.jpg(2)",
+            "Hong Kong Palace Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_022",
@@ -393,7 +477,11 @@
             "zh-CN": "外观像“珠帘后的灯笼”，入口像掀开的舞台帷幕或中式“月洞门”，主剧场悬浮于半空以隔绝地铁震动。",
             "en": "Resembles a 'lantern behind a bead curtain'. The entrance mimics a parted stage curtain or Chinese 'Moon Gate'. The main theatre is suspended in mid-air to isolate it from subway vibrations."
         },
-        "images": []
+        "images": [
+            "Xiqu Centre.jpg",
+            "Xiqu Centre.jpg(2)",
+            "Xiqu Centre.jpg(3)"
+        ]
     },
     {
         "id": "spot_023",
@@ -411,7 +499,11 @@
             "zh-CN": "流线型屋顶像一只“飞鸟”翱翔，亦被视为风水上的“灵龟出海”，与对岸太空馆（龟蛋）呼应。",
             "en": "The streamlined roof resembles a soaring 'bird', also seen in Feng Shui as a 'spiritual turtle entering the sea', echoing the Space Museum (turtle egg) across the harbour."
         },
-        "images": []
+        "images": [
+            "Hong Kong Convention and Exhibition Centre (HKCEC).jpg",
+            "Hong Kong Convention and Exhibition Centre (HKCEC).jpg(2)",
+            "Hong Kong Convention and Exhibition Centre (HKCEC).jpg(3)"
+        ]
     },
     {
         "id": "spot_024",
@@ -429,7 +521,11 @@
             "zh-CN": "像一个巨大的“碗”或“船”浮在山顶，旨在以开放的手势“捧起”维港美景，俗称“老衬亭”。",
             "en": "Resembles a giant 'bowl' or 'boat' floating on the peak, designed to 'hold up' the Victoria Harbour view with an open gesture. Locally known as 'Lo Sen Teng'."
         },
-        "images": []
+        "images": [
+            "The Peak Tower.jpg",
+            "The Peak Tower.jpg(2)",
+            "The Peak Tower.jpg(3)"
+        ]
     },
     {
         "id": "spot_025",
@@ -447,7 +543,11 @@
             "zh-CN": "巨大的流线型玻璃天幕，像一条起伏的“绿色山脊”，让人们可以走上屋顶公园，将车站隐藏于大地之中。",
             "en": "Features a massive streamlined glass canopy resembling an undulating 'green ridge', allowing people to walk on the rooftop park, effectively hiding the station within the earth."
         },
-        "images": []
+        "images": [
+            "West Kowloon Station.jpg",
+            "West Kowloon Station.jpg(2)",
+            "West Kowloon Station.jpg(3)"
+        ]
     },
     {
         "id": "spot_026",
@@ -465,7 +565,11 @@
             "zh-CN": "新翼建筑使用 100% 回收铝砖，排列出旧警署花岗岩墙的纹理，以现代材料向历史致敬。",
             "en": "The new wing uses 100% recycled aluminum bricks, arranged to mimic the texture of the old police station's granite walls, paying homage to history with modern materials."
         },
-        "images": []
+        "images": [
+            "Tai Kwun.jpg",
+            "Tai Kwun.jpg(2)",
+            "Tai Kwun.jpg(3)"
+        ]
     },
     {
         "id": "spot_027",
@@ -483,7 +587,11 @@
             "zh-CN": "半球形的蛋状设计，像一个“菠萝包”，是香港首个天象厅，其蛋形外壳是为了配合內部的球幕投影。",
             "en": "A hemispherical egg-shaped design resembling a 'pineapple bun'. As Hong Kong's first planetarium, its egg-shaped shell is designed to accommodate the internal dome projection."
         },
-        "images": []
+        "images": [
+            "Hong Kong Space Museum.jpg",
+            "Hong Kong Space Museum.jpg(2)",
+            "Hong Kong Space Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_028",
@@ -501,7 +609,11 @@
             "zh-CN": "没有窗户的斜坡式粉红色建筑，像“滑梯”，曾因遮挡海景且无窗设计被批评，但其设计原意是为了隔绝噪音并聚焦内部表演。",
             "en": "A windowless, sloped pink building resembling a 'slide'. Criticized for blocking sea views and lacking windows, its design is intended to isolate noise and focus attention on internal performances."
         },
-        "images": []
+        "images": [
+            "Hong Kong Cultural Centre.jpg",
+            "Hong Kong Cultural Centre.jpg(2)",
+            "Hong Kong Cultural Centre.jpg(3)"
+        ]
     },
     {
         "id": "spot_029",
@@ -519,7 +631,11 @@
             "zh-CN": "Zaha Hadid 设计，像一艘流动的太空船或岩石，完全没有直线，象征“流动性”与跨学科的无缝交流。",
             "en": "Designed by Zaha Hadid, resembling a fluid spaceship or rock with no straight lines. It symbolizes 'fluidity' and seamless interdisciplinary exchange."
         },
-        "images": []
+        "images": [
+            "Jockey Club Innovation Tower.jpg",
+            "Jockey Club Innovation Tower.jpg(2)",
+            "Jockey Club Innovation Tower.jpg(3)"
+        ]
     },
     {
         "id": "spot_030",
@@ -537,7 +653,11 @@
             "zh-CN": "四根巨柱将一个白色平台举在半空，概念是“空中之城”与“一张白纸”，象征创意的无限可能。",
             "en": "Four giant columns hold a white platform in mid-air. The concept is a 'City in the Air' and a 'blank sheet of paper', symbolizing the infinite possibilities of creativity."
         },
-        "images": []
+        "images": [
+            "Hong Kong Design Institute (HKDI).jpg",
+            "Hong Kong Design Institute (HKDI).jpg(2)",
+            "Hong Kong Design Institute (HKDI).jpg(3)"
+        ]
     },
     {
         "id": "spot_031",
@@ -555,6 +675,10 @@
             "zh-CN": "多面体晶体形状，窗户倾斜，象征“水晶”的纯粹，内部错综复杂的空间旨在打破学生的常规思维。",
             "en": "A polyhedral crystal shape with tilted windows, symbolizing the purity of a 'crystal'. The complex internal space is designed to break students' conventional thinking."
         },
-        "images": []
+        "images": [
+            "Run Run Shaw Creative Media Centre.jpg",
+            "Run Run Shaw Creative Media Centre.jpg(2)",
+            "Run Run Shaw Creative Media Centre.jpg(3)"
+        ]
     }
 ]
