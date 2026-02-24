@@ -1,51 +1,229 @@
 <!DOCTYPE html>
 <html lang="zh-HK">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>HKT Map</title>
     <link href="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.css" rel="stylesheet" />
     <style>
-        body, html { margin: 0; padding: 0; width: 100%; height: 100%; overflow: hidden; font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif; background: #f8f9fa; }
-        * { box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+        body,
+        html {
+            margin: 0;
+            padding: 0;
+            width: 100%;
+            height: 100%;
+            overflow: hidden;
+            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+            background: #f8f9fa;
+        }
+
+        * {
+            box-sizing: border-box;
+            -webkit-tap-highlight-color: transparent;
+        }
 
         /* ===== 頂部導航欄 ===== */
         .controls-bar {
-            position: fixed; top: 0; left: 0; right: 0; height: 50px;
-            background: rgba(255,255,255,0.98); backdrop-filter: blur(12px); -webkit-backdrop-filter: blur(12px);
-            border-bottom: 1px solid rgba(0,0,0,0.06);
-            display: flex; align-items: center; padding: 0 6px; gap: 5px; z-index: 2000;
-            padding-top: max(env(safe-area-inset-top), 6px); justify-content: space-between;
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 50px;
+            background: rgba(255, 255, 255, 0.98);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 1px solid rgba(0, 0, 0, 0.06);
+            display: flex;
+            align-items: center;
+            padding: 0 6px;
+            gap: 5px;
+            z-index: 2000;
+            padding-top: max(env(safe-area-inset-top), 6px);
+            justify-content: space-between;
         }
-        @media (min-width: 768px) { .controls-bar { justify-content: flex-start; gap: 12px; padding: 0 20px; } }
-        .view-group { display: flex; background: #f1f3f4; padding: 2px; border-radius: 8px; flex-shrink: 0; margin-right: 2px; }
-        .view-btn { padding: 5px 10px; font-size: 12px; font-weight: 500; border-radius: 6px; cursor: pointer; display: flex; align-items: center; gap: 4px; color: #5f6368; transition: all 0.2s; }
-        .view-btn.active { background: white; color: #1a73e8; box-shadow: 0 1px 2px rgba(0,0,0,0.1); font-weight: 600; }
-        .divider { width: 1px; height: 20px; background: #e0e0e0; margin: 0 2px; flex-shrink: 0; }
-        .filter-chip { height: 32px; padding: 0 10px; border-radius: 16px; border: 1px solid #e0e0e0; background: white; color: #3c4043; font-size: 12px; font-weight: 500; display: flex; align-items: center; gap: 3px; cursor: pointer; white-space: nowrap; flex-shrink: 1; }
-        .filter-chip:active { background: #f1f3f4; }
-        .filter-chip.icon-only { width: 32px; padding: 0; justify-content: center; font-size: 15px; flex-shrink: 0; }
+
+        @media (min-width: 768px) {
+            .controls-bar {
+                justify-content: flex-start;
+                gap: 12px;
+                padding: 0 20px;
+            }
+        }
+
+        .view-group {
+            display: flex;
+            background: #f1f3f4;
+            padding: 2px;
+            border-radius: 8px;
+            flex-shrink: 0;
+            margin-right: 2px;
+        }
+
+        .view-btn {
+            padding: 5px 10px;
+            font-size: 12px;
+            font-weight: 500;
+            border-radius: 6px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 4px;
+            color: #5f6368;
+            transition: all 0.2s;
+        }
+
+        .view-btn.active {
+            background: white;
+            color: #1a73e8;
+            box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1);
+            font-weight: 600;
+        }
+
+        .divider {
+            width: 1px;
+            height: 20px;
+            background: #e0e0e0;
+            margin: 0 2px;
+            flex-shrink: 0;
+        }
+
+        .filter-chip {
+            height: 32px;
+            padding: 0 10px;
+            border-radius: 16px;
+            border: 1px solid #e0e0e0;
+            background: white;
+            color: #3c4043;
+            font-size: 12px;
+            font-weight: 500;
+            display: flex;
+            align-items: center;
+            gap: 3px;
+            cursor: pointer;
+            white-space: nowrap;
+            flex-shrink: 1;
+        }
+
+        .filter-chip:active {
+            background: #f1f3f4;
+        }
+
+        .filter-chip.icon-only {
+            width: 32px;
+            padding: 0;
+            justify-content: center;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
 
         /* ===== 主佈局 ===== */
-        #main-container { position: absolute; top: 50px; bottom: 0; width: 100%; overflow: hidden; }
-        #map { width: 100%; height: 100%; display: block; }
+        #main-container {
+            position: absolute;
+            top: 50px;
+            bottom: 0;
+            width: 100%;
+            overflow: hidden;
+        }
+
+        #map {
+            width: 100%;
+            height: 100%;
+            display: block;
+        }
 
         /* ===== 圖例 ===== */
         .legend-group {
-            position: absolute; top: 60px; right: 8px;
-            display: flex; flex-direction: column; align-items: flex-end;
-            z-index: 1000; touch-action: none; user-select: none;
+            position: absolute;
+            top: 60px;
+            right: 8px;
+            display: flex;
+            flex-direction: column;
+            align-items: flex-end;
+            z-index: 1000;
+            touch-action: none;
+            user-select: none;
             transition: top 0.15s;
         }
-        .legend-group.expand-left { align-items: flex-start; }
-        .legend-btn { width: 40px; height: 40px; background: white; border-radius: 50%; box-shadow: 0 4px 10px rgba(0,0,0,0.15); display: none; align-items: center; justify-content: center; cursor: move; font-size: 20px; transition: transform 0.2s; }
-        .legend-btn:active { transform: scale(0.95); }
-        .legend-card { background: rgba(255,255,255,0.92); backdrop-filter: blur(8px); padding: 10px 12px; border-radius: 12px; box-shadow: 0 4px 20px rgba(0,0,0,0.15); display: block; font-size: 12px; margin-bottom: 10px; position: relative; min-width: auto; cursor: move; }
-        .legend-close { position: absolute; top: -8px; right: -8px; cursor: pointer; color: #555; font-size: 14px; background: white; width: 20px; height: 20px; border-radius: 50%; text-align: center; line-height: 20px; box-shadow: 0 2px 5px rgba(0,0,0,0.1); z-index: 1; }
-        .legend-group.expand-left .legend-close { right: auto; left: -8px; }
-        .legend-item { display: flex; align-items: center; gap: 8px; margin-bottom: 5px; color: #333; font-weight: 600; }
-        .legend-item:last-child { margin-bottom: 0; }
-        .legend-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); flex-shrink: 0; }
+
+        .legend-group.expand-left {
+            align-items: flex-start;
+        }
+
+        .legend-btn {
+            width: 40px;
+            height: 40px;
+            background: white;
+            border-radius: 50%;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            cursor: move;
+            font-size: 20px;
+            transition: transform 0.2s;
+        }
+
+        .legend-btn:active {
+            transform: scale(0.95);
+        }
+
+        .legend-card {
+            background: rgba(255, 255, 255, 0.92);
+            backdrop-filter: blur(8px);
+            padding: 10px 12px;
+            border-radius: 12px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
+            display: block;
+            font-size: 12px;
+            margin-bottom: 10px;
+            position: relative;
+            min-width: auto;
+            cursor: move;
+        }
+
+        .legend-close {
+            position: absolute;
+            top: -8px;
+            right: -8px;
+            cursor: pointer;
+            color: #555;
+            font-size: 14px;
+            background: white;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            text-align: center;
+            line-height: 20px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+            z-index: 1;
+        }
+
+        .legend-group.expand-left .legend-close {
+            right: auto;
+            left: -8px;
+        }
+
+        .legend-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            margin-bottom: 5px;
+            color: #333;
+            font-weight: 600;
+        }
+
+        .legend-item:last-child {
+            margin-bottom: 0;
+        }
+
+        .legend-dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            border: 1px solid rgba(0, 0, 0, 0.1);
+            flex-shrink: 0;
+        }
 
         /* 🔥 Dock-top：拖到頂部自動橫向3欄 */
         .legend-group.dock-top .legend-card {
@@ -54,11 +232,13 @@
             border-radius: 10px;
             margin-bottom: 0;
         }
+
         .legend-group.dock-top #legend-content {
             display: grid;
             grid-template-columns: repeat(3, minmax(0, 1fr));
             gap: 5px 14px;
         }
+
         .legend-group.dock-top .legend-item {
             margin: 0;
             font-size: 11px;
@@ -66,63 +246,385 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
+
         /* dock 時固定關閉按鈕位置 */
-        .legend-group.dock-top .legend-close { top: -8px; right: -8px; left: auto; }
+        .legend-group.dock-top .legend-close {
+            top: -8px;
+            right: -8px;
+            left: auto;
+        }
 
         /* ===== 地圖控件 ===== */
-        .maplibregl-ctrl-top-right { top: auto !important; bottom: 30px !important; right: 8px !important; }
+        .maplibregl-ctrl-top-right {
+            top: auto !important;
+            bottom: 30px !important;
+            right: 8px !important;
+        }
 
         /* ===== 列表 & 頁面 ===== */
-        #list-view { width: 100%; height: 100%; background: #f8f9fa; overflow-y: auto; display: none; padding: 10px; -webkit-overflow-scrolling: touch; }
-        .list-card { background: white; border-radius: 10px; padding: 10px; margin-bottom: 10px; display: flex; gap: 10px; box-shadow: 0 1px 3px rgba(0,0,0,0.05); cursor: pointer; }
-        .list-img { width: 80px; height: 80px; border-radius: 6px; background: #eee; flex-shrink: 0; position: relative; overflow: hidden; }
-        .list-content { flex: 1; display: flex; flex-direction: column; justify-content: center; min-width: 0; }
-        .list-title { font-size: 15px; font-weight: bold; color: #202124; margin-bottom: 4px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
-        .list-tags { display: flex; gap: 4px; margin-bottom: 4px; }
-        .tag { font-size: 10px; padding: 2px 5px; border-radius: 4px; color: white; font-weight: 500; }
-        .tag.reg { background: #f1f3f4; color: #5f6368; }
-        .list-desc { font-size: 12px; color: #70757a; display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical; overflow: hidden; line-height: 1.4; }
+        #list-view {
+            width: 100%;
+            height: 100%;
+            background: #f8f9fa;
+            overflow-y: auto;
+            display: none;
+            padding: 10px;
+            -webkit-overflow-scrolling: touch;
+        }
 
-        .page-view { position: absolute; top: 50px; left: 0; right: 0; bottom: 0; background: #f8f9fa; overflow-y: auto; display: none; padding: 20px 16px; z-index: 1500; }
-        .page-content { max-width: 800px; margin: 0 auto; padding-bottom: 40px; }
-        .page-header { text-align: center; margin-bottom: 20px; background: white; padding: 20px; border-radius: 16px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); }
-        .page-header h1 { font-size: 22px; color: #333; margin: 0 0 10px 0; }
-        .contact-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
-        .contact-card { background: white; padding: 20px; border-radius: 12px; text-decoration: none; box-shadow: 0 2px 6px rgba(0,0,0,0.05); display: flex; flex-direction: column; align-items: center; text-align: center; border: 1px solid transparent; }
-        .contact-card.highlight { border-color: #4285f4; }
-        .card-icon { font-size: 28px; margin-bottom: 10px; }
-        .card-title { color: #333; margin: 0 0 6px 0; font-size: 16px; font-weight: bold; }
-        .card-desc { color: #777; font-size: 12px; margin: 0 0 12px 0; }
-        .card-btn { color: #4285f4; font-weight: 600; font-size: 13px; }
-        .changelog-section h2 { margin: 24px 0 12px; color: #444; font-size: 16px; border-left: 4px solid #1976d2; padding-left: 10px; }
-        .log-item { background: white; padding: 16px; border-radius: 10px; margin-bottom: 10px; display: flex; gap: 12px; border: 1px solid #eee; }
-        .version-badge { background: #e3f2fd; color: #1976d2; padding: 3px 8px; border-radius: 6px; font-weight: 600; font-size: 12px; height: fit-content; white-space: nowrap; }
-        .log-content ul { margin: 0; padding-left: 16px; color: #4a4a4a; }
-        .log-content li { margin-bottom: 4px; font-size: 13px; line-height: 1.4; }
-        .log-date { font-size: 11px; color: #999; margin-bottom: 6px; font-family: monospace; }
+        .list-card {
+            background: white;
+            border-radius: 10px;
+            padding: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 10px;
+            box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+            cursor: pointer;
+        }
+
+        .list-img {
+            width: 80px;
+            height: 80px;
+            border-radius: 6px;
+            background: #eee;
+            flex-shrink: 0;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .list-content {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            min-width: 0;
+        }
+
+        .list-title {
+            font-size: 15px;
+            font-weight: bold;
+            color: #202124;
+            margin-bottom: 4px;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        .list-tags {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 4px;
+        }
+
+        .tag {
+            font-size: 10px;
+            padding: 2px 5px;
+            border-radius: 4px;
+            color: white;
+            font-weight: 500;
+        }
+
+        .tag.reg {
+            background: #f1f3f4;
+            color: #5f6368;
+        }
+
+        .list-desc {
+            font-size: 12px;
+            color: #70757a;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            -webkit-box-orient: vertical;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+
+        .page-view {
+            position: absolute;
+            top: 50px;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: #f8f9fa;
+            overflow-y: auto;
+            display: none;
+            padding: 20px 16px;
+            z-index: 1500;
+        }
+
+        .page-content {
+            max-width: 800px;
+            margin: 0 auto;
+            padding-bottom: 40px;
+        }
+
+        .page-header {
+            text-align: center;
+            margin-bottom: 20px;
+            background: white;
+            padding: 20px;
+            border-radius: 16px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.03);
+        }
+
+        .page-header h1 {
+            font-size: 22px;
+            color: #333;
+            margin: 0 0 10px 0;
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .contact-card {
+            background: white;
+            padding: 20px;
+            border-radius: 12px;
+            text-decoration: none;
+            box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            text-align: center;
+            border: 1px solid transparent;
+        }
+
+        .contact-card.highlight {
+            border-color: #4285f4;
+        }
+
+        .card-icon {
+            font-size: 28px;
+            margin-bottom: 10px;
+        }
+
+        .card-title {
+            color: #333;
+            margin: 0 0 6px 0;
+            font-size: 16px;
+            font-weight: bold;
+        }
+
+        .card-desc {
+            color: #777;
+            font-size: 12px;
+            margin: 0 0 12px 0;
+        }
+
+        .card-btn {
+            color: #4285f4;
+            font-weight: 600;
+            font-size: 13px;
+        }
+
+        .changelog-section h2 {
+            margin: 24px 0 12px;
+            color: #444;
+            font-size: 16px;
+            border-left: 4px solid #1976d2;
+            padding-left: 10px;
+        }
+
+        .log-item {
+            background: white;
+            padding: 16px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            gap: 12px;
+            border: 1px solid #eee;
+        }
+
+        .version-badge {
+            background: #e3f2fd;
+            color: #1976d2;
+            padding: 3px 8px;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 12px;
+            height: fit-content;
+            white-space: nowrap;
+        }
+
+        .log-content ul {
+            margin: 0;
+            padding-left: 16px;
+            color: #4a4a4a;
+        }
+
+        .log-content li {
+            margin-bottom: 4px;
+            font-size: 13px;
+            line-height: 1.4;
+        }
+
+        .log-date {
+            font-size: 11px;
+            color: #999;
+            margin-bottom: 6px;
+            font-family: monospace;
+        }
 
         /* ===== Modals ===== */
-        .modal-overlay { position: fixed; top: 0; left: 0; width: 100%; height: 100%; background: rgba(0,0,0,0.4); backdrop-filter: blur(2px); z-index: 3000; display: none; opacity: 0; transition: opacity 0.2s; }
-        .modal-overlay.show { display: block; opacity: 1; }
-        .modal-card { position: fixed; top: 50%; left: 50%; transform: translate(-50%, -50%) scale(0.95); width: 90%; max-width: 340px; max-height: 80vh; background: white; border-radius: 16px; z-index: 3001; display: none; flex-direction: column; overflow: hidden; box-shadow: 0 20px 60px rgba(0,0,0,0.2); }
-        .modal-card.show { display: flex; animation: popIn 0.2s forwards; }
-        @keyframes popIn { to { transform: translate(-50%, -50%) scale(1); opacity: 1; } }
-        .modal-header { padding: 14px; background: #fff; border-bottom: 1px solid #f0f0f0; display: flex; justify-content: space-between; align-items: center; font-weight: 600; color: #202124; font-size: 15px; flex-shrink: 0; }
-        .header-btn { color: #1a73e8; cursor: pointer; font-size: 13px; font-weight: 500; }
-        .modal-body { overflow-y: auto; background: white; -webkit-overflow-scrolling: touch; }
-        .menu-row { padding: 12px 14px; border-bottom: 1px solid #f8f9fa; cursor: pointer; display: flex; align-items: center; gap: 12px; font-size: 14px; color: #3c4043; }
-        .menu-row:active { background: #f5f5f5; }
-        .row-left { display: flex; align-items: center; gap: 12px; width: 100%; }
-        .checkbox { width: 18px; height: 18px; border-radius: 4px; border: 2px solid #dadce0; position: relative; flex-shrink: 0; transition: all 0.2s; }
-        .menu-row.checked .checkbox { background: #4285f4; border-color: #4285f4; }
-        .menu-row.checked .checkbox::after { content: ''; position: absolute; left: 5px; top: 1px; width: 4px; height: 8px; border: solid white; border-width: 0 2px 2px 0; transform: rotate(45deg); }
-        .about-menu-item { padding: 14px; display: flex; align-items: center; gap: 14px; border-bottom: 1px solid #f0f0f0; cursor: pointer; font-size: 15px; color: #333; }
-        .about-menu-item:active { background: #f9f9f9; }
-        .about-icon { font-size: 18px; width: 26px; text-align: center; }
+        .modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.4);
+            backdrop-filter: blur(2px);
+            z-index: 3000;
+            display: none;
+            opacity: 0;
+            transition: opacity 0.2s;
+        }
+
+        .modal-overlay.show {
+            display: block;
+            opacity: 1;
+        }
+
+        .modal-card {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.95);
+            width: 90%;
+            max-width: 340px;
+            max-height: 80vh;
+            background: white;
+            border-radius: 16px;
+            z-index: 3001;
+            display: none;
+            flex-direction: column;
+            overflow: hidden;
+            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.2);
+        }
+
+        .modal-card.show {
+            display: flex;
+            animation: popIn 0.2s forwards;
+        }
+
+        @keyframes popIn {
+            to {
+                transform: translate(-50%, -50%) scale(1);
+                opacity: 1;
+            }
+        }
+
+        .modal-header {
+            padding: 14px;
+            background: #fff;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-weight: 600;
+            color: #202124;
+            font-size: 15px;
+            flex-shrink: 0;
+        }
+
+        .header-btn {
+            color: #1a73e8;
+            cursor: pointer;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .modal-body {
+            overflow-y: auto;
+            background: white;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .menu-row {
+            padding: 12px 14px;
+            border-bottom: 1px solid #f8f9fa;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            font-size: 14px;
+            color: #3c4043;
+        }
+
+        .menu-row:active {
+            background: #f5f5f5;
+        }
+
+        .row-left {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            width: 100%;
+        }
+
+        .checkbox {
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+            border: 2px solid #dadce0;
+            position: relative;
+            flex-shrink: 0;
+            transition: all 0.2s;
+        }
+
+        .menu-row.checked .checkbox {
+            background: #4285f4;
+            border-color: #4285f4;
+        }
+
+        .menu-row.checked .checkbox::after {
+            content: '';
+            position: absolute;
+            left: 5px;
+            top: 1px;
+            width: 4px;
+            height: 8px;
+            border: solid white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+        }
+
+        .about-menu-item {
+            padding: 14px;
+            display: flex;
+            align-items: center;
+            gap: 14px;
+            border-bottom: 1px solid #f0f0f0;
+            cursor: pointer;
+            font-size: 15px;
+            color: #333;
+        }
+
+        .about-menu-item:active {
+            background: #f9f9f9;
+        }
+
+        .about-icon {
+            font-size: 18px;
+            width: 26px;
+            text-align: center;
+        }
 
         /* ===== Popup 樣式 ===== */
-        .maplibregl-popup-content { background: transparent !important; box-shadow: none !important; padding: 0 !important; pointer-events: none; }
-        .maplibregl-popup-tip { display: none !important; }
+        .maplibregl-popup-content {
+            background: transparent !important;
+            box-shadow: none !important;
+            padding: 0 !important;
+            pointer-events: none;
+        }
+
+        .maplibregl-popup-tip {
+            display: none !important;
+        }
 
         /* 🔥 手機版：最寬 280px，桌面版 320px */
         .detail-card {
@@ -130,62 +632,225 @@
             width: min(92vw, 280px);
             border-radius: 12px;
             overflow: hidden;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.15);
             font-family: sans-serif;
             pointer-events: auto;
         }
-        @media (min-width: 768px) { .detail-card { width: 320px; } }
+
+        @media (min-width: 768px) {
+            .detail-card {
+                width: 320px;
+            }
+        }
 
         /* 🔥 圖片：手機120px，桌面150px */
-        .popup-media { height: 120px; background: #f1f3f4; position: relative; overflow: hidden; }
-        @media (min-width: 768px) { .popup-media { height: 150px; } }
+        .popup-media {
+            height: 120px;
+            background: #f1f3f4;
+            position: relative;
+            overflow: hidden;
+        }
 
-        .popup-media .spinner { position: absolute; left: 50%; top: 50%; width: 26px; height: 26px; margin-left: -13px; margin-top: -13px; border-radius: 50%; border: 3px solid rgba(0,0,0,0.15); border-top-color: rgba(0,0,0,0.55); animation: popupSpin 0.8s linear infinite; }
-        @keyframes popupSpin { to { transform: rotate(360deg); } }
-        .popup-img-strip { height: 100%; display: flex; gap: 6px; overflow-x: auto; -webkit-overflow-scrolling: touch; }
-        .popup-img-strip img { height: 100%; width: auto; object-fit: cover; flex: 0 0 auto; display: block; }
+        @media (min-width: 768px) {
+            .popup-media {
+                height: 150px;
+            }
+        }
 
-        .close-popup-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: white; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; cursor: pointer; font-size: 16px; backdrop-filter: blur(4px); z-index: 10; }
+        .popup-media .spinner {
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: 26px;
+            height: 26px;
+            margin-left: -13px;
+            margin-top: -13px;
+            border-radius: 50%;
+            border: 3px solid rgba(0, 0, 0, 0.15);
+            border-top-color: rgba(0, 0, 0, 0.55);
+            animation: popupSpin 0.8s linear infinite;
+        }
+
+        @keyframes popupSpin {
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        .popup-img-strip {
+            height: 100%;
+            display: flex;
+            gap: 6px;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .popup-img-strip img {
+            height: 100%;
+            width: auto;
+            object-fit: cover;
+            flex: 0 0 auto;
+            display: block;
+        }
+
+        .close-popup-btn {
+            position: absolute;
+            top: 8px;
+            right: 8px;
+            background: rgba(0, 0, 0, 0.5);
+            color: white;
+            border-radius: 50%;
+            width: 26px;
+            height: 26px;
+            text-align: center;
+            line-height: 26px;
+            cursor: pointer;
+            font-size: 16px;
+            backdrop-filter: blur(4px);
+            z-index: 10;
+        }
 
         /* 🔥 手機版：減少 padding */
-        .popup-info { padding: 10px 12px; }
-        .popup-title { margin: 0 0 5px; font-size: 15px; font-weight: 700; color: #202124; line-height: 1.3; }
-        .popup-badges { margin-bottom: 6px; }
+        .popup-info {
+            padding: 10px 12px;
+        }
+
+        .popup-title {
+            margin: 0 0 5px;
+            font-size: 15px;
+            font-weight: 700;
+            color: #202124;
+            line-height: 1.3;
+        }
+
+        .popup-badges {
+            margin-bottom: 6px;
+        }
 
         /* 🔥 描述：最大高度 70px，超出可滾動 */
         .popup-desc {
-            font-size: 12px; color: #5f6368; line-height: 1.5; margin-bottom: 10px;
-            max-height: 70px; overflow-y: auto; padding-right: 4px;
+            font-size: 12px;
+            color: #5f6368;
+            line-height: 1.5;
+            margin-bottom: 10px;
+            max-height: 70px;
+            overflow-y: auto;
+            padding-right: 4px;
             scrollbar-width: thin;
         }
-        .popup-desc::-webkit-scrollbar { width: 4px; }
-        .popup-desc::-webkit-scrollbar-thumb { background: #ccc; border-radius: 4px; }
-        @media (min-width: 768px) {
-            .popup-info { padding: 14px; }
-            .popup-title { font-size: 17px; }
-            .popup-desc { font-size: 13px; max-height: 90px; }
+
+        .popup-desc::-webkit-scrollbar {
+            width: 4px;
         }
 
-        .popup-actions { display: flex; gap: 8px; border-top: 1px solid #f0f0f0; padding-top: 10px; }
-        .action-btn { flex: 1; padding: 8px 0; border-radius: 6px; text-align: center; font-size: 12px; font-weight: 500; text-decoration: none; border: 1px solid #dadce0; color: #3c4043; display: flex; align-items: center; justify-content: center; gap: 4px; background: #f8f9fa; }
+        .popup-desc::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 4px;
+        }
+
+        @media (min-width: 768px) {
+            .popup-info {
+                padding: 14px;
+            }
+
+            .popup-title {
+                font-size: 17px;
+            }
+
+            .popup-desc {
+                font-size: 13px;
+                max-height: 90px;
+            }
+        }
+
+        .popup-actions {
+            display: flex;
+            gap: 8px;
+            border-top: 1px solid #f0f0f0;
+            padding-top: 10px;
+        }
+
+        .action-btn {
+            flex: 1;
+            padding: 8px 0;
+            border-radius: 6px;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            text-decoration: none;
+            border: 1px solid #dadce0;
+            color: #3c4043;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 4px;
+            background: #f8f9fa;
+        }
 
         /* ===== Hover Tooltip ===== */
-        .hover-label { background: rgba(0,0,0,0.75); color: white; padding: 6px 10px; border-radius: 6px; font-size: 12px; font-weight: 500; white-space: nowrap; backdrop-filter: blur(2px); pointer-events: none; margin-top: -10px; }
+        .hover-label {
+            background: rgba(0, 0, 0, 0.75);
+            color: white;
+            padding: 6px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            white-space: nowrap;
+            backdrop-filter: blur(2px);
+            pointer-events: none;
+            margin-top: -10px;
+        }
 
         /* ===== Macro Chips ===== */
-        .macro-panel { padding: 10px 14px; background: #f8f9fa; border-bottom: 1px solid #eee; }
-        .panel-title { font-size: 11px; color: #70757a; font-weight: bold; margin-bottom: 8px; text-transform: uppercase; }
-        .chip-grid { display: grid; grid-template-columns: repeat(4, 1fr); gap: 6px; }
-        .macro-chip { padding: 5px 0; text-align: center; border-radius: 16px; border: 1px solid #dadce0; background: white; font-size: 11px; color: #5f6368; cursor: pointer; transition: all 0.2s; }
-        .macro-chip.active { background: #e8f0fe; color: #1967d2; border-color: #e8f0fe; font-weight: 600; }
+        .macro-panel {
+            padding: 10px 14px;
+            background: #f8f9fa;
+            border-bottom: 1px solid #eee;
+        }
+
+        .panel-title {
+            font-size: 11px;
+            color: #70757a;
+            font-weight: bold;
+            margin-bottom: 8px;
+            text-transform: uppercase;
+        }
+
+        .chip-grid {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 6px;
+        }
+
+        .macro-chip {
+            padding: 5px 0;
+            text-align: center;
+            border-radius: 16px;
+            border: 1px solid #dadce0;
+            background: white;
+            font-size: 11px;
+            color: #5f6368;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+
+        .macro-chip.active {
+            background: #e8f0fe;
+            color: #1967d2;
+            border-color: #e8f0fe;
+            font-weight: 600;
+        }
     </style>
 </head>
+
 <body>
 
     <div class="controls-bar">
         <div class="view-group">
-            <div class="view-btn active" id="btn-map" onclick="switchView('map')"><span></span><span data-t="map">地圖</span></div>
-            <div class="view-btn" id="btn-list" onclick="switchView('list')"><span></span><span data-t="list">列表</span></div>
+            <div class="view-btn active" id="btn-map" onclick="switchView('map')"><span></span><span
+                    data-t="map">地圖</span></div>
+            <div class="view-btn" id="btn-list" onclick="switchView('list')"><span></span><span data-t="list">列表</span>
+            </div>
         </div>
         <div class="divider"></div>
         <div class="filter-chip icon-only" onclick="openModal('lang')">🌐</div>
@@ -209,41 +874,87 @@
 
         <div id="about-site-view" class="page-view">
             <div class="page-content">
-                <div class="page-header"><h1 data-t="aboutSiteTitle">關於網站</h1><p data-t="siteIntro"></p></div>
-                <div class="changelog-section"><h2 data-t="changelog">更新日誌</h2><div id="changelog-list"></div></div>
+                <div class="page-header">
+                    <h1 data-t="aboutSiteTitle">關於網站</h1>
+                    <p data-t="siteIntro"></p>
+                </div>
+                <div class="changelog-section">
+                    <h2 data-t="changelog">更新日誌</h2>
+                    <div id="changelog-list"></div>
+                </div>
             </div>
         </div>
 
         <div id="contact-view" class="page-view">
             <div class="page-content">
-                <div class="page-header"><h1 data-t="contactTitle">聯絡我們</h1><p data-t="teamIntro"></p></div>
+                <div class="page-header">
+                    <h1 data-t="contactTitle">聯絡我們</h1>
+                    <p data-t="teamIntro"></p>
+                </div>
                 <div class="contact-grid">
-                    <a href="#" id="mail-tech" class="contact-card"><div class="card-icon">🔧</div><div class="card-title" data-t="techSupport"></div><div class="card-desc" data-t="techDesc"></div><div class="card-btn" data-t="sendEmail"></div></a>
-                    <a href="#" id="mail-biz" class="contact-card highlight"><div class="card-icon">💼</div><div class="card-title" data-t="bizInquiry"></div><div class="card-desc" data-t="bizDesc"></div><div class="card-btn" data-t="sendEmail"></div></a>
+                    <a href="#" id="mail-tech" class="contact-card">
+                        <div class="card-icon">🔧</div>
+                        <div class="card-title" data-t="techSupport"></div>
+                        <div class="card-desc" data-t="techDesc"></div>
+                        <div class="card-btn" data-t="sendEmail"></div>
+                    </a>
+                    <a href="#" id="mail-biz" class="contact-card highlight">
+                        <div class="card-icon">💼</div>
+                        <div class="card-title" data-t="bizInquiry"></div>
+                        <div class="card-desc" data-t="bizDesc"></div>
+                        <div class="card-btn" data-t="sendEmail"></div>
+                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <div class="modal-overlay" id="overlay" onclick="closeModal()"></div>
-    <div class="modal-card" id="modal-lang"><div class="modal-header"><span data-t="selectLang">選擇語言</span><span class="header-btn" onclick="closeModal()">✕</span></div><div class="modal-body" id="lang-list"></div></div>
-    <div class="modal-card" id="modal-category"><div class="modal-header"><span class="header-btn" onclick="toggleAll('category',true)" data-t="all">全選</span><span data-t="type">類型</span><span class="header-btn" onclick="toggleAll('category',false)" data-t="none">清空</span></div><div class="modal-body" id="cat-list"></div></div>
-    <div class="modal-card" id="modal-region"><div class="modal-header"><span class="header-btn" onclick="toggleAll('region',true)" data-t="all">全選</span><span data-t="region">地區</span><span class="header-btn" onclick="toggleAll('region',false)" data-t="none">清空</span></div><div class="modal-body"><div class="macro-panel"><div class="panel-title" data-t="quickSelect">大區快捷</div><div class="chip-grid" id="macro-list"></div></div><div id="region-list"></div></div></div>
-    <div class="modal-card" id="modal-about-menu" style="width:80%;max-width:300px;"><div class="about-menu-item" onclick="switchView('contact')"><span class="about-icon">📞</span><span data-t="contactTitle">聯絡我們</span></div><div class="about-menu-item" onclick="switchView('aboutSite')"><span class="about-icon">💻</span><span data-t="aboutSiteTitle">關於網站</span></div></div>
-    <div class="modal-card" id="modal-spot-detail" style="background:transparent;box-shadow:none;padding:10px;"><div id="spot-detail-content"></div></div>
+    <div class="modal-card" id="modal-lang">
+        <div class="modal-header"><span data-t="selectLang">選擇語言</span><span class="header-btn"
+                onclick="closeModal()">✕</span></div>
+        <div class="modal-body" id="lang-list"></div>
+    </div>
+    <div class="modal-card" id="modal-category">
+        <div class="modal-header"><span class="header-btn" onclick="toggleAll('category',true)"
+                data-t="all">全選</span><span data-t="type">類型</span><span class="header-btn"
+                onclick="toggleAll('category',false)" data-t="none">清空</span></div>
+        <div class="modal-body" id="cat-list"></div>
+    </div>
+    <div class="modal-card" id="modal-region">
+        <div class="modal-header"><span class="header-btn" onclick="toggleAll('region',true)"
+                data-t="all">全選</span><span data-t="region">地區</span><span class="header-btn"
+                onclick="toggleAll('region',false)" data-t="none">清空</span></div>
+        <div class="modal-body">
+            <div class="macro-panel">
+                <div class="panel-title" data-t="quickSelect">大區快捷</div>
+                <div class="chip-grid" id="macro-list"></div>
+            </div>
+            <div id="region-list"></div>
+        </div>
+    </div>
+    <div class="modal-card" id="modal-about-menu" style="width:80%;max-width:300px;">
+        <div class="about-menu-item" onclick="switchView('contact')"><span class="about-icon">📞</span><span
+                data-t="contactTitle">聯絡我們</span></div>
+        <div class="about-menu-item" onclick="switchView('aboutSite')"><span class="about-icon">💻</span><span
+                data-t="aboutSiteTitle">關於網站</span></div>
+    </div>
+    <div class="modal-card" id="modal-spot-detail" style="background:transparent;box-shadow:none;padding:10px;">
+        <div id="spot-detail-content"></div>
+    </div>
 
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
     <script>
         /* ===== i18n ===== */
-        const i18n={map:{'zh-HK':'地圖','zh-CN':'地图',en:'Map'},list:{'zh-HK':'列表','zh-CN':'列表',en:'List'},type:{'zh-HK':'類型','zh-CN':'类型',en:'Type'},region:{'zh-HK':'地區','zh-CN':'地区',en:'Region'},all:{'zh-HK':'全選','zh-CN':'全选',en:'All'},none:{'zh-HK':'清空','zh-CN':'清空',en:'None'},quickSelect:{'zh-HK':'大區快捷','zh-CN':'大区快捷',en:'Quick Select'},selectLang:{'zh-HK':'選擇語言','zh-CN':'选择语言',en:'Language'},google:{'zh-HK':'Google 地圖','zh-CN':'Google 地图',en:'Google Maps'},amap:{'zh-HK':'高德地圖','zh-CN':'高德地图',en:'Amap'},aboutSiteTitle:{'zh-HK':'關於網站','zh-CN':'关于网站',en:'About Website'},siteIntro:{'zh-HK':'本網站旨在為旅客提供最全面的香港旅遊指南。','zh-CN':'本网站旨在为旅客提供最全面的香港旅游指南。',en:'Comprehensive Hong Kong travel guide.'},changelog:{'zh-HK':'更新日誌','zh-CN':'更新日志',en:'Changelog'},contactTitle:{'zh-HK':'聯絡我們','zh-CN':'联系我们',en:'Contact Us'},teamIntro:{'zh-HK':'我們團隊由幾個人類組成，歡迎聯絡！','zh-CN':'我们团队由几个人类组成，欢迎联系！',en:'Our team is made up of a few humans.'},techSupport:{'zh-HK':'技術支持','zh-CN':'技术支持',en:'Tech Support'},techDesc:{'zh-HK':'發現Bug或有建議？','zh-CN':'发现Bug或有建议？',en:'Found a bug?'},bizInquiry:{'zh-HK':'商業聯絡','zh-CN':'商业联络',en:'Business'},bizDesc:{'zh-HK':'合作提案或廣告投放。','zh-CN':'合作提案或广告投放。',en:'Partnerships & Ads.'},sendEmail:{'zh-HK':'發送郵件','zh-CN':'发送邮件',en:'Send Email'},subjectTech:{'zh-HK':'技術支持與反饋','zh-CN':'技术支持与反馈',en:'Tech Support'},subjectBiz:{'zh-HK':'商業合作諮詢','zh-CN':'商业合作咨询',en:'Business Inquiry'}};
+        const i18n = { map: { 'zh-HK': '地圖', 'zh-CN': '地图', en: 'Map' }, list: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' }, type: { 'zh-HK': '類型', 'zh-CN': '类型', en: 'Type' }, region: { 'zh-HK': '地區', 'zh-CN': '地区', en: 'Region' }, all: { 'zh-HK': '全選', 'zh-CN': '全选', en: 'All' }, none: { 'zh-HK': '清空', 'zh-CN': '清空', en: 'None' }, quickSelect: { 'zh-HK': '大區快捷', 'zh-CN': '大区快捷', en: 'Quick Select' }, selectLang: { 'zh-HK': '選擇語言', 'zh-CN': '选择语言', en: 'Language' }, google: { 'zh-HK': 'Google 地圖', 'zh-CN': 'Google 地图', en: 'Google Maps' }, amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' }, aboutSiteTitle: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' }, siteIntro: { 'zh-HK': '本網站旨在為旅客提供最全面的香港旅遊指南。', 'zh-CN': '本网站旨在为旅客提供最全面的香港旅游指南。', en: 'Comprehensive Hong Kong travel guide.' }, changelog: { 'zh-HK': '更新日誌', 'zh-CN': '更新日志', en: 'Changelog' }, contactTitle: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' }, teamIntro: { 'zh-HK': '我們團隊由幾個人類組成，歡迎聯絡！', 'zh-CN': '我们团队由几个人类组成，欢迎联系！', en: 'Our team is made up of a few humans.' }, techSupport: { 'zh-HK': '技術支持', 'zh-CN': '技术支持', en: 'Tech Support' }, techDesc: { 'zh-HK': '發現Bug或有建議？', 'zh-CN': '发现Bug或有建议？', en: 'Found a bug?' }, bizInquiry: { 'zh-HK': '商業聯絡', 'zh-CN': '商业联络', en: 'Business' }, bizDesc: { 'zh-HK': '合作提案或廣告投放。', 'zh-CN': '合作提案或广告投放。', en: 'Partnerships & Ads.' }, sendEmail: { 'zh-HK': '發送郵件', 'zh-CN': '发送邮件', en: 'Send Email' }, subjectTech: { 'zh-HK': '技術支持與反饋', 'zh-CN': '技术支持与反馈', en: 'Tech Support' }, subjectBiz: { 'zh-HK': '商業合作諮詢', 'zh-CN': '商业合作咨询', en: 'Business Inquiry' } };
 
         /* ===== 版本記錄 ===== */
-        const versions=[{id:'v1.1.0',date:'2030-02-10',updates:[{'zh-HK':'初始版本','zh-CN':'初始版本',en:'Initial Version'}]},{id:'v1.1.1',date:'',updates:[{'zh-HK':'新增 AI 行程規劃功能','zh-CN':'新增 AI 行程规划功能',en:'Added AI Trip Planner'},{'zh-HK':'新增行程儲存功能','zh-CN':'新增行程保存功能',en:'Added Trip Saving'},{'zh-HK':'新增景點評分功能','zh-CN':'新增景点评分功能',en:'Added Attraction Ratings'},{'zh-HK':'新增景點收藏功能','zh-CN':'新增景点收藏功能',en:'Added Attraction Bookmarking'},{'zh-HK':'新增景點圖片上傳功能','zh-CN':'新增景点图片上传功能',en:'Added Photo Uploads'},{'zh-HK':'新增景點投稿功能','zh-CN':'新增景点投稿功能',en:'Added New Attraction Submission'}]}];
+        const versions = [{ id: 'v1.1.0', date: '2030-02-10', updates: [{ 'zh-HK': '初始版本', 'zh-CN': '初始版本', en: 'Initial Version' }] }, { id: 'v1.1.1', date: '', updates: [{ 'zh-HK': '新增 AI 行程規劃功能', 'zh-CN': '新增 AI 行程规划功能', en: 'Added AI Trip Planner' }, { 'zh-HK': '新增行程儲存功能', 'zh-CN': '新增行程保存功能', en: 'Added Trip Saving' }, { 'zh-HK': '新增景點評分功能', 'zh-CN': '新增景点评分功能', en: 'Added Attraction Ratings' }, { 'zh-HK': '新增景點收藏功能', 'zh-CN': '新增景点收藏功能', en: 'Added Attraction Bookmarking' }, { 'zh-HK': '新增景點圖片上傳功能', 'zh-CN': '新增景点图片上传功能', en: 'Added Photo Uploads' }, { 'zh-HK': '新增景點投稿功能', 'zh-CN': '新增景点投稿功能', en: 'Added New Attraction Submission' }] }];
 
         /* ===== 數據定義 ===== */
-        const files=[{id:'film',file:'film.json',color:'#FF6D00',label:{'zh-HK':'影視取景','zh-CN':'影视取景',en:'Film'}},{id:'landmark',file:'landmark.json',color:'#0F9D58',label:{'zh-HK':'地標建築','zh-CN':'地标建筑',en:'Landmark'}},{id:'nightlife',file:'nightlife.json',color:'#673AB7',label:{'zh-HK':'夜生活','zh-CN':'夜生活',en:'Nightlife'}},{id:'modern',file:'modern.json',color:'#4285F4',label:{'zh-HK':'現代景觀','zh-CN':'现代景观',en:'Modern'}},{id:'heritage',file:'heritage.json',color:'#DB4437',label:{'zh-HK':'歷史文化','zh-CN':'历史文化',en:'Heritage'}},{id:'indoor',file:'indoor.json',color:'#F4B400',label:{'zh-HK':'室內娛樂','zh-CN':'室内娱乐',en:'Indoor'}},{id:'outdoor',file:'outdoor.json',color:'#795548',label:{'zh-HK':'自然郊遊','zh-CN':'自然郊游',en:'Outdoor'}},{id:'themepark',file:'themepark.json',color:'#E91E63',label:{'zh-HK':'主題樂園','zh-CN':'主题乐园',en:'Theme Park'}},{id:'game',file:'game.json',color:'#00BCD4',label:{'zh-HK':'運動競技','zh-CN':'运动竞技',en:'Sports'}}];
-        const regions=[{id:'central-and-western',m:'hk',n:{'zh-HK':'中西區','zh-CN':'中西区',en:'Central & Western'}},{id:'eastern',m:'hk',n:{'zh-HK':'東區','zh-CN':'东区',en:'Eastern'}},{id:'southern',m:'hk',n:{'zh-HK':'南區','zh-CN':'南区',en:'Southern'}},{id:'wan-chai',m:'hk',n:{'zh-HK':'灣仔','zh-CN':'湾仔',en:'Wan Chai'}},{id:'kowloon-city',m:'kln',n:{'zh-HK':'九龍城','zh-CN':'九龙城',en:'Kowloon City'}},{id:'kwun-tong',m:'kln',n:{'zh-HK':'觀塘','zh-CN':'观塘',en:'Kwun Tong'}},{id:'sham-shui-po',m:'kln',n:{'zh-HK':'深水埗','zh-CN':'深水埗',en:'Sham Shui Po'}},{id:'wong-tai-sin',m:'kln',n:{'zh-HK':'黃大仙','zh-CN':'黄大仙',en:'Wong Tai Sin'}},{id:'yau-tsim-mong',m:'kln',n:{'zh-HK':'油尖旺','zh-CN':'油尖旺',en:'Yau Tsim Mong'}},{id:'islands',m:'isl',n:{'zh-HK':'離島','zh-CN':'离岛',en:'Islands'}},{id:'kwai-tsing',m:'nt',n:{'zh-HK':'葵青','zh-CN':'葵青',en:'Kwai Tsing'}},{id:'north',m:'nt',n:{'zh-HK':'北區','zh-CN':'北区',en:'North'}},{id:'sha-tin',m:'nt',n:{'zh-HK':'沙田','zh-CN':'沙田',en:'Sha Tin'}},{id:'tai-po',m:'nt',n:{'zh-HK':'大埔','zh-CN':'大埔',en:'Tai Po'}},{id:'tsuen-wan',m:'nt',n:{'zh-HK':'荃灣','zh-CN':'荃湾',en:'Tsuen Wan'}},{id:'tuen-mun',m:'nt',n:{'zh-HK':'屯門','zh-CN':'屯门',en:'Tuen Mun'}},{id:'yuen-long',m:'nt',n:{'zh-HK':'元朗','zh-CN':'元朗',en:'Yuen Long'}},{id:'sai-kung',m:'nt',n:{'zh-HK':'西貢','zh-CN':'西贡',en:'Sai Kung'}}];
-        const macros=[{id:'hk',n:{'zh-HK':'港島','zh-CN':'港岛',en:'HK Island'}},{id:'kln',n:{'zh-HK':'九龍','zh-CN':'九龙',en:'Kowloon'}},{id:'nt',n:{'zh-HK':'新界','zh-CN':'新界',en:'New Territories'}},{id:'isl',n:{'zh-HK':'離島','zh-CN':'离岛',en:'Islands'}}];
+        const files = [{ id: 'film', file: 'film.json', color: '#FF6D00', label: { 'zh-HK': '影視取景', 'zh-CN': '影视取景', en: 'Film' } }, { id: 'landmark', file: 'landmark.json', color: '#0F9D58', label: { 'zh-HK': '地標建築', 'zh-CN': '地标建筑', en: 'Landmark' } }, { id: 'nightlife', file: 'nightlife.json', color: '#673AB7', label: { 'zh-HK': '夜生活', 'zh-CN': '夜生活', en: 'Nightlife' } }, { id: 'modern', file: 'modern.json', color: '#4285F4', label: { 'zh-HK': '現代景觀', 'zh-CN': '现代景观', en: 'Modern' } }, { id: 'heritage', file: 'heritage.json', color: '#DB4437', label: { 'zh-HK': '歷史文化', 'zh-CN': '历史文化', en: 'Heritage' } }, { id: 'indoor', file: 'indoor.json', color: '#F4B400', label: { 'zh-HK': '室內娛樂', 'zh-CN': '室内娱乐', en: 'Indoor' } }, { id: 'outdoor', file: 'outdoor.json', color: '#795548', label: { 'zh-HK': '自然郊遊', 'zh-CN': '自然郊游', en: 'Outdoor' } }, { id: 'themepark', file: 'themepark.json', color: '#E91E63', label: { 'zh-HK': '主題樂園', 'zh-CN': '主题乐园', en: 'Theme Park' } }, { id: 'game', file: 'game.json', color: '#00BCD4', label: { 'zh-HK': '運動競技', 'zh-CN': '运动竞技', en: 'Sports' } }];
+        const regions = [{ id: 'central-and-western', m: 'hk', n: { 'zh-HK': '中西區', 'zh-CN': '中西区', en: 'Central & Western' } }, { id: 'eastern', m: 'hk', n: { 'zh-HK': '東區', 'zh-CN': '东区', en: 'Eastern' } }, { id: 'southern', m: 'hk', n: { 'zh-HK': '南區', 'zh-CN': '南区', en: 'Southern' } }, { id: 'wan-chai', m: 'hk', n: { 'zh-HK': '灣仔', 'zh-CN': '湾仔', en: 'Wan Chai' } }, { id: 'kowloon-city', m: 'kln', n: { 'zh-HK': '九龍城', 'zh-CN': '九龙城', en: 'Kowloon City' } }, { id: 'kwun-tong', m: 'kln', n: { 'zh-HK': '觀塘', 'zh-CN': '观塘', en: 'Kwun Tong' } }, { id: 'sham-shui-po', m: 'kln', n: { 'zh-HK': '深水埗', 'zh-CN': '深水埗', en: 'Sham Shui Po' } }, { id: 'wong-tai-sin', m: 'kln', n: { 'zh-HK': '黃大仙', 'zh-CN': '黄大仙', en: 'Wong Tai Sin' } }, { id: 'yau-tsim-mong', m: 'kln', n: { 'zh-HK': '油尖旺', 'zh-CN': '油尖旺', en: 'Yau Tsim Mong' } }, { id: 'islands', m: 'isl', n: { 'zh-HK': '離島', 'zh-CN': '离岛', en: 'Islands' } }, { id: 'kwai-tsing', m: 'nt', n: { 'zh-HK': '葵青', 'zh-CN': '葵青', en: 'Kwai Tsing' } }, { id: 'north', m: 'nt', n: { 'zh-HK': '北區', 'zh-CN': '北区', en: 'North' } }, { id: 'sha-tin', m: 'nt', n: { 'zh-HK': '沙田', 'zh-CN': '沙田', en: 'Sha Tin' } }, { id: 'tai-po', m: 'nt', n: { 'zh-HK': '大埔', 'zh-CN': '大埔', en: 'Tai Po' } }, { id: 'tsuen-wan', m: 'nt', n: { 'zh-HK': '荃灣', 'zh-CN': '荃湾', en: 'Tsuen Wan' } }, { id: 'tuen-mun', m: 'nt', n: { 'zh-HK': '屯門', 'zh-CN': '屯门', en: 'Tuen Mun' } }, { id: 'yuen-long', m: 'nt', n: { 'zh-HK': '元朗', 'zh-CN': '元朗', en: 'Yuen Long' } }, { id: 'sai-kung', m: 'nt', n: { 'zh-HK': '西貢', 'zh-CN': '西贡', en: 'Sai Kung' } }];
+        const macros = [{ id: 'hk', n: { 'zh-HK': '港島', 'zh-CN': '港岛', en: 'HK Island' } }, { id: 'kln', n: { 'zh-HK': '九龍', 'zh-CN': '九龙', en: 'Kowloon' } }, { id: 'nt', n: { 'zh-HK': '新界', 'zh-CN': '新界', en: 'New Territories' } }, { id: 'isl', n: { 'zh-HK': '離島', 'zh-CN': '离岛', en: 'Islands' } }];
 
         const hkBounds = [[113.76, 22.13], [114.50, 22.57]];
         const extendedBounds = [[113.70, 22.10], [114.60, 22.65]];
@@ -259,7 +970,7 @@
             if (/^(https?:)?\/\//i.test(img) || img.startsWith('data:')) return img;
             return encodeURI(IMAGE_BASE + img);
         }
-        function sanitizeFileBase(s) { return (s||'').replace(/[\\/:*?"<>|]/g,'').trim(); }
+        function sanitizeFileBase(s) { return (s || '').replace(/[\\/:*?"<>|]/g, '').trim(); }
         function buildAutoImageUrlsByEnName(enName) {
             const base = sanitizeFileBase(enName);
             if (!base) return [];
@@ -267,23 +978,23 @@
             for (let i = 2; i <= MAX_AUTO_IMAGES; i++) urls.push(resolveImageUrl(`${base}(${i})${IMAGE_EXT}`));
             return urls;
         }
-        function hydratePopupImages(spotData, token, isModal=false) {
+        function hydratePopupImages(spotData, token, isModal = false) {
             const container = isModal ? document.getElementById('spot-detail-content') : activePopup?.getElement?.();
             if (!container) return;
             const strip = container.querySelector('.popup-img-strip');
             const spinner = container.querySelector('.spinner');
             if (!strip || !spinner) return;
             const urls = buildAutoImageUrlsByEnName(spotData?.name?.en || '');
-            if (!urls.length) { spinner.style.display='none'; return; }
+            if (!urls.length) { spinner.style.display = 'none'; return; }
             let loadedAny = false, idx = 0;
             const loadNext = () => {
                 if (token !== popupLoadToken) return;
-                if (idx >= urls.length) { if (!loadedAny) spinner.style.display='none'; return; }
+                if (idx >= urls.length) { if (!loadedAny) spinner.style.display = 'none'; return; }
                 const url = urls[idx++];
                 const img = new Image();
                 img.decoding = 'async';
                 img.alt = spotData?.name?.en || '';
-                img.onload = () => { if (token !== popupLoadToken) return; loadedAny=true; spinner.style.display='none'; strip.appendChild(img); loadNext(); };
+                img.onload = () => { if (token !== popupLoadToken) return; loadedAny = true; spinner.style.display = 'none'; strip.appendChild(img); loadNext(); };
                 img.onerror = () => { if (token !== popupLoadToken) return; loadNext(); };
                 img.src = url;
             };
@@ -291,88 +1002,88 @@
         }
 
         /* ===== 狀態變數 ===== */
-        let map, allData=[], filteredData=[], markers=[], curLang='zh-HK';
-        let selCats=files.map(f=>f.id), selRegs=regions.map(r=>r.id);
-        let lastCenter=null, lastZoom=null, activePopup=null, currentSpotData=null, hoverPopup=null;
+        let map, allData = [], filteredData = [], markers = [], curLang = 'zh-HK';
+        let selCats = files.map(f => f.id), selRegs = regions.map(r => r.id);
+        let lastCenter = null, lastZoom = null, activePopup = null, currentSpotData = null, hoverPopup = null;
 
-        try { const s=navigator.language.toLowerCase(); curLang=s==='zh-cn'||s==='zh-sg'?'zh-CN':s.startsWith('zh')?'zh-HK':'en'; } catch(e){}
+        try { const s = navigator.language.toLowerCase(); curLang = s === 'zh-cn' || s === 'zh-sg' ? 'zh-CN' : s.startsWith('zh') ? 'zh-HK' : 'en'; } catch (e) { }
 
         window.onload = async () => { initMap(); await loadData(); updateUI(); makeDraggable(document.getElementById('legend-drag')); };
 
         /* ===== 地圖初始化 ===== */
         function initMap() {
-            map = new maplibregl.Map({ container:'map', style:'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center:[114.1694,22.3193], zoom:11, maxZoom:22, maxBounds:hkBounds, attributionControl:false });
-            map.addControl(new maplibregl.NavigationControl({ showCompass:true, visualizePitch:true }), 'top-right');
+            map = new maplibregl.Map({ container: 'map', style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center: [114.1694, 22.3193], zoom: 11, maxZoom: 22, maxBounds: hkBounds, attributionControl: false });
+            map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
             map.on('click', () => closePopup());
         }
 
         /* ===== 數據加載 ===== */
         async function loadData() {
-            const res = await Promise.all(files.map(f => fetch(f.file).then(r=>r.json()).then(d=>d.map(x=>({...x,cat:f.id}))).catch(()=>[])));
+            const res = await Promise.all(files.map(f => fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => [])));
             allData = res.flat(); filterData();
         }
-        function filterData() { filteredData = allData.filter(d=>selCats.includes(d.cat)&&selRegs.includes(d.region)); renderMarkers(); renderList(); }
+        function filterData() { filteredData = allData.filter(d => selCats.includes(d.cat) && selRegs.includes(d.region)); renderMarkers(); renderList(); }
 
         /* ===== Markers ===== */
         function renderMarkers() {
-            markers.forEach(m=>m.remove()); markers=[];
+            markers.forEach(m => m.remove()); markers = [];
             filteredData.forEach(d => {
-                const conf = files.find(f=>f.id===d.cat);
+                const conf = files.find(f => f.id === d.cat);
                 const el = document.createElement('div');
                 el.style.cssText = `background-image:url(${getPin(conf.color)});width:42px;height:42px;background-size:contain;cursor:pointer;pointer-events:auto;`;
-                let startX, startY, isDrag=false, clickTimer=null;
-                el.addEventListener('touchstart', e=>{ startX=e.touches[0].clientX; startY=e.touches[0].clientY; isDrag=false; }, {passive:true});
-                el.addEventListener('touchmove', e=>{ if(Math.abs(e.touches[0].clientX-startX)>5||Math.abs(e.touches[0].clientY-startY)>5) isDrag=true; }, {passive:true});
-                el.addEventListener('mouseenter', ()=>{
-                    const name=d.name[curLang]||d.name.en;
-                    if(hoverPopup) hoverPopup.remove();
-                    hoverPopup = new maplibregl.Popup({closeButton:false,closeOnClick:false,offset:[0,-35],className:'hover-popup-container'}).setLngLat([d.lng,d.lat]).setHTML(`<div class="hover-label">${name}</div>`).addTo(map);
+                let startX, startY, isDrag = false, clickTimer = null;
+                el.addEventListener('touchstart', e => { startX = e.touches[0].clientX; startY = e.touches[0].clientY; isDrag = false; }, { passive: true });
+                el.addEventListener('touchmove', e => { if (Math.abs(e.touches[0].clientX - startX) > 5 || Math.abs(e.touches[0].clientY - startY) > 5) isDrag = true; }, { passive: true });
+                el.addEventListener('mouseenter', () => {
+                    const name = d.name[curLang] || d.name.en;
+                    if (hoverPopup) hoverPopup.remove();
+                    hoverPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: [0, -35], className: 'hover-popup-container' }).setLngLat([d.lng, d.lat]).setHTML(`<div class="hover-label">${name}</div>`).addTo(map);
                 });
-                el.addEventListener('mouseleave', ()=>{ if(hoverPopup){hoverPopup.remove();hoverPopup=null;} });
+                el.addEventListener('mouseleave', () => { if (hoverPopup) { hoverPopup.remove(); hoverPopup = null; } });
                 const handleAction = (isDouble) => {
-                    if(!activePopup){lastCenter=map.getCenter();lastZoom=map.getZoom();}
-                    if(isDouble){ map.setMaxBounds(hkBounds); map.easeTo({center:[d.lng,d.lat],zoom:15,duration:600}); }
-                    else { map.setMaxBounds(extendedBounds); map.easeTo({center:[d.lng,d.lat],zoom:map.getZoom(),offset:[0,150],duration:500}); }
+                    if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
+                    if (isDouble) { map.setMaxBounds(hkBounds); map.easeTo({ center: [d.lng, d.lat], zoom: 15, duration: 600 }); }
+                    else { map.setMaxBounds(extendedBounds); map.easeTo({ center: [d.lng, d.lat], zoom: map.getZoom(), offset: [0, 150], duration: 500 }); }
                     showPopup(d, conf.color);
                 };
                 const clickHandler = e => {
-                    if(isDrag) return; e.stopPropagation(); e.preventDefault();
-                    if(clickTimer){clearTimeout(clickTimer);clickTimer=null;handleAction(true);}
-                    else{clickTimer=setTimeout(()=>{clickTimer=null;handleAction(false);},300);}
+                    if (isDrag) return; e.stopPropagation(); e.preventDefault();
+                    if (clickTimer) { clearTimeout(clickTimer); clickTimer = null; handleAction(true); }
+                    else { clickTimer = setTimeout(() => { clickTimer = null; handleAction(false); }, 300); }
                 };
                 el.addEventListener('touchend', clickHandler);
                 el.addEventListener('click', clickHandler);
-                markers.push(new maplibregl.Marker({element:el,anchor:'bottom'}).setLngLat([d.lng,d.lat]).addTo(map));
+                markers.push(new maplibregl.Marker({ element: el, anchor: 'bottom' }).setLngLat([d.lng, d.lat]).addTo(map));
             });
         }
 
         /* ===== 視圖切換 ===== */
         function switchView(mode) {
             closeModal();
-            ['map','list-view','about-site-view','contact-view'].forEach(v=>document.getElementById(v).style.display='none');
-            document.querySelector('.legend-group').style.display='none';
-            document.getElementById('btn-map').className='view-btn';
-            document.getElementById('btn-list').className='view-btn';
-            if(mode==='map'){ document.getElementById('map').style.display='block'; document.querySelector('.legend-group').style.display='flex'; document.getElementById('btn-map').className='view-btn active'; map.resize(); }
-            else if(mode==='list'){ document.getElementById('list-view').style.display='block'; document.getElementById('btn-list').className='view-btn active'; }
-            else if(mode==='aboutSite') document.getElementById('about-site-view').style.display='block';
-            else if(mode==='contact') document.getElementById('contact-view').style.display='block';
+            ['map', 'list-view', 'about-site-view', 'contact-view'].forEach(v => document.getElementById(v).style.display = 'none');
+            document.querySelector('.legend-group').style.display = 'none';
+            document.getElementById('btn-map').className = 'view-btn';
+            document.getElementById('btn-list').className = 'view-btn';
+            if (mode === 'map') { document.getElementById('map').style.display = 'block'; document.querySelector('.legend-group').style.display = 'flex'; document.getElementById('btn-map').className = 'view-btn active'; map.resize(); }
+            else if (mode === 'list') { document.getElementById('list-view').style.display = 'block'; document.getElementById('btn-list').className = 'view-btn active'; }
+            else if (mode === 'aboutSite') document.getElementById('about-site-view').style.display = 'block';
+            else if (mode === 'contact') document.getElementById('contact-view').style.display = 'block';
         }
 
         /* ===== UI 更新 ===== */
         function updateUI() {
-            document.querySelectorAll('[data-t]').forEach(el=>{ const k=el.getAttribute('data-t'); if(i18n[k]) el.innerText=i18n[k][curLang]; });
+            document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); if (i18n[k]) el.innerText = i18n[k][curLang]; });
             renderLangList(); renderCatList(); renderRegionList(); renderLegend(); renderList(); renderChangelog();
-            document.getElementById('mail-tech').href=`mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectTech[curLang])}`;
-            document.getElementById('mail-biz').href=`mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectBiz[curLang])}`;
+            document.getElementById('mail-tech').href = `mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectTech[curLang])}`;
+            document.getElementById('mail-biz').href = `mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectBiz[curLang])}`;
         }
 
         /* ===== 卡片 HTML ===== */
         function generateCardHTML(d, c, p) {
-            const n = d.name[curLang]||d.name.en;
-            const de = d.description[curLang]||'';
-            const cn = files.find(f=>f.id===d.cat).label[curLang];
-            const q = encodeURIComponent(n+' Hong Kong');
+            const n = d.name[curLang] || d.name.en;
+            const de = d.description[curLang] || '';
+            const cn = files.find(f => f.id === d.cat).label[curLang];
+            const q = encodeURIComponent(n + ' Hong Kong');
             const cb = p ? `<div class="close-popup-btn" onclick="closePopup()">✕</div>` : `<div class="close-popup-btn" onclick="closeModal()">✕</div>`;
             return `<div class="detail-card">
                 <div class="popup-media">${cb}<div class="spinner"></div><div class="popup-img-strip"></div></div>
@@ -390,41 +1101,41 @@
 
         /* ===== Popup ===== */
         function showPopup(d, c) {
-            currentSpotData = {d, c, isPopup:true};
-            if(activePopup) activePopup.remove();
+            currentSpotData = { d, c, isPopup: true };
+            if (activePopup) activePopup.remove();
             popupLoadToken++;
             const token = popupLoadToken;
-            activePopup = new maplibregl.Popup({closeButton:false, maxWidth:'none'})
+            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: 'none' })
                 .setLngLat([d.lng, d.lat])
                 .setHTML(generateCardHTML(d, c, true))
                 .addTo(map);
-            requestAnimationFrame(()=>hydratePopupImages(d, token, false));
+            requestAnimationFrame(() => hydratePopupImages(d, token, false));
         }
         function showListModal(d) {
-            currentSpotData = {d, c:files.find(f=>f.id===d.cat).color, isPopup:false};
+            currentSpotData = { d, c: files.find(f => f.id === d.cat).color, isPopup: false };
             popupLoadToken++;
             const token = popupLoadToken;
             document.getElementById('spot-detail-content').innerHTML = generateCardHTML(d, currentSpotData.c, false);
             openModal('spot-detail');
-            requestAnimationFrame(()=>hydratePopupImages(d, token, true));
+            requestAnimationFrame(() => hydratePopupImages(d, token, true));
         }
         window.closePopup = () => {
-            currentSpotData=null; popupLoadToken++;
-            if(activePopup){ activePopup.remove(); activePopup=null; map.setMaxBounds(hkBounds); if(lastCenter){map.easeTo({center:lastCenter,zoom:lastZoom,offset:[0,0],duration:600});lastCenter=null;} }
+            currentSpotData = null; popupLoadToken++;
+            if (activePopup) { activePopup.remove(); activePopup = null; map.setMaxBounds(hkBounds); if (lastCenter) { map.easeTo({ center: lastCenter, zoom: lastZoom, offset: [0, 0], duration: 600 }); lastCenter = null; } }
         };
 
         /* ===== 圖例 ===== */
         function toggleLegend(show) {
-            const legend=document.getElementById('legend-drag');
-            const card=document.getElementById('legend-card');
-            const btn=document.getElementById('legend-btn');
-            if(show) {
-                const isRightSide = legend.offsetLeft > window.innerWidth/2;
-                if(isRightSide){ legend.classList.add('expand-left'); legend.style.right=(window.innerWidth-legend.offsetLeft-legend.offsetWidth)+'px'; legend.style.left='auto'; }
-                else{ legend.classList.remove('expand-left'); legend.style.left=legend.offsetLeft+'px'; legend.style.right='auto'; }
+            const legend = document.getElementById('legend-drag');
+            const card = document.getElementById('legend-card');
+            const btn = document.getElementById('legend-btn');
+            if (show) {
+                const isRightSide = legend.offsetLeft > window.innerWidth / 2;
+                if (isRightSide) { legend.classList.add('expand-left'); legend.style.right = (window.innerWidth - legend.offsetLeft - legend.offsetWidth) + 'px'; legend.style.left = 'auto'; }
+                else { legend.classList.remove('expand-left'); legend.style.left = legend.offsetLeft + 'px'; legend.style.right = 'auto'; }
             }
-            card.style.display=show?'block':'none';
-            btn.style.display=show?'none':'flex';
+            card.style.display = show ? 'block' : 'none';
+            btn.style.display = show ? 'none' : 'flex';
         }
 
         /* ===== Legend Dock 輔助函數 ===== */
@@ -438,44 +1149,44 @@
 
         /* ===== 渲染列表 ===== */
         function renderLangList() {
-            const l=document.getElementById('lang-list'); l.innerHTML='';
-            [{c:'zh-HK',n:'繁體中文'},{c:'zh-CN',n:'简体中文'},{c:'en',n:'English'}].forEach(x=>{
-                const d=document.createElement('div'); d.className=`menu-row ${curLang===x.c?'checked':''}`;
-                d.innerHTML=`<div class="row-left"><div class="checkbox"></div>${x.n}</div>`;
-                d.onclick=()=>{ curLang=x.c; updateUI(); if(currentSpotData){if(currentSpotData.isPopup)showPopup(currentSpotData.d,currentSpotData.c);else showListModal(currentSpotData.d);} closeModal(); };
+            const l = document.getElementById('lang-list'); l.innerHTML = '';
+            [{ c: 'zh-HK', n: '繁體中文' }, { c: 'zh-CN', n: '简体中文' }, { c: 'en', n: 'English' }].forEach(x => {
+                const d = document.createElement('div'); d.className = `menu-row ${curLang === x.c ? 'checked' : ''}`;
+                d.innerHTML = `<div class="row-left"><div class="checkbox"></div>${x.n}</div>`;
+                d.onclick = () => { curLang = x.c; updateUI(); if (currentSpotData) { if (currentSpotData.isPopup) showPopup(currentSpotData.d, currentSpotData.c); else showListModal(currentSpotData.d); } closeModal(); };
                 l.appendChild(d);
             });
         }
         function renderCatList() {
-            const l=document.getElementById('cat-list'); l.innerHTML='';
-            files.forEach(f=>{ const d=document.createElement('div'); d.className=`menu-row ${selCats.includes(f.id)?'checked':''}`; d.innerHTML=`<div class="row-left"><div class="checkbox"></div><span>${f.label[curLang]}</span></div>`; d.onclick=()=>{ selCats.includes(f.id)?selCats=selCats.filter(x=>x!==f.id):selCats.push(f.id); filterData(); updateUI(); }; l.appendChild(d); });
+            const l = document.getElementById('cat-list'); l.innerHTML = '';
+            files.forEach(f => { const d = document.createElement('div'); d.className = `menu-row ${selCats.includes(f.id) ? 'checked' : ''}`; d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${f.label[curLang]}</span></div>`; d.onclick = () => { selCats.includes(f.id) ? selCats = selCats.filter(x => x !== f.id) : selCats.push(f.id); filterData(); updateUI(); }; l.appendChild(d); });
         }
         function renderRegionList() {
-            const mc=document.getElementById('macro-list'); mc.innerHTML='';
-            macros.forEach(m=>{ const d=document.createElement('div'); d.className='macro-chip'; d.innerText=m.n[curLang]; if(regions.filter(r=>r.m===m.id).map(r=>r.id).every(id=>selRegs.includes(id))) d.classList.add('active'); d.onclick=()=>{ const s=regions.filter(r=>r.m===m.id).map(r=>r.id); const a=s.every(x=>selRegs.includes(x)); selRegs=a?selRegs.filter(x=>!s.includes(x)):[...new Set([...selRegs,...s])]; filterData(); updateUI(); }; mc.appendChild(d); });
-            const rl=document.getElementById('region-list'); rl.innerHTML='';
-            regions.forEach(r=>{ const d=document.createElement('div'); d.className=`menu-row ${selRegs.includes(r.id)?'checked':''}`; d.innerHTML=`<div class="row-left"><div class="checkbox"></div><span>${r.n[curLang]}</span></div>`; d.onclick=()=>{ selRegs.includes(r.id)?selRegs=selRegs.filter(x=>x!==r.id):selRegs.push(r.id); filterData(); updateUI(); }; rl.appendChild(d); });
+            const mc = document.getElementById('macro-list'); mc.innerHTML = '';
+            macros.forEach(m => { const d = document.createElement('div'); d.className = 'macro-chip'; d.innerText = m.n[curLang]; if (regions.filter(r => r.m === m.id).map(r => r.id).every(id => selRegs.includes(id))) d.classList.add('active'); d.onclick = () => { const s = regions.filter(r => r.m === m.id).map(r => r.id); const a = s.every(x => selRegs.includes(x)); selRegs = a ? selRegs.filter(x => !s.includes(x)) : [...new Set([...selRegs, ...s])]; filterData(); updateUI(); }; mc.appendChild(d); });
+            const rl = document.getElementById('region-list'); rl.innerHTML = '';
+            regions.forEach(r => { const d = document.createElement('div'); d.className = `menu-row ${selRegs.includes(r.id) ? 'checked' : ''}`; d.innerHTML = `<div class="row-left"><div class="checkbox"></div><span>${r.n[curLang]}</span></div>`; d.onclick = () => { selRegs.includes(r.id) ? selRegs = selRegs.filter(x => x !== r.id) : selRegs.push(r.id); filterData(); updateUI(); }; rl.appendChild(d); });
         }
         function renderChangelog() {
-            const c=document.getElementById('changelog-list'); c.innerHTML='';
-            versions.forEach((v,i)=>{ const ver=document.createElement('div'); ver.className='log-item'; let updates=''; v.updates.forEach(u=>updates+=`<li>${u[curLang]||u.en}</li>`); ver.innerHTML=`<div class="version-badge" style="background:${i===0?'#e3f2fd':'#f5f5f5'};color:${i===0?'#1976d2':'#666'}">${v.id}</div><div class="log-content"><div class="log-date">${v.date}</div><ul>${updates}</ul></div>`; c.appendChild(ver); });
+            const c = document.getElementById('changelog-list'); c.innerHTML = '';
+            versions.forEach((v, i) => { const ver = document.createElement('div'); ver.className = 'log-item'; let updates = ''; v.updates.forEach(u => updates += `<li>${u[curLang] || u.en}</li>`); ver.innerHTML = `<div class="version-badge" style="background:${i === 0 ? '#e3f2fd' : '#f5f5f5'};color:${i === 0 ? '#1976d2' : '#666'}">${v.id}</div><div class="log-content"><div class="log-date">${v.date}</div><ul>${updates}</ul></div>`; c.appendChild(ver); });
         }
         function renderList() {
-            const con=document.getElementById('list-view'); con.innerHTML='';
-            filteredData.forEach(d=>{ const conf=files.find(f=>f.id===d.cat), reg=regions.find(r=>r.id===d.region); const card=document.createElement('div'); card.className='list-card'; const imgUrl=buildAutoImageUrlsByEnName(d.name.en)[0]||''; card.onclick=()=>showListModal(d); card.innerHTML=`<div class="list-img"><img src="${imgUrl}" onerror="this.style.display='none'" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"></div><div class="list-content"><div class="list-title">${d.name[curLang]||d.name.en}</div><div class="list-tags"><span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span><span class="tag reg">${reg?reg.n[curLang]:''}</span></div><div class="list-desc">${d.description[curLang]||''}</div></div>`; con.appendChild(card); });
+            const con = document.getElementById('list-view'); con.innerHTML = '';
+            filteredData.forEach(d => { const conf = files.find(f => f.id === d.cat), reg = regions.find(r => r.id === d.region); const card = document.createElement('div'); card.className = 'list-card'; const imgUrl = buildAutoImageUrlsByEnName(d.name.en)[0] || ''; card.onclick = () => showListModal(d); card.innerHTML = `<div class="list-img"><img src="${imgUrl}" onerror="this.style.display='none'" style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;"></div><div class="list-content"><div class="list-title">${d.name[curLang] || d.name.en}</div><div class="list-tags"><span class="tag" style="background:${conf.color}">${conf.label[curLang]}</span><span class="tag reg">${reg ? reg.n[curLang] : ''}</span></div><div class="list-desc">${d.description[curLang] || ''}</div></div>`; con.appendChild(card); });
         }
         function renderLegend() {
-            const c=document.getElementById('legend-content'); c.innerHTML='';
-            files.forEach(f=>{ const d=document.createElement('div'); d.className='legend-item'; d.innerHTML=`<div class="legend-dot" style="background:${f.color}"></div>${f.label[curLang]}`; c.appendChild(d); });
+            const c = document.getElementById('legend-content'); c.innerHTML = '';
+            files.forEach(f => { const d = document.createElement('div'); d.className = 'legend-item'; d.innerHTML = `<div class="legend-dot" style="background:${f.color}"></div>${f.label[curLang]}`; c.appendChild(d); });
         }
 
         /* ===== Modals ===== */
-        function openModal(id) { document.getElementById('overlay').classList.add('show'); document.querySelectorAll('.modal-card').forEach(e=>e.classList.remove('show')); document.getElementById('modal-'+id).classList.add('show'); }
-        window.closeModal = () => { document.getElementById('overlay').classList.remove('show'); document.querySelectorAll('.modal-card').forEach(e=>e.classList.remove('show')); };
-        function toggleAll(t, v) { if(t==='category') selCats=v?files.map(f=>f.id):[]; if(t==='region') selRegs=v?regions.map(r=>r.id):[]; filterData(); updateUI(); }
+        function openModal(id) { document.getElementById('overlay').classList.add('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); document.getElementById('modal-' + id).classList.add('show'); }
+        window.closeModal = () => { document.getElementById('overlay').classList.remove('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); };
+        function toggleAll(t, v) { if (t === 'category') selCats = v ? files.map(f => f.id) : []; if (t === 'region') selRegs = v ? regions.map(r => r.id) : []; filterData(); updateUI(); }
 
         /* ===== Marker Pin ===== */
-        function getPin(c) { const x=document.createElement('canvas');x.width=64;x.height=64;const z=x.getContext('2d');z.fillStyle=c;z.beginPath();z.arc(32,24,20,0,Math.PI*2);z.fill();z.beginPath();z.moveTo(12,24);z.lineTo(32,60);z.lineTo(52,24);z.fill();z.fillStyle='white';z.beginPath();z.arc(32,24,8,0,Math.PI*2);z.fill();return x.toDataURL(); }
+        function getPin(c) { const x = document.createElement('canvas'); x.width = 64; x.height = 64; const z = x.getContext('2d'); z.fillStyle = c; z.beginPath(); z.arc(32, 24, 20, 0, Math.PI * 2); z.fill(); z.beginPath(); z.moveTo(12, 24); z.lineTo(32, 60); z.lineTo(52, 24); z.fill(); z.fillStyle = 'white'; z.beginPath(); z.arc(32, 24, 8, 0, Math.PI * 2); z.fill(); return x.toDataURL(); }
 
         /* ===== 🔥 可拖拽圖例（貼近 bar 自動 dock + 橫向展開）===== */
         function makeDraggable(el) {
@@ -485,24 +1196,24 @@
             const onMove = (clientX, clientY) => {
                 if (!isDragging) return;
                 let newLeft = initialLeft + (clientX - startX);
-                let newTop  = initialTop  + (clientY - startY);
+                let newTop = initialTop + (clientY - startY);
 
-                const barBottom   = getBarBottom();
-                const TOP_LIMIT   = barBottom + 2;   // 最高只能貼住 bar 底部下 2px
+                const barBottom = getBarBottom();
+                const TOP_LIMIT = barBottom + 2;   // 最高只能貼住 bar 底部下 2px
                 const DOCK_THRESH = TOP_LIMIT + 20;  // 距離 bar 20px 內自動貼住
-                const maxLeft = window.innerWidth  - el.offsetWidth  - PADDING;
-                const maxTop  = window.innerHeight - el.offsetHeight - PADDING;
+                const maxLeft = window.innerWidth - el.offsetWidth - PADDING;
+                const maxTop = window.innerHeight - el.offsetHeight - PADDING;
 
                 newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
-                newTop  = Math.min(Math.max(TOP_LIMIT, newTop), maxTop);
+                newTop = Math.min(Math.max(TOP_LIMIT, newTop), maxTop);
 
                 // 接近 bar 就自動吸附並切換橫向展開
                 const shouldDock = newTop <= DOCK_THRESH;
                 if (shouldDock) newTop = TOP_LIMIT;
                 setLegendDocked(shouldDock);
 
-                el.style.left  = newLeft + 'px';
-                el.style.top   = newTop  + 'px';
+                el.style.left = newLeft + 'px';
+                el.style.top = newTop + 'px';
                 el.style.right = 'auto';
             };
 
@@ -519,7 +1230,7 @@
             el.addEventListener('touchstart', e => {
                 isDragging = true;
                 startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-                initialLeft = el.offsetLeft;    initialTop  = el.offsetTop;
+                initialLeft = el.offsetLeft; initialTop = el.offsetTop;
             }, { passive: false });
             el.addEventListener('touchmove', e => { e.preventDefault(); onMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
             el.addEventListener('touchend', onEnd);
@@ -546,4 +1257,5 @@
         }
     </script>
 </body>
+
 </html>
