@@ -35,9 +35,8 @@
             position: absolute; top: 60px; right: 8px;
             display: flex; flex-direction: column; align-items: flex-end;
             z-index: 1000; touch-action: none; user-select: none;
-            transition: top 0.3s ease, right 0.3s ease, left 0.3s ease; /* 加入過渡效果讓自動吸頂更平滑 */
+            transition: top 0.2s ease, right 0.2s ease, left 0.2s ease;
         }
-        /* 取消拖曳時的動畫避免延遲感 */
         .legend-group.dragging { transition: none; }
         
         .legend-group.expand-left { align-items: flex-start; }
@@ -51,11 +50,17 @@
         .legend-dot { width: 10px; height: 10px; border-radius: 50%; border: 1px solid rgba(0,0,0,0.1); flex-shrink: 0; }
 
         /* 🔥 Dock-top：拖到頂部自動橫向3欄 */
+        .legend-group.dock-top {
+            /* dock狀態強制佔據上方，由 left 控制居中或佈局 */
+            align-items: center; 
+        }
         .legend-group.dock-top .legend-card {
-            max-width: calc(100vw - 16px);
+            width: calc(100vw - 16px);
+            max-width: 600px; /* 電腦版不至於過長 */
             padding: 8px 10px;
             border-radius: 10px;
             margin-bottom: 0;
+            box-sizing: border-box;
         }
         .legend-group.dock-top #legend-content {
             display: grid;
@@ -69,7 +74,6 @@
             overflow: hidden;
             text-overflow: ellipsis;
         }
-        /* dock 時固定關閉按鈕位置 */
         .legend-group.dock-top .legend-close { top: -8px; right: -8px; left: auto; }
 
         /* ===== 地圖控件 ===== */
@@ -127,7 +131,6 @@
         .maplibregl-popup-content { background: transparent !important; box-shadow: none !important; padding: 0 !important; pointer-events: none; }
         .maplibregl-popup-tip { display: none !important; }
 
-        /* 🔥 手機版：最寬 280px，桌面版 320px */
         .detail-card {
             background: white;
             width: min(92vw, 280px);
@@ -139,7 +142,6 @@
         }
         @media (min-width: 768px) { .detail-card { width: 320px; } }
 
-        /* 🔥 圖片：手機120px，桌面150px */
         .popup-media { height: 120px; background: #f1f3f4; position: relative; overflow: hidden; }
         @media (min-width: 768px) { .popup-media { height: 150px; } }
 
@@ -150,12 +152,10 @@
 
         .close-popup-btn { position: absolute; top: 8px; right: 8px; background: rgba(0,0,0,0.5); color: white; border-radius: 50%; width: 26px; height: 26px; text-align: center; line-height: 26px; cursor: pointer; font-size: 16px; backdrop-filter: blur(4px); z-index: 10; }
 
-        /* 🔥 手機版：減少 padding */
         .popup-info { padding: 10px 12px; }
         .popup-title { margin: 0 0 5px; font-size: 15px; font-weight: 700; color: #202124; line-height: 1.3; }
         .popup-badges { margin-bottom: 6px; }
 
-        /* 🔥 描述：最大高度 70px，超出可滾動 */
         .popup-desc {
             font-size: 12px; color: #5f6368; line-height: 1.5; margin-bottom: 10px;
             max-height: 70px; overflow-y: auto; padding-right: 4px;
@@ -240,10 +240,8 @@
         /* ===== i18n ===== */
         const i18n={map:{'zh-HK':'地圖','zh-CN':'地图',en:'Map'},list:{'zh-HK':'列表','zh-CN':'列表',en:'List'},type:{'zh-HK':'類型','zh-CN':'类型',en:'Type'},region:{'zh-HK':'地區','zh-CN':'地区',en:'Region'},all:{'zh-HK':'全選','zh-CN':'全选',en:'All'},none:{'zh-HK':'清空','zh-CN':'清空',en:'None'},quickSelect:{'zh-HK':'大區快捷','zh-CN':'大区快捷',en:'Quick Select'},selectLang:{'zh-HK':'選擇語言','zh-CN':'选择语言',en:'Language'},google:{'zh-HK':'Google 地圖','zh-CN':'Google 地图',en:'Google Maps'},amap:{'zh-HK':'高德地圖','zh-CN':'高德地图',en:'Amap'},aboutSiteTitle:{'zh-HK':'關於網站','zh-CN':'关于网站',en:'About Website'},siteIntro:{'zh-HK':'本網站旨在為旅客提供最全面的香港旅遊指南。','zh-CN':'本网站旨在为旅客提供最全面的香港旅游指南。',en:'Comprehensive Hong Kong travel guide.'},changelog:{'zh-HK':'更新日誌','zh-CN':'更新日志',en:'Changelog'},contactTitle:{'zh-HK':'聯絡我們','zh-CN':'联系我们',en:'Contact Us'},teamIntro:{'zh-HK':'我們團隊由幾個人類組成，歡迎聯絡！','zh-CN':'我们团队由几个人类组成，欢迎联系！',en:'Our team is made up of a few humans.'},techSupport:{'zh-HK':'技術支持','zh-CN':'技术支持',en:'Tech Support'},techDesc:{'zh-HK':'發現Bug或有建議？','zh-CN':'发现Bug或有建议？',en:'Found a bug?'},bizInquiry:{'zh-HK':'商業聯絡','zh-CN':'商业联络',en:'Business'},bizDesc:{'zh-HK':'合作提案或廣告投放。','zh-CN':'合作提案或广告投放。',en:'Partnerships & Ads.'},sendEmail:{'zh-HK':'發送郵件','zh-CN':'发送邮件',en:'Send Email'},subjectTech:{'zh-HK':'技術支持與反饋','zh-CN':'技术支持与反馈',en:'Tech Support'},subjectBiz:{'zh-HK':'商業合作諮詢','zh-CN':'商业合作咨询',en:'Business Inquiry'}};
 
-        /* ===== 版本記錄 ===== */
         const versions=[{id:'v1.1.0',date:'2030-02-10',updates:[{'zh-HK':'初始版本','zh-CN':'初始版本',en:'Initial Version'}]},{id:'v1.1.1',date:'',updates:[{'zh-HK':'新增 AI 行程規劃功能','zh-CN':'新增 AI 行程规划功能',en:'Added AI Trip Planner'},{'zh-HK':'新增行程儲存功能','zh-CN':'新增行程保存功能',en:'Added Trip Saving'},{'zh-HK':'新增景點評分功能','zh-CN':'新增景点评分功能',en:'Added Attraction Ratings'},{'zh-HK':'新增景點收藏功能','zh-CN':'新增景点收藏功能',en:'Added Attraction Bookmarking'},{'zh-HK':'新增景點圖片上傳功能','zh-CN':'新增景点图片上传功能',en:'Added Photo Uploads'},{'zh-HK':'新增景點投稿功能','zh-CN':'新增景点投稿功能',en:'Added New Attraction Submission'}]}];
 
-        /* ===== 數據定義 ===== */
         const files=[{id:'film',file:'film.json',color:'#FF6D00',label:{'zh-HK':'影視取景','zh-CN':'影视取景',en:'Film'}},{id:'landmark',file:'landmark.json',color:'#0F9D58',label:{'zh-HK':'地標建築','zh-CN':'地标建筑',en:'Landmark'}},{id:'nightlife',file:'nightlife.json',color:'#673AB7',label:{'zh-HK':'夜生活','zh-CN':'夜生活',en:'Nightlife'}},{id:'modern',file:'modern.json',color:'#4285F4',label:{'zh-HK':'現代景觀','zh-CN':'现代景观',en:'Modern'}},{id:'heritage',file:'heritage.json',color:'#DB4437',label:{'zh-HK':'歷史文化','zh-CN':'历史文化',en:'Heritage'}},{id:'indoor',file:'indoor.json',color:'#F4B400',label:{'zh-HK':'室內娛樂','zh-CN':'室内娱乐',en:'Indoor'}},{id:'outdoor',file:'outdoor.json',color:'#795548',label:{'zh-HK':'自然郊遊','zh-CN':'自然郊游',en:'Outdoor'}},{id:'themepark',file:'themepark.json',color:'#E91E63',label:{'zh-HK':'主題樂園','zh-CN':'主题乐园',en:'Theme Park'}},{id:'game',file:'game.json',color:'#00BCD4',label:{'zh-HK':'運動競技','zh-CN':'运动竞技',en:'Sports'}}];
         const regions=[{id:'central-and-western',m:'hk',n:{'zh-HK':'中西區','zh-CN':'中西区',en:'Central & Western'}},{id:'eastern',m:'hk',n:{'zh-HK':'東區','zh-CN':'东区',en:'Eastern'}},{id:'southern',m:'hk',n:{'zh-HK':'南區','zh-CN':'南区',en:'Southern'}},{id:'wan-chai',m:'hk',n:{'zh-HK':'灣仔','zh-CN':'湾仔',en:'Wan Chai'}},{id:'kowloon-city',m:'kln',n:{'zh-HK':'九龍城','zh-CN':'九龙城',en:'Kowloon City'}},{id:'kwun-tong',m:'kln',n:{'zh-HK':'觀塘','zh-CN':'观塘',en:'Kwun Tong'}},{id:'sham-shui-po',m:'kln',n:{'zh-HK':'深水埗','zh-CN':'深水埗',en:'Sham Shui Po'}},{id:'wong-tai-sin',m:'kln',n:{'zh-HK':'黃大仙','zh-CN':'黄大仙',en:'Wong Tai Sin'}},{id:'yau-tsim-mong',m:'kln',n:{'zh-HK':'油尖旺','zh-CN':'油尖旺',en:'Yau Tsim Mong'}},{id:'islands',m:'isl',n:{'zh-HK':'離島','zh-CN':'离岛',en:'Islands'}},{id:'kwai-tsing',m:'nt',n:{'zh-HK':'葵青','zh-CN':'葵青',en:'Kwai Tsing'}},{id:'north',m:'nt',n:{'zh-HK':'北區','zh-CN':'北区',en:'North'}},{id:'sha-tin',m:'nt',n:{'zh-HK':'沙田','zh-CN':'沙田',en:'Sha Tin'}},{id:'tai-po',m:'nt',n:{'zh-HK':'大埔','zh-CN':'大埔',en:'Tai Po'}},{id:'tsuen-wan',m:'nt',n:{'zh-HK':'荃灣','zh-CN':'荃湾',en:'Tsuen Wan'}},{id:'tuen-mun',m:'nt',n:{'zh-HK':'屯門','zh-CN':'屯门',en:'Tuen Mun'}},{id:'yuen-long',m:'nt',n:{'zh-HK':'元朗','zh-CN':'元朗',en:'Yuen Long'}},{id:'sai-kung',m:'nt',n:{'zh-HK':'西貢','zh-CN':'西贡',en:'Sai Kung'}}];
         const macros=[{id:'hk',n:{'zh-HK':'港島','zh-CN':'港岛',en:'HK Island'}},{id:'kln',n:{'zh-HK':'九龍','zh-CN':'九龙',en:'Kowloon'}},{id:'nt',n:{'zh-HK':'新界','zh-CN':'新界',en:'New Territories'}},{id:'isl',n:{'zh-HK':'離島','zh-CN':'离岛',en:'Islands'}}];
@@ -297,10 +295,18 @@
         let map, allData=[], filteredData=[], markers=[], curLang='zh-HK';
         let selCats=files.map(f=>f.id), selRegs=regions.map(r=>r.id);
         let lastCenter=null, lastZoom=null, activePopup=null, currentSpotData=null, hoverPopup=null;
+        
+        // 紀錄 dock 狀態
+        let isLegendDocked = false;
 
         try { const s=navigator.language.toLowerCase(); curLang=s==='zh-cn'||s==='zh-sg'?'zh-CN':s.startsWith('zh')?'zh-HK':'en'; } catch(e){}
 
         window.onload = async () => { initMap(); await loadData(); updateUI(); makeDraggable(document.getElementById('legend-drag')); };
+
+        function getBarBottom() {
+            const bar = document.querySelector('.controls-bar');
+            return bar ? Math.round(bar.getBoundingClientRect().bottom) : 50;
+        }
 
         /* ===== 地圖初始化 ===== */
         function initMap() {
@@ -403,14 +409,23 @@
                 .addTo(map);
             requestAnimationFrame(()=>hydratePopupImages(d, token, false));
             
-            // 🔥 新增：當顯示 Popup 時，若 legend 處於展開狀態，自動移到頂部 Dock
+            // 🔥 新增：點擊 Marker 自動移動 Legend 到頂部並 Dock (只在展開狀態下)
             const legend = document.getElementById('legend-drag');
             if (legend && document.getElementById('legend-card').style.display === 'block') {
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
+                
+                // 設定狀態為 dock
+                isLegendDocked = true;
+                legend.classList.add('dock-top');
+                
+                // 強制將位置設為頂部及水平置中
                 legend.style.top = TOP_LIMIT + 'px';
-                // 觸發 dock 狀態（展開成橫向）
-                setLegendDocked(true);
+                legend.style.left = '8px';
+                legend.style.right = '8px';
+                
+                // 移除 expand-left 避免衝突
+                legend.classList.remove('expand-left');
             }
         }
         function showListModal(d) {
@@ -432,58 +447,38 @@
             const card=document.getElementById('legend-card');
             const btn=document.getElementById('legend-btn');
             
-            // 🔥 修正：收合/展開時，保持目前的左右位置與對齊邏輯
             if (show) {
-                // 如果即將展開，計算位置以決定向左或向右展開
-                const isRightSide = legend.offsetLeft > window.innerWidth / 2;
-                if(isRightSide){ 
-                    legend.classList.add('expand-left'); 
-                    // 只有在非 dock 狀態時才改變 right/left，否則由 CSS 處理
-                    if (!legend.classList.contains('dock-top')) {
+                if (isLegendDocked) {
+                    legend.style.left = '8px';
+                    legend.style.right = '8px';
+                } else {
+                    const isRightSide = legend.offsetLeft > window.innerWidth / 2;
+                    if(isRightSide){ 
+                        legend.classList.add('expand-left'); 
                         legend.style.right = (window.innerWidth - legend.offsetLeft - legend.offsetWidth) + 'px'; 
                         legend.style.left = 'auto'; 
-                    }
-                } else { 
-                    legend.classList.remove('expand-left'); 
-                    if (!legend.classList.contains('dock-top')) {
+                    } else { 
+                        legend.classList.remove('expand-left'); 
                         legend.style.left = legend.offsetLeft + 'px'; 
                         legend.style.right = 'auto'; 
                     }
                 }
             } else {
-                // 收回按鈕時，如果之前是靠右對齊的，確保它的 left 屬性被正確重置
-                if (legend.classList.contains('expand-left') && !legend.classList.contains('dock-top')) {
-                    // 把 right 轉回 left，以確保位置固定
-                    const currentRight = parseFloat(legend.style.right) || 8;
-                    const calculatedLeft = window.innerWidth - currentRight - 40; // 40 是按鈕寬度
-                    legend.style.left = calculatedLeft + 'px';
-                    legend.style.right = 'auto';
-                } else if (legend.classList.contains('dock-top')) {
-                    // 如果在頂部收合，按鈕維持在右上角
+                // 收合時
+                if (isLegendDocked) {
+                    // 若在頂部，讓按鈕維持在右上角
                     legend.style.right = '8px';
                     legend.style.left = 'auto';
+                } else if (legend.classList.contains('expand-left')) {
+                    const currentRight = parseFloat(legend.style.right) || 8;
+                    const calculatedLeft = window.innerWidth - currentRight - 40;
+                    legend.style.left = calculatedLeft + 'px';
+                    legend.style.right = 'auto';
                 }
             }
             
             card.style.display=show?'block':'none';
             btn.style.display=show?'none':'flex';
-        }
-
-        /* ===== Legend Dock 輔助函數 ===== */
-        function getBarBottom() {
-            const bar = document.querySelector('.controls-bar');
-            return bar ? Math.round(bar.getBoundingClientRect().bottom) : 50;
-        }
-        function setLegendDocked(docked) {
-            const legend = document.getElementById('legend-drag');
-            if (docked) {
-                legend.classList.add('dock-top');
-                // Dock 狀態時重置 left/right 讓 CSS 控制
-                legend.style.left = 'auto';
-                legend.style.right = '8px';
-            } else {
-                legend.classList.remove('dock-top');
-            }
         }
 
         /* ===== 渲染列表 ===== */
@@ -531,45 +526,62 @@
         function makeDraggable(el) {
             let isDragging = false, startX, startY, initialLeft, initialTop;
             const PADDING = 8;
+            
+            // 紀錄當前元素的原始大小（無 dock 狀態下的尺寸）
+            let originalWidth = 0;
+            let originalHeight = 0;
 
             const onMove = (clientX, clientY) => {
                 if (!isDragging) return;
                 
-                // 計算拖曳的實際位置
                 let newLeft = initialLeft + (clientX - startX);
                 let newTop  = initialTop  + (clientY - startY);
 
                 const barBottom = getBarBottom();
-                const TOP_LIMIT = barBottom + 2;   // 最高貼住 bar 下 2px
-                const DOCK_THRESH = TOP_LIMIT + 20;
+                const TOP_LIMIT = barBottom + 2;   
+                const DOCK_THRESH = TOP_LIMIT + 25; // 進入 dock 判斷的範圍
                 
-                // 🔥 修正：使用 getBoundingClientRect() 來準確計算元素邊界
-                const elRect = el.getBoundingClientRect();
-                const actualWidth = elRect.width;
-                const actualHeight = elRect.height;
+                // 為了避免 dock 狀態下的尺寸變化影響拖曳計算，我們固定使用普通狀態下的長寬作為基準
+                const usedWidth = originalWidth > 0 ? originalWidth : el.offsetWidth;
+                const usedHeight = originalHeight > 0 ? originalHeight : el.offsetHeight;
                 
-                const maxLeft = window.innerWidth  - actualWidth  - PADDING;
-                const maxTop  = window.innerHeight - actualHeight - PADDING;
+                const maxLeft = window.innerWidth  - usedWidth  - PADDING;
+                const maxTop  = window.innerHeight - usedHeight - PADDING;
 
-                // 防止超出螢幕
+                // 防呆：確保新的位置不會超出邊界
                 newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
-                // 確保 top 不會小於 TOP_LIMIT (這解決了無法推到頂部的問題)
                 newTop  = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-                // 接近頂部自動吸附
+                // 判斷是否需要進入 dock 狀態
                 const shouldDock = newTop <= DOCK_THRESH;
-                if (shouldDock) newTop = TOP_LIMIT;
-                setLegendDocked(shouldDock);
-
-                el.style.left  = newLeft + 'px';
-                el.style.top   = newTop  + 'px';
-                if (!shouldDock) el.style.right = 'auto';
+                
+                if (shouldDock) {
+                    newTop = TOP_LIMIT;
+                    if (!isLegendDocked) {
+                        isLegendDocked = true;
+                        el.classList.add('dock-top');
+                    }
+                    // dock 時強制水平置中
+                    el.style.left = '8px';
+                    el.style.right = '8px';
+                    el.style.top = newTop + 'px';
+                } else {
+                    if (isLegendDocked) {
+                        isLegendDocked = false;
+                        el.classList.remove('dock-top');
+                    }
+                    // 非 dock 時，使用計算出來的位置
+                    el.style.left = newLeft + 'px';
+                    el.style.top = newTop + 'px';
+                    el.style.right = 'auto';
+                }
             };
 
             const onEnd = () => {
                 if (!isDragging) return;
                 isDragging = false;
                 el.classList.remove('dragging');
+                
                 if (document.getElementById('legend-card').style.display === 'block') {
                     toggleLegend(true);
                 }
@@ -577,13 +589,20 @@
 
             // Touch
             el.addEventListener('touchstart', e => {
-                // 🔥 修正手機拖動阻礙：取消默認行為防止網頁跟著滾動
+                // 防止手機默認滾動
                 if(e.target.closest('.legend-card') || e.target.closest('.legend-btn')) {
                    if(!e.target.closest('.legend-close')) e.preventDefault();
                 }
                 
                 isDragging = true;
-                el.classList.add('dragging'); // 移除動畫效果確保跟手
+                el.classList.add('dragging'); 
+                
+                // 如果目前不是 dock 狀態，紀錄原始大小，以便後續邊界計算不受變化影響
+                if (!isLegendDocked) {
+                    originalWidth = el.offsetWidth;
+                    originalHeight = el.offsetHeight;
+                }
+                
                 startX = e.touches[0].clientX; startY = e.touches[0].clientY;
                 initialLeft = el.offsetLeft;    initialTop  = el.offsetTop;
             }, { passive: false });
@@ -601,6 +620,12 @@
                 if(e.target.closest('.legend-close')) return;
                 isDragging = true;
                 el.classList.add('dragging');
+                
+                if (!isLegendDocked) {
+                    originalWidth = el.offsetWidth;
+                    originalHeight = el.offsetHeight;
+                }
+                
                 startX = e.clientX; startY = e.clientY;
                 initialLeft = el.offsetLeft; initialTop = el.offsetTop;
                 el.style.cursor = 'grabbing';
@@ -614,7 +639,10 @@
                 const TOP_LIMIT = barBottom + 2;
                 if (el.offsetTop <= TOP_LIMIT + 20) {
                     el.style.top = TOP_LIMIT + 'px';
-                    setLegendDocked(true);
+                    isLegendDocked = true;
+                    el.classList.add('dock-top');
+                    el.style.left = '8px';
+                    el.style.right = '8px';
                 }
             });
         }
