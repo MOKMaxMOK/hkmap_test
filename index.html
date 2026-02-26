@@ -150,7 +150,6 @@
             transition: none !important;
         }
 
-        /* 正常靠左展開 */
         .legend-group.expand-left {
             align-items: flex-start;
         }
@@ -235,7 +234,7 @@
             flex-shrink: 0;
         }
 
-        /* 🔥 Dock-top 樣式：只有在展開狀態且吸頂時才生效 */
+        /* Dock-top 樣式 */
         .legend-group.dock-top.is-expanded {
             align-items: center;
         }
@@ -871,11 +870,11 @@
     <div id="main-container">
         <div id="map"></div>
 
-        <!-- 初始設定為 is-expanded 以配合 inline style -->
         <div class="legend-group is-expanded" id="legend-drag">
-            <div class="legend-btn" id="legend-btn" onclick="toggleLegend(true)">❓</div>
+            <!-- onClick 已經拿掉，改由 makeDraggable 內部統一處理點擊與拖動 -->
+            <div class="legend-btn" id="legend-btn">❓</div>
             <div class="legend-card" id="legend-card">
-                <div class="legend-close" onclick="toggleLegend(false)">✕</div>
+                <div class="legend-close" id="legend-close-btn">✕</div>
                 <div id="legend-content"></div>
             </div>
         </div>
@@ -955,7 +954,6 @@
 
     <script src="https://unpkg.com/maplibre-gl@3.6.2/dist/maplibre-gl.js"></script>
     <script>
-        /* ===== i18n ===== */
         const i18n = { map: { 'zh-HK': '地圖', 'zh-CN': '地图', en: 'Map' }, list: { 'zh-HK': '列表', 'zh-CN': '列表', en: 'List' }, type: { 'zh-HK': '類型', 'zh-CN': '类型', en: 'Type' }, region: { 'zh-HK': '地區', 'zh-CN': '地区', en: 'Region' }, all: { 'zh-HK': '全選', 'zh-CN': '全选', en: 'All' }, none: { 'zh-HK': '清空', 'zh-CN': '清空', en: 'None' }, quickSelect: { 'zh-HK': '大區快捷', 'zh-CN': '大区快捷', en: 'Quick Select' }, selectLang: { 'zh-HK': '選擇語言', 'zh-CN': '选择语言', en: 'Language' }, google: { 'zh-HK': 'Google 地圖', 'zh-CN': 'Google 地图', en: 'Google Maps' }, amap: { 'zh-HK': '高德地圖', 'zh-CN': '高德地图', en: 'Amap' }, aboutSiteTitle: { 'zh-HK': '關於網站', 'zh-CN': '关于网站', en: 'About Website' }, siteIntro: { 'zh-HK': '本網站旨在為旅客提供最全面的香港旅遊指南。', 'zh-CN': '本网站旨在为旅客提供最全面的香港旅游指南。', en: 'Comprehensive Hong Kong travel guide.' }, changelog: { 'zh-HK': '更新日誌', 'zh-CN': '更新日志', en: 'Changelog' }, contactTitle: { 'zh-HK': '聯絡我們', 'zh-CN': '联系我们', en: 'Contact Us' }, teamIntro: { 'zh-HK': '我們團隊由幾個人類組成，歡迎聯絡！', 'zh-CN': '我们团队由几个人类组成，欢迎联系！', en: 'Our team is made up of a few humans.' }, techSupport: { 'zh-HK': '技術支持', 'zh-CN': '技术支持', en: 'Tech Support' }, techDesc: { 'zh-HK': '發現Bug或有建議？', 'zh-CN': '发现Bug或有建议？', en: 'Found a bug?' }, bizInquiry: { 'zh-HK': '商業聯絡', 'zh-CN': '商业联络', en: 'Business' }, bizDesc: { 'zh-HK': '合作提案或廣告投放。', 'zh-CN': '合作提案或广告投放。', en: 'Partnerships & Ads.' }, sendEmail: { 'zh-HK': '發送郵件', 'zh-CN': '发送邮件', en: 'Send Email' }, subjectTech: { 'zh-HK': '技術支持與反饋', 'zh-CN': '技术支持与反馈', en: 'Tech Support' }, subjectBiz: { 'zh-HK': '商業合作諮詢', 'zh-CN': '商业合作咨询', en: 'Business Inquiry' } };
 
         const versions = [{ id: 'v1.1.0', date: '2030-02-10', updates: [{ 'zh-HK': '初始版本', 'zh-CN': '初始版本', en: 'Initial Version' }] }, { id: 'v1.1.1', date: '', updates: [{ 'zh-HK': '新增 AI 行程規劃功能', 'zh-CN': '新增 AI 行程规划功能', en: 'Added AI Trip Planner' }, { 'zh-HK': '新增行程儲存功能', 'zh-CN': '新增行程保存功能', en: 'Added Trip Saving' }, { 'zh-HK': '新增景點評分功能', 'zh-CN': '新增景点评分功能', en: 'Added Attraction Ratings' }, { 'zh-HK': '新增景點收藏功能', 'zh-CN': '新增景点收藏功能', en: 'Added Attraction Bookmarking' }, { 'zh-HK': '新增景點圖片上傳功能', 'zh-CN': '新增景点图片上传功能', en: 'Added Photo Uploads' }, { 'zh-HK': '新增景點投稿功能', 'zh-CN': '新增景点投稿功能', en: 'Added New Attraction Submission' }] }];
@@ -967,7 +965,6 @@
         const hkBounds = [[113.76, 22.13], [114.50, 22.57]];
         const extendedBounds = [[113.70, 22.10], [114.60, 22.65]];
 
-        /* ===== 圖片相關 ===== */
         const IMAGE_BASE = 'images/';
         const MAX_AUTO_IMAGES = 3;
         const IMAGE_EXT = '.jpg';
@@ -1009,14 +1006,16 @@
             loadNext();
         }
 
-        /* ===== 狀態變數 ===== */
         let map, allData = [], filteredData = [], markers = [], curLang = 'zh-HK';
         let selCats = files.map(f => f.id), selRegs = regions.map(r => r.id);
         let lastCenter = null, lastZoom = null, activePopup = null, currentSpotData = null, hoverPopup = null;
 
-        // 分別記錄：是否吸頂、是否為展開狀態
+        // 圖例狀態
         let isLegendDocked = false;
         let isLegendExpanded = true;
+
+        // 記憶吸頂前的位置狀態
+        let preDockState = null;
 
         try { const s = navigator.language.toLowerCase(); curLang = s === 'zh-cn' || s === 'zh-sg' ? 'zh-CN' : s.startsWith('zh') ? 'zh-HK' : 'en'; } catch (e) { }
 
@@ -1027,25 +1026,20 @@
             return bar ? Math.round(bar.getBoundingClientRect().bottom) : 50;
         }
 
-        function isMobile() {
-            return window.innerWidth < 768;
-        }
+        function isMobile() { return window.innerWidth < 768; }
 
-        /* ===== 地圖初始化 ===== */
         function initMap() {
             map = new maplibregl.Map({ container: 'map', style: 'https://basemaps.cartocdn.com/gl/voyager-gl-style/style.json', center: [114.1694, 22.3193], zoom: 11, maxZoom: 22, maxBounds: hkBounds, attributionControl: false });
             map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
             map.on('click', () => closePopup());
         }
 
-        /* ===== 數據加載 ===== */
         async function loadData() {
             const res = await Promise.all(files.map(f => fetch(f.file).then(r => r.json()).then(d => d.map(x => ({ ...x, cat: f.id }))).catch(() => [])));
             allData = res.flat(); filterData();
         }
         function filterData() { filteredData = allData.filter(d => selCats.includes(d.cat) && selRegs.includes(d.region)); renderMarkers(); renderList(); }
 
-        /* ===== Markers ===== */
         function renderMarkers() {
             markers.forEach(m => m.remove()); markers = [];
             filteredData.forEach(d => {
@@ -1061,12 +1055,25 @@
                     hoverPopup = new maplibregl.Popup({ closeButton: false, closeOnClick: false, offset: [0, -35], className: 'hover-popup-container' }).setLngLat([d.lng, d.lat]).setHTML(`<div class="hover-label">${name}</div>`).addTo(map);
                 });
                 el.addEventListener('mouseleave', () => { if (hoverPopup) { hoverPopup.remove(); hoverPopup = null; } });
+
                 const handleAction = (isDouble) => {
                     if (!activePopup) { lastCenter = map.getCenter(); lastZoom = map.getZoom(); }
+
+                    // 計算地圖偏移，確保 Popup 會顯示在 Legend 下方
+                    const legend = document.getElementById('legend-drag');
+                    let offsetH = 150; // 默認偏移
+                    if (isMobile() && isLegendExpanded && legend) {
+                        // 如果會吸頂，留出頂部 Bar + 展開的 Legend 的空間
+                        const barBottom = getBarBottom();
+                        // 預估展開後的高度大約 80px，加上 bar 的高度，將畫面中心往下推
+                        offsetH = (barBottom + 80) / 2 + 120;
+                    }
+
                     if (isDouble) { map.setMaxBounds(hkBounds); map.easeTo({ center: [d.lng, d.lat], zoom: 15, duration: 600 }); }
-                    else { map.setMaxBounds(extendedBounds); map.easeTo({ center: [d.lng, d.lat], zoom: map.getZoom(), offset: [0, 150], duration: 500 }); }
+                    else { map.setMaxBounds(extendedBounds); map.easeTo({ center: [d.lng, d.lat], zoom: map.getZoom(), offset: [0, offsetH], duration: 500 }); }
                     showPopup(d, conf.color);
                 };
+
                 const clickHandler = e => {
                     if (isDrag) return; e.stopPropagation(); e.preventDefault();
                     if (clickTimer) { clearTimeout(clickTimer); clickTimer = null; handleAction(true); }
@@ -1078,7 +1085,6 @@
             });
         }
 
-        /* ===== 視圖切換 ===== */
         function switchView(mode) {
             closeModal();
             ['map', 'list-view', 'about-site-view', 'contact-view'].forEach(v => document.getElementById(v).style.display = 'none');
@@ -1091,7 +1097,6 @@
             else if (mode === 'contact') document.getElementById('contact-view').style.display = 'block';
         }
 
-        /* ===== UI 更新 ===== */
         function updateUI() {
             document.querySelectorAll('[data-t]').forEach(el => { const k = el.getAttribute('data-t'); if (i18n[k]) el.innerText = i18n[k][curLang]; });
             renderLangList(); renderCatList(); renderRegionList(); renderLegend(); renderList(); renderChangelog();
@@ -1099,7 +1104,6 @@
             document.getElementById('mail-biz').href = `mailto:hkgentech@gmail.com?subject=${encodeURIComponent(i18n.subjectBiz[curLang])}`;
         }
 
-        /* ===== 卡片 HTML ===== */
         function generateCardHTML(d, c, p) {
             const n = d.name[curLang] || d.name.en;
             const de = d.description[curLang] || '';
@@ -1120,21 +1124,31 @@
             </div>`;
         }
 
-        /* ===== Popup ===== */
         function showPopup(d, c) {
             currentSpotData = { d, c, isPopup: true };
             if (activePopup) activePopup.remove();
             popupLoadToken++;
             const token = popupLoadToken;
-            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: 'none' })
+
+            // 彈出位置往上提一點，給 Legend 吸頂留空間
+            activePopup = new maplibregl.Popup({ closeButton: false, maxWidth: 'none', offset: [0, -40] })
                 .setLngLat([d.lng, d.lat])
                 .setHTML(generateCardHTML(d, c, true))
                 .addTo(map);
             requestAnimationFrame(() => hydratePopupImages(d, token, false));
 
-            // 🔥 手機版點擊 Marker 自動吸頂 (只在展開狀態下)
             const legend = document.getElementById('legend-drag');
             if (isMobile() && legend && isLegendExpanded) {
+                // 記憶原狀態 (只記一次，避免連續點擊覆蓋)
+                if (!preDockState) {
+                    preDockState = {
+                        top: legend.style.top,
+                        left: legend.style.left,
+                        right: legend.style.right,
+                        hasClassExpandLeft: legend.classList.contains('expand-left')
+                    };
+                }
+
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
 
@@ -1160,10 +1174,25 @@
         window.closePopup = () => {
             currentSpotData = null; popupLoadToken++;
             if (activePopup) { activePopup.remove(); activePopup = null; map.setMaxBounds(hkBounds); if (lastCenter) { map.easeTo({ center: lastCenter, zoom: lastZoom, offset: [0, 0], duration: 600 }); lastCenter = null; } }
+
+            // 關閉 Popup 時，還原 Legend 的位置
+            const legend = document.getElementById('legend-drag');
+            if (preDockState && legend && isLegendExpanded) {
+                isLegendDocked = false;
+                legend.classList.remove('dock-top');
+
+                if (preDockState.hasClassExpandLeft) legend.classList.add('expand-left');
+                else legend.classList.remove('expand-left');
+
+                legend.style.top = preDockState.top;
+                legend.style.left = preDockState.left;
+                legend.style.right = preDockState.right;
+
+                // 清空記憶
+                preDockState = null;
+            }
         };
 
-        /* ===== 圖例展開/收合邏輯 ===== */
-        // 🔥 全新設計：完全分離展開與收合的定位
         window.toggleLegend = function (show) {
             const legend = document.getElementById('legend-drag');
             const card = document.getElementById('legend-card');
@@ -1173,8 +1202,6 @@
 
             if (show) {
                 legend.classList.add('is-expanded');
-
-                // 恢復展開狀態的正確定位
                 if (isLegendDocked) {
                     legend.style.left = '8px';
                     legend.style.right = '8px';
@@ -1192,7 +1219,6 @@
                 }
             } else {
                 legend.classList.remove('is-expanded');
-                // 🔥 收合時，無條件把按鈕固定在當前所在側，解除置中
                 if (isLegendDocked) {
                     legend.style.right = '8px';
                     legend.style.left = 'auto';
@@ -1208,7 +1234,6 @@
             btn.style.display = show ? 'none' : 'flex';
         };
 
-        /* ===== 渲染列表 ===== */
         function renderLangList() {
             const l = document.getElementById('lang-list'); l.innerHTML = '';
             [{ c: 'zh-HK', n: '繁體中文' }, { c: 'zh-CN', n: '简体中文' }, { c: 'en', n: 'English' }].forEach(x => {
@@ -1241,36 +1266,41 @@
             files.forEach(f => { const d = document.createElement('div'); d.className = 'legend-item'; d.innerHTML = `<div class="legend-dot" style="background:${f.color}"></div>${f.label[curLang]}`; c.appendChild(d); });
         }
 
-        /* ===== Modals ===== */
         function openModal(id) { document.getElementById('overlay').classList.add('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); document.getElementById('modal-' + id).classList.add('show'); }
         window.closeModal = () => { document.getElementById('overlay').classList.remove('show'); document.querySelectorAll('.modal-card').forEach(e => e.classList.remove('show')); };
         function toggleAll(t, v) { if (t === 'category') selCats = v ? files.map(f => f.id) : []; if (t === 'region') selRegs = v ? regions.map(r => r.id) : []; filterData(); updateUI(); }
 
-        /* ===== Marker Pin ===== */
         function getPin(c) { const x = document.createElement('canvas'); x.width = 64; x.height = 64; const z = x.getContext('2d'); z.fillStyle = c; z.beginPath(); z.arc(32, 24, 20, 0, Math.PI * 2); z.fill(); z.beginPath(); z.moveTo(12, 24); z.lineTo(32, 60); z.lineTo(52, 24); z.fill(); z.fillStyle = 'white'; z.beginPath(); z.arc(32, 24, 8, 0, Math.PI * 2); z.fill(); return x.toDataURL(); }
 
         /* ===== 🔥 可拖拽圖例 ===== */
         function makeDraggable(el) {
-            let isDragging = false, startX, startY, initialLeft, initialTop;
+            let isDragging = false, hasMoved = false, startX, startY, initialLeft, initialTop;
             const PADDING = 8;
 
             const onMove = (clientX, clientY) => {
                 if (!isDragging) return;
 
-                let newLeft = initialLeft + (clientX - startX);
-                let newTop = initialTop + (clientY - startY);
+                // 計算移動距離
+                const dx = clientX - startX;
+                const dy = clientY - startY;
+
+                // 區分是點擊還是真的在拖曳（防止輕微抖動觸發拖曳）
+                if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
+                    hasMoved = true;
+                }
+
+                if (!hasMoved) return;
+
+                let newLeft = initialLeft + dx;
+                let newTop = initialTop + dy;
 
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
-
-                // 只有在展開狀態下，才會有「吸頂置中橫向佈局」的邏輯
                 const DOCK_THRESH = TOP_LIMIT + 25;
 
-                // 上下邊界：不再受本身寬高影響，確保不會彈飛
                 const maxTop = window.innerHeight - 50;
                 newTop = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-                // 左右邊界
                 const maxLeft = window.innerWidth - 50;
                 newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
 
@@ -1295,7 +1325,6 @@
                         el.style.right = 'auto';
                     }
                 } else {
-                    // 🔥 如果是收合狀態（只是一個小圓點按鈕），永遠不要觸發 dock-top，也不要置中
                     isLegendDocked = false;
                     el.classList.remove('dock-top');
                     el.style.left = newLeft + 'px';
@@ -1304,30 +1333,40 @@
                 }
             };
 
-            const onEnd = () => {
+            const onEnd = (e) => {
                 if (!isDragging) return;
                 isDragging = false;
                 el.classList.remove('dragging');
 
-                // 放開手指後，重新計算展開時的左右對齊
-                if (isLegendExpanded) {
+                // 如果是點擊問號，且沒有拖動，則觸發展開
+                if (!hasMoved && e && e.target.id === 'legend-btn') {
                     toggleLegend(true);
+                }
+                // 如果是點擊關閉按鈕，觸發收合
+                else if (!hasMoved && e && e.target.id === 'legend-close-btn') {
+                    toggleLegend(false);
+                }
+                // 拖動結束後，更新記憶的狀態（避免回到舊位置）
+                else if (hasMoved) {
+                    preDockState = null;
+                    if (isLegendExpanded) {
+                        // 重新計算左右靠邊
+                        toggleLegend(true);
+                    }
                 }
             };
 
             // Touch
             el.addEventListener('touchstart', e => {
-                // 避免干擾點擊事件，如果是點擊展開/收合按鈕，不觸發拖曳預設阻擋
+                // 取消原本 HTML onclick，由這裡統一管理
                 if (e.target.closest('.legend-card') || e.target.closest('.legend-btn')) {
-                    if (!e.target.closest('.legend-close') && !e.target.closest('#legend-btn')) {
+                    if (e.target.id !== 'legend-close-btn' && e.target.id !== 'legend-btn') {
                         e.preventDefault();
                     }
                 }
 
-                // 點擊關閉或開啟按鈕時，不啟動拖拽
-                if (e.target.closest('.legend-close') || (e.target.id === 'legend-btn')) return;
-
                 isDragging = true;
+                hasMoved = false;
                 el.classList.add('dragging');
 
                 startX = e.touches[0].clientX; startY = e.touches[0].clientY;
@@ -1336,25 +1375,32 @@
 
             el.addEventListener('touchmove', e => {
                 if (!isDragging) return;
-                e.preventDefault();
+                if (hasMoved) e.preventDefault();
                 onMove(e.touches[0].clientX, e.touches[0].clientY);
             }, { passive: false });
 
-            el.addEventListener('touchend', onEnd);
+            el.addEventListener('touchend', (e) => onEnd(e.changedTouches[0] || e));
 
             // Mouse
             el.addEventListener('mousedown', e => {
-                if (e.target.closest('.legend-close') || (e.target.id === 'legend-btn')) return;
-
                 isDragging = true;
+                hasMoved = false;
                 el.classList.add('dragging');
 
                 startX = e.clientX; startY = e.clientY;
                 initialLeft = el.offsetLeft; initialTop = el.offsetTop;
                 el.style.cursor = 'grabbing';
             });
-            window.addEventListener('mousemove', e => { if (!isDragging) return; e.preventDefault(); onMove(e.clientX, e.clientY); });
-            window.addEventListener('mouseup', () => { if (!isDragging) return; onEnd(); el.style.cursor = 'move'; });
+            window.addEventListener('mousemove', e => {
+                if (!isDragging) return;
+                if (hasMoved) e.preventDefault();
+                onMove(e.clientX, e.clientY);
+            });
+            window.addEventListener('mouseup', (e) => {
+                if (!isDragging) return;
+                onEnd(e);
+                el.style.cursor = 'move';
+            });
 
             // Resize
             window.addEventListener('resize', () => {
