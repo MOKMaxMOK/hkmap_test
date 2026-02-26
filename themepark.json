@@ -15,7 +15,11 @@
             "zh-CN": "世界级主题公园，适合家庭和迪士尼粉丝",
             "en": "World-class theme park, suitable for families and Disney fans."
         },
-        "images": []
+        "images": [
+            "Hong Kong Disneyland.jpg",
+            "Hong Kong Disneyland.jpg(2)",
+            "Hong Kong Disneyland.jpg(3)"
+        ]
     },
     {
         "id": "spot_025",
@@ -33,7 +37,11 @@
             "zh-CN": "大型主题公园，设有过山车、水乐园、动物园",
             "en": "Large theme park featuring roller coasters, a water park, and a zoo."
         },
-        "images": []
+        "images": [
+            "Ocean Park Hong Kong.jpg",
+            "Ocean Park Hong Kong.jpg(2)",
+            "Ocean Park Hong Kong.jpg(3)"
+        ]
     },
     {
         "id": "spot_026",
@@ -51,7 +59,11 @@
             "zh-CN": "亚洲首个全天候海滨水上乐园，设5大主题区域和27个游乐设施",
             "en": "Asia's first all-weather seaside water park, featuring 5 themed zones and 27 attractions."
         },
-        "images": []
+        "images": [
+            "Water World Ocean Park (Wong Chuk Hang).jpg",
+            "Water World Ocean Park (Wong Chuk Hang).jpg(2)",
+            "Water World Ocean Park (Wong Chuk Hang).jpg(3)"
+        ]
     },
     {
         "id": "spot_027",
@@ -69,6 +81,10 @@
             "zh-CN": "二万呎游乐场",
             "en": "20,000 sq. ft. monopoly-themed attraction."
         },
-        "images": []
+        "images": [
+            "Monopoly Dreams (The Peak).jpg",
+            "Monopoly Dreams (The Peak).jpg(2)",
+            "Monopoly Dreams (The Peak).jpg(3)"
+        ]
     }
 ]

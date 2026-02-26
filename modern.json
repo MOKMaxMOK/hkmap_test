@@ -15,7 +15,11 @@
             "zh-CN": "香港最高点之一，可俯瞰维港及中环高楼大厦的全景，是摄影爱好者的必去之地。",
             "en": "One of Hong Kong's highest points, offering panoramic views of Victoria Harbour and Central's skyscrapers. A must-visit for photography enthusiasts."
         },
-        "images": []
+        "images": [
+            "Victoria Peak.jpg",
+            "Victoria Peak.jpg(2)",
+            "Victoria Peak.jpg(3)"
+        ]
     },
     {
         "id": "spot_002",
@@ -33,7 +37,11 @@
             "zh-CN": "位于香港丽思卡尔顿酒店118楼，是世界最高的酒吧之一，并有现场DJ演奏。",
             "en": "Located on the 118th floor of The Ritz-Carlton Hong Kong, OZONE is one of the world's highest bars, featuring live DJ performances."
         },
-        "images": []
+        "images": [
+            "OZONE Rooftop Bar.jpg",
+            "OZONE Rooftop Bar.jpg(2)",
+            "OZONE Rooftop Bar.jpg(3)"
+        ]
     },
     {
         "id": "spot_003",
@@ -51,7 +59,11 @@
             "zh-CN": "连接信德中心，环境清幽，可欣赏维港西面景色及日落。",
             "en": "Connecting to Shun Tak Centre, this tranquil promenade offers views of the western side of Victoria Harbour and beautiful sunsets."
         },
-        "images": []
+        "images": [
+            "Central and Western District Promenade (Sheung Wan Section).jpg",
+            "Central and Western District Promenade (Sheung Wan Section).jpg(2)",
+            "Central and Western District Promenade (Sheung Wan Section).jpg(3)"
+        ]
     },
     {
         "id": "spot_004",
@@ -69,7 +81,11 @@
             "zh-CN": "欣赏维多利亚港天际线的最佳位置，晚上可观赏「幻彩詠香江」灯光秀。",
             "en": "The best spot to enjoy Victoria Harbour's skyline, with nightly views of the 'Symphony of Lights' show."
         },
-        "images": []
+        "images": [
+            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg",
+            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg(2)",
+            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg(3)"
+        ]
     },
     {
         "id": "spot_005",
@@ -87,7 +103,11 @@
             "zh-CN": "拥有长达一公里的海滨木栈道，设有特色塔楼地标，是欣赏日落和夜景的热门地点。",
             "en": "Featuring a one-kilometer-long waterfront boardwalk and iconic tower landmarks, it is a popular spot for sunsets and night views."
         },
-        "images": []
+        "images": [
+            "Kwun Tong Promenade.jpg",
+            "Kwun Tong Promenade.jpg(2)",
+            "Kwun Tong Promenade.jpg(3)"
+        ]
     },
     {
         "id": "spot_006",
@@ -105,6 +125,10 @@
             "zh-CN": "拥有大片草地和海滨长廊，是野餐和欣赏维港日落的绝佳地点。",
             "en": "With expansive lawns and a waterfront promenade, this park is perfect for picnics and watching the sunset over Victoria Harbour."
         },
-        "images": []
+        "images": [
+            "West Kowloon Cultural District Art Park.jpg",
+            "West Kowloon Cultural District Art Park.jpg(2)",
+            "West Kowloon Cultural District Art Park.jpg(3)"
+        ]
     }
 ]

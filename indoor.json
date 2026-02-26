@@ -15,7 +15,11 @@
             "zh-CN": "互动展品多，偏“玩中学”型娱乐。",
             "en": "Features many interactive exhibits, focusing on 'edutainment' where learning meets fun."
         },
-        "images": []
+        "images": [
+            "Hong Kong Science Museum.jpg",
+            "Hong Kong Science Museum.jpg(2)",
+            "Hong Kong Science Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_002",
@@ -33,7 +37,11 @@
             "zh-CN": "有天文馆/展品，属科学天文类休闲去处。",
             "en": "Features a planetarium and exhibits, a leisure spot for science and astronomy."
         },
-        "images": []
+        "images": [
+            "Hong Kong Space Museum.jpg",
+            "Hong Kong Space Museum.jpg(2)",
+            "Hong Kong Space Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_003",
@@ -51,7 +59,11 @@
             "zh-CN": "香港最大密室逃脱连锁店，提供多个惊险主题",
             "en": "Hong Kong's largest escape room chain offering various thrilling themes."
         },
-        "images": []
+        "images": [
+            "LOST HK (Causeway Bay).jpg",
+            "LOST HK (Causeway Bay).jpg(2)",
+            "LOST HK (Causeway Bay).jpg(3)"
+        ]
     },
     {
         "id": "spot_004",
@@ -69,7 +81,11 @@
             "zh-CN": "密室逃脱",
             "en": "Room escape game."
         },
-        "images": []
+        "images": [
+            "Freeing HK (Mong Kok).jpg",
+            "Freeing HK (Mong Kok).jpg(2)",
+            "Freeing HK (Mong Kok).jpg(3)"
+        ]
     },
     {
         "id": "spot_005",
@@ -87,7 +103,11 @@
             "zh-CN": "密室逃脱",
             "en": "Room escape game."
         },
-        "images": []
+        "images": [
+            "Lost Escape (Mong Kok).jpg",
+            "Lost Escape (Mong Kok).jpg(2)",
+            "Lost Escape (Mong Kok).jpg(3)"
+        ]
     },
     {
         "id": "spot_006",
@@ -105,7 +125,11 @@
             "zh-CN": "营业至午夜12点",
             "en": "Open until midnight."
         },
-        "images": []
+        "images": [
+            "Mission Escape (Jordan).jpg",
+            "Mission Escape (Jordan).jpg(2)",
+            "Mission Escape (Jordan).jpg(3)"
+        ]
     },
     {
         "id": "spot_007",
@@ -123,7 +147,11 @@
             "zh-CN": "密室逃脱",
             "en": "Room escape game."
         },
-        "images": []
+        "images": [
+            "Fox in a Box Hong Kong (Kwun Tong).jpg",
+            "Fox in a Box Hong Kong (Kwun Tong).jpg(2)",
+            "Fox in a Box Hong Kong (Kwun Tong).jpg(3)"
+        ]
     },
     {
         "id": "spot_008",
@@ -141,7 +169,11 @@
             "zh-CN": "VR 虚拟实境体验馆，偏多人同玩的沉浸式娱乐。",
             "en": "VR experience center focusing on immersive multiplayer entertainment."
         },
-        "images": []
+        "images": [
+            "VAR LIVE VR (Kowloon).jpg",
+            "VAR LIVE VR (Kowloon).jpg(2)",
+            "VAR LIVE VR (Kowloon).jpg(3)"
+        ]
     },
     {
         "id": "spot_009",
@@ -159,7 +191,11 @@
             "zh-CN": "乐高天地任玩3小时",
             "en": "3 hours of unlimited LEGO fun."
         },
-        "images": []
+        "images": [
+            "LEGOLAND Discovery Centre (Tsim Sha Tsui).jpg",
+            "LEGOLAND Discovery Centre (Tsim Sha Tsui).jpg(2)",
+            "LEGOLAND Discovery Centre (Tsim Sha Tsui).jpg(3)"
+        ]
     },
     {
         "id": "spot_010",
@@ -177,7 +213,11 @@
             "zh-CN": "亲子跳弹床室内游乐场",
             "en": "Indoor activity park with trampolines for families."
         },
-        "images": []
+        "images": [
+            "SuperPark.jpg",
+            "SuperPark.jpg(2)",
+            "SuperPark.jpg(3)"
+        ]
     },
     {
         "id": "spot_011",
@@ -195,7 +235,11 @@
             "zh-CN": "全港最大室内运动Playhouse",
             "en": "The largest indoor sports playhouse in Hong Kong."
         },
-        "images": []
+        "images": [
+            "SUPER SPORTS PARK (Near Olympian City).jpg",
+            "SUPER SPORTS PARK (Near Olympian City).jpg(2)",
+            "SUPER SPORTS PARK (Near Olympian City).jpg(3)"
+        ]
     },
     {
         "id": "spot_012",
@@ -213,7 +257,11 @@
             "zh-CN": "室内运动竞技游乐场",
             "en": "Indoor sports and arcade arena."
         },
-        "images": []
+        "images": [
+            "Namco (Kowloon Bay).jpg",
+            "Namco (Kowloon Bay).jpg(2)",
+            "Namco (Kowloon Bay).jpg(3)"
+        ]
     },
     {
         "id": "spot_013",
@@ -231,7 +279,11 @@
             "zh-CN": "主打室内飘移车，另有推银机、气垫球、彩虹池等",
             "en": "Features indoor drift cars, coin pushers, air hockey, and rainbow pools."
         },
-        "images": []
+        "images": [
+            "D2 Place PowerPlay Arena (Lai Chi Kok).jpg",
+            "D2 Place PowerPlay Arena (Lai Chi Kok).jpg(2)",
+            "D2 Place PowerPlay Arena (Lai Chi Kok).jpg(3)"
+        ]
     },
     {
         "id": "spot_014",
@@ -249,7 +301,11 @@
             "zh-CN": "提供过百款桌游体验",
             "en": "Offers over a hundred board game experiences."
         },
-        "images": []
+        "images": [
+            "Welcome On Board (Tuen Mun).jpg",
+            "Welcome On Board (Tuen Mun).jpg(2)",
+            "Welcome On Board (Tuen Mun).jpg(3)"
+        ]
     },
     {
         "id": "spot_015",
@@ -267,7 +323,11 @@
             "zh-CN": "桌游连锁店",
             "en": "Board game chain store."
         },
-        "images": []
+        "images": [
+            "Welcome On Board (Yuen Long).jpg",
+            "Welcome On Board (Yuen Long).jpg(2)",
+            "Welcome On Board (Yuen Long).jpg(3)"
+        ]
     },
     {
         "id": "spot_016",
@@ -285,7 +345,11 @@
             "zh-CN": "亲子游乐场",
             "en": "Family indoor playground."
         },
-        "images": []
+        "images": [
+            "100FUN (Lam Tin Kai Tin Shopping Centre).jpg",
+            "100FUN (Lam Tin Kai Tin Shopping Centre).jpg(2)",
+            "100FUN (Lam Tin Kai Tin Shopping Centre).jpg(3)"
+        ]
     },
     {
         "id": "spot_017",
@@ -303,7 +367,11 @@
             "zh-CN": "波波池超多波波，设变装室",
             "en": "Huge ball pit with a dressing room."
         },
-        "images": []
+        "images": [
+            "SPARKLES PLAYHOUSE (Kwun Tong).jpg",
+            "SPARKLES PLAYHOUSE (Kwun Tong).jpg(2)",
+            "SPARKLES PLAYHOUSE (Kwun Tong).jpg(3)"
+        ]
     },
     {
         "id": "spot_018",
@@ -321,7 +389,11 @@
             "zh-CN": "占地4,500平方尺亲子室内游乐场",
             "en": "4,500 sq. ft. indoor family playground."
         },
-        "images": []
+        "images": [
+            "WEMOMENT WONDERLAND (Kwai Hing).jpg",
+            "WEMOMENT WONDERLAND (Kwai Hing).jpg(2)",
+            "WEMOMENT WONDERLAND (Kwai Hing).jpg(3)"
+        ]
     },
     {
         "id": "spot_019",
@@ -339,7 +411,11 @@
             "zh-CN": "适合亲子活动",
             "en": "Suitable for family activities."
         },
-        "images": []
+        "images": [
+            "2Gather Playhouse (Shek Mun).jpg",
+            "2Gather Playhouse (Shek Mun).jpg(2)",
+            "2Gather Playhouse (Shek Mun).jpg(3)"
+        ]
     },
     {
         "id": "spot_020",
@@ -357,7 +433,11 @@
             "zh-CN": "提供派对室服务，适合团队建设",
             "en": "Provides party room services, suitable for team building."
         },
-        "images": []
+        "images": [
+            "LOST Party (Causeway Bay).jpg",
+            "LOST Party (Causeway Bay).jpg(2)",
+            "LOST Party (Causeway Bay).jpg(3)"
+        ]
     },
     {
         "id": "spot_021",
@@ -375,7 +455,11 @@
             "zh-CN": "密室逃脱分店",
             "en": "Escape room branch."
         },
-        "images": []
+        "images": [
+            "LOST HK (Repulse Bay).jpg",
+            "LOST HK (Repulse Bay).jpg(2)",
+            "LOST HK (Repulse Bay).jpg(3)"
+        ]
     },
     {
         "id": "spot_022",
@@ -393,7 +477,11 @@
             "zh-CN": "共有37个不同主题，香港最大连锁店",
             "en": "Features 37 different themes, Hong Kong's largest chain."
         },
-        "images": []
+        "images": [
+            "LOST HK (Mong Kok).jpg",
+            "LOST HK (Mong Kok).jpg(2)",
+            "LOST HK (Mong Kok).jpg(3)"
+        ]
     },
     {
         "id": "spot_023",
@@ -411,6 +499,10 @@
             "zh-CN": "密室逃脱分店",
             "en": "Escape room branch."
         },
-        "images": []
+        "images": [
+            "LOST HK (Lai Chi Kok).jpg",
+            "LOST HK (Lai Chi Kok).jpg(2)",
+            "LOST HK (Lai Chi Kok).jpg(3)"
+        ]
     }
 ]

@@ -15,7 +15,11 @@
             "zh-CN": "位于石澳郊野公园，曾被选为亚洲最佳市区远足径，可饱览大浪湾和南中国海的壮丽景色。",
             "en": "Located in Shek O Country Park, once voted the best urban hiking trail in Asia, offering magnificent views of Big Wave Bay and the South China Sea."
         },
-        "images": []
+        "images": [
+            "Dragon's Back.jpg",
+            "Dragon's Back.jpg(2)",
+            "Dragon's Back.jpg(3)"
+        ]
     },
     {
         "id": "spot_041",
@@ -33,7 +37,11 @@
             "zh-CN": "香港最高峰，可俯瞰全港景色，云海和日出景色著名。",
             "en": "Hong Kong's highest peak, offering panoramic views of the city, famous for sea of clouds and sunrise views."
         },
-        "images": []
+        "images": [
+            "Tai Mo Shan.jpg",
+            "Tai Mo Shan.jpg(2)",
+            "Tai Mo Shan.jpg(3)"
+        ]
     },
     {
         "id": "spot_042",
@@ -51,7 +59,11 @@
             "zh-CN": "世界级的地质景观，包含万宜水库东坝等著名地标。",
             "en": "World-class geological landscapes, featuring famous landmarks like the High Island Reservoir East Dam."
         },
-        "images": []
+        "images": [
+            "Hong Kong UNESCO Global Geopark (Sai Kung).jpg",
+            "Hong Kong UNESCO Global Geopark (Sai Kung).jpg(2)",
+            "Hong Kong UNESCO Global Geopark (Sai Kung).jpg(3)"
+        ]
     },
     {
         "id": "spot_043",
@@ -69,7 +81,11 @@
             "zh-CN": "观赏壮观的六角形岩柱群、海蚀洞及防波堤，是世界级的地质景观。",
             "en": "View spectacular hexagonal volcanic rock columns, sea caves, and the dolosse dam; a world-class geological site."
         },
-        "images": []
+        "images": [
+            "High Island Reservoir East Dam.jpg",
+            "High Island Reservoir East Dam.jpg(2)",
+            "High Island Reservoir East Dam.jpg(3)"
+        ]
     },
     {
         "id": "spot_044",
@@ -87,7 +103,11 @@
             "zh-CN": "退潮时会出现连岛沙洲，可步行前往，以此处的「菠萝包石」闻名。",
             "en": "Features a tombolo accessible during low tide, famous for its 'pineapple bun' rocks."
         },
-        "images": []
+        "images": [
+            "Sharp Island.jpg",
+            "Sharp Island.jpg(2)",
+            "Sharp Island.jpg(3)"
+        ]
     },
     {
         "id": "spot_045",
@@ -105,7 +125,11 @@
             "zh-CN": "以悠闲氛围和海鲜闻名的离岛。",
             "en": "An outlying island famous for its relaxed atmosphere and seafood."
         },
-        "images": []
+        "images": [
+            "Lamma Island.jpg",
+            "Lamma Island.jpg(2)",
+            "Lamma Island.jpg(3)"
+        ]
     },
     {
         "id": "spot_046",
@@ -123,7 +147,11 @@
             "zh-CN": "充满傳统节庆气氛和特色小吃的热门小岛。",
             "en": "A popular island full of traditional festive atmosphere and local snacks."
         },
-        "images": []
+        "images": [
+            "Cheung Chau.jpg",
+            "Cheung Chau.jpg(2)",
+            "Cheung Chau.jpg(3)"
+        ]
     },
     {
         "id": "spot_047",
@@ -141,7 +169,11 @@
             "zh-CN": "位于元朗流浮山，拥有广阔的泥滩和红树林，是全港欣赏日落最美的地方之一。",
             "en": "Located at Lau Fau Shan, Yuen Long, featuring vast mudflats and mangroves, one of the best places to watch the sunset in Hong Kong."
         },
-        "images": []
+        "images": [
+            "Ha Pak Nai.jpg",
+            "Ha Pak Nai.jpg(2)",
+            "Ha Pak Nai.jpg(3)"
+        ]
     },
     {
         "id": "spot_048",
@@ -159,7 +191,11 @@
             "zh-CN": "以白千层树林闻名，水浸时景色如镜面般优美，是热门攝影地。",
             "en": "Famous for its paperbark tree groves, offering mirror-like reflections when flooded; a popular photography spot."
         },
-        "images": []
+        "images": [
+            "Shing Mun Reservoir.jpg",
+            "Shing Mun Reservoir.jpg(2)",
+            "Shing Mun Reservoir.jpg(3)"
+        ]
     },
     {
         "id": "spot_049",
@@ -177,7 +213,11 @@
             "zh-CN": "位于大榄郊野公园，從观景台可俯瞰数十个小岛散落在水塘中，景色如画。",
             "en": "Located in Tai Lam Country Park, offering picturesque views of dozens of small islands scattered in the reservoir from the lookout."
         },
-        "images": []
+        "images": [
+            "Tai Lam Chung Reservoir (Thousand Islands Lake).jpg",
+            "Tai Lam Chung Reservoir (Thousand Islands Lake).jpg(2)",
+            "Tai Lam Chung Reservoir (Thousand Islands Lake).jpg(3)"
+        ]
     },
     {
         "id": "spot_050",
@@ -195,7 +235,11 @@
             "zh-CN": "位于天水围，拥有豐富的湿地生态，是观鳥和认识自然生态的好地方。",
             "en": "Located in Tin Shui Wai, featuring rich wetland ecology, a great place for bird watching and learning about nature."
         },
-        "images": []
+        "images": [
+            "Hong Kong Wetland Park.jpg",
+            "Hong Kong Wetland Park.jpg(2)",
+            "Hong Kong Wetland Park.jpg(3)"
+        ]
     },
     {
         "id": "spot_051",
@@ -213,7 +257,11 @@
             "zh-CN": "自然生态景點",
             "en": "Nature and ecology attraction."
         },
-        "images": []
+        "images": [
+            "Kadoorie Farm and Botanic Garden.jpg",
+            "Kadoorie Farm and Botanic Garden.jpg(2)",
+            "Kadoorie Farm and Botanic Garden.jpg(3)"
+        ]
     },
     {
         "id": "spot_052",
@@ -231,7 +279,11 @@
             "zh-CN": "动物、花海、天鹅湖等打卡位，设游乐设施",
             "en": "Features animals, flower fields, swan lake, and play facilities."
         },
-        "images": []
+        "images": [
+            "Butterfly Valley.jpg",
+            "Butterfly Valley.jpg(2)",
+            "Butterfly Valley.jpg(3)"
+        ]
     },
     {
         "id": "spot_053",
@@ -249,7 +301,11 @@
             "zh-CN": "历史悠久的公园，可观赏多種灵长类动物及植物。",
             "en": "A historic park where you can see various primates and plants."
         },
-        "images": []
+        "images": [
+            "Hong Kong Zoological and Botanical Gardens.jpg",
+            "Hong Kong Zoological and Botanical Gardens.jpg(2)",
+            "Hong Kong Zoological and Botanical Gardens.jpg(3)"
+        ]
     },
     {
         "id": "spot_054",
@@ -267,7 +323,11 @@
             "zh-CN": "可行山/走自然教育径，属户外郊野型娛乐。",
             "en": "Suitable for hiking and nature trails, an outdoor countryside recreation spot."
         },
-        "images": []
+        "images": [
+            "Aberdeen Country Park.jpg",
+            "Aberdeen Country Park.jpg(2)",
+            "Aberdeen Country Park.jpg(3)"
+        ]
     },
     {
         "id": "spot_055",
@@ -285,7 +345,11 @@
             "zh-CN": "大型海滨公园，有恐龙公园、海滨长廊和单车径",
             "en": "Large waterfront park with a dinosaur park, promenade, and cycling track."
         },
-        "images": []
+        "images": [
+            "Tai Po Waterfront Park.jpg",
+            "Tai Po Waterfront Park.jpg(2)",
+            "Tai Po Waterfront Park.jpg(3)"
+        ]
     },
     {
         "id": "spot_056",
@@ -303,7 +367,11 @@
             "zh-CN": "游乐设施和海景步道",
             "en": "Playground facilities and sea view promenade."
         },
-        "images": []
+        "images": [
+            "Tuen Mun Promenade.jpg",
+            "Tuen Mun Promenade.jpg(2)",
+            "Tuen Mun Promenade.jpg(3)"
+        ]
     },
     {
         "id": "spot_057",
@@ -321,7 +389,11 @@
             "zh-CN": "沙滩、露天餐厅，有度假感觉",
             "en": "Beach, alfresco dining, offering a resort-like vibe."
         },
-        "images": []
+        "images": [
+            "Gold Coast.jpg",
+            "Gold Coast.jpg(2)",
+            "Gold Coast.jpg(3)"
+        ]
     },
     {
         "id": "spot_058",
@@ -339,7 +411,11 @@
             "zh-CN": "沙田区第二大海滨长廊，可远眺八仙岭山脉，环境开扬。",
             "en": "The second largest waterfront promenade in Sha Tin, offering open views of the Pat Sin Leng mountain range."
         },
-        "images": []
+        "images": [
+            "Ma On Shan Promenade.jpg",
+            "Ma On Shan Promenade.jpg(2)",
+            "Ma On Shan Promenade.jpg(3)"
+        ]
     },
     {
         "id": "spot_059",
@@ -357,6 +433,10 @@
             "zh-CN": "拥有大型海滨长廊，可欣赏东九龙沿岸景色，内有葛量洪号灭火轮展览馆。",
             "en": "Features a large waterfront promenade with views of East Kowloon, housing the Fireboat Alexander Grantham Exhibition Gallery."
         },
-        "images": []
+        "images": [
+            "Quarry Bay Park.jpg",
+            "Quarry Bay Park.jpg(2)",
+            "Quarry Bay Park.jpg(3)"
+        ]
     }
 ]

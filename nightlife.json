@@ -15,7 +15,11 @@
             "zh-CN": "香港最著名娱乐区，汇聚超过90家酒吧、餐厅和夜店。",
             "en": "Hong Kong's most famous entertainment district, home to over 90 bars, restaurants, and nightclubs."
         },
-        "images": []
+        "images": [
+            "Lan Kwai Fong.jpg",
+            "Lan Kwai Fong.jpg(2)",
+            "Lan Kwai Fong.jpg(3)"
+        ]
     },
     {
         "id": "spot_014",
@@ -33,7 +37,11 @@
             "zh-CN": "位于骆克道及轩尼诗道一带，聚集多间卡拉OK、酒吧和夜店。",
             "en": "Located around Lockhart Road and Hennessy Road, featuring numerous karaoke lounges, bars, and nightclubs."
         },
-        "images": []
+        "images": [
+            "Wan Chai Bar District.jpg",
+            "Wan Chai Bar District.jpg(2)",
+            "Wan Chai Bar District.jpg(3)"
+        ]
     },
     {
         "id": "spot_015",
@@ -51,7 +59,11 @@
             "zh-CN": "位于中环四季酒店大堂，2025年亚洲及世界50最佳酒吧冠军，由著名调酒大师Lorenzo Antinori创办。",
             "en": "Located in the lobby of Four Seasons Hotel Central, crowned Asia's and World's Best Bar in 2025, founded by renowned mixologist Lorenzo Antinori."
         },
-        "images": []
+        "images": [
+            "Bar Leone.jpg",
+            "Bar Leone.jpg(2)",
+            "Bar Leone.jpg(3)"
+        ]
     },
     {
         "id": "spot_016",
@@ -69,7 +81,11 @@
             "zh-CN": "香港四季酒店旗舰酒吧，2025年亚洲50最佳酒吧排名第11位。",
             "en": "The flagship bar of Four Seasons Hong Kong, ranked 11th in Asia's 50 Best Bars 2025."
         },
-        "images": []
+        "images": [
+            "Argo.jpg",
+            "Argo.jpg(2)",
+            "Argo.jpg(3)"
+        ]
     },
     {
         "id": "spot_017",
@@ -87,7 +103,11 @@
             "zh-CN": "墨西哥主题酒吧，连续3年蝉联亚洲冠军，2025年排名第17位，位于中环。",
             "en": "A Mexican-themed bar in Central, crowned Asia's Best Bar for three consecutive years, ranked 17th in 2025."
         },
-        "images": []
+        "images": [
+            "COA.jpg",
+            "COA.jpg(2)",
+            "COA.jpg(3)"
+        ]
     },
     {
         "id": "spot_018",
@@ -105,7 +125,11 @@
             "zh-CN": "位于中环的人气酒吧。",
             "en": "A popular bar located in Central."
         },
-        "images": []
+        "images": [
+            "DarkSide.jpg",
+            "DarkSide.jpg(2)",
+            "DarkSide.jpg(3)"
+        ]
     },
     {
         "id": "spot_019",
@@ -123,7 +147,11 @@
             "zh-CN": "位于中环的特色酒吧。",
             "en": "A distinctive themed bar located in Central."
         },
-        "images": []
+        "images": [
+            "The Iron Fairies Hong Kong.jpg",
+            "The Iron Fairies Hong Kong.jpg(2)",
+            "The Iron Fairies Hong Kong.jpg(3)"
+        ]
     },
     {
         "id": "spot_020",
@@ -141,7 +169,11 @@
             "zh-CN": "2024年开幕的日式酒吧，2025年首度入榜亚洲50最佳酒吧排名第33位。",
             "en": "A Japanese-style bar opened in 2024, debuting at 33rd place in Asia's 50 Best Bars 2025."
         },
-        "images": []
+        "images": [
+            "Gokan.jpg",
+            "Gokan.jpg(2)",
+            "Gokan.jpg(3)"
+        ]
     },
     {
         "id": "spot_021",
@@ -159,7 +191,11 @@
             "zh-CN": "湾仔著名酒吧。",
             "en": "A well-known bar in Wan Chai."
         },
-        "images": []
+        "images": [
+            "The Wanch.jpg",
+            "The Wanch.jpg(2)",
+            "The Wanch.jpg(3)"
+        ]
     },
     {
         "id": "spot_022",
@@ -177,7 +213,11 @@
             "zh-CN": "位于兰桂坊中心的香港人气夜店，设计和音乐不断创新。",
             "en": "A popular nightclub in Lan Kwai Fong, known for innovative design and music."
         },
-        "images": []
+        "images": [
+            "Volar Nightclub.jpg",
+            "Volar Nightclub.jpg(2)",
+            "Volar Nightclub.jpg(3)"
+        ]
     },
     {
         "id": "spot_023",
@@ -195,7 +235,11 @@
             "zh-CN": "尖沙咀著名夜店。",
             "en": "A famous nightclub in Tsim Sha Tsui."
         },
-        "images": []
+        "images": [
+            "Dragon-i Restaurant & Bar.jpg",
+            "Dragon-i Restaurant & Bar.jpg(2)",
+            "Dragon-i Restaurant & Bar.jpg(3)"
+        ]
     },
     {
         "id": "spot_024",
@@ -213,7 +257,11 @@
             "zh-CN": "连锁卡拉OK，适合朋友聚会或生日局。",
             "en": "A karaoke chain popular for gatherings and birthday parties."
         },
-        "images": []
+        "images": [
+            "Neway Karaoke.jpg",
+            "Neway Karaoke.jpg(2)",
+            "Neway Karaoke.jpg(3)"
+        ]
     },
     {
         "id": "spot_025",
@@ -231,6 +279,10 @@
             "zh-CN": "连锁卡拉OK，适合多人唱K聚会。",
             "en": "A karaoke chain ideal for group singing parties."
         },
-        "images": []
+        "images": [
+            "RED MR Karaoke.jpg",
+            "RED MR Karaoke.jpg(2)",
+            "RED MR Karaoke.jpg(3)"
+        ]
     }
 ]

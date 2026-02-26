@@ -15,7 +15,11 @@
             "zh-CN": "前中区警署建筑群，经保育活化后开放，可参观监狱操场、法院及历史展览，建筑风格独特。",
             "en": "The former Central Police Station compound, revitalized and opened to the public. Visitors can explore the prison yard, courtrooms, and historical exhibitions, with unique architectural styles."
         },
-        "images": []
+        "images": [
+            "Tai Kwun.jpg",
+            "Tai Kwun.jpg(2)",
+            "Tai Kwun.jpg(3)"
+        ]
     },
     {
         "id": "spot_008",
@@ -33,7 +37,11 @@
             "zh-CN": "位于荷李活道，是香港最古老的庙宇之一，塔香缭绕，极具传统氛围。",
             "en": "Located on Hollywood Road, Man Mo Temple is one of Hong Kong's oldest temples, filled with incense coils and a strong traditional atmosphere."
         },
-        "images": []
+        "images": [
+            "Man Mo Temple.jpg",
+            "Man Mo Temple.jpg(2)",
+            "Man Mo Temple.jpg(3)"
+        ]
     },
     {
         "id": "spot_009",
@@ -51,7 +59,11 @@
             "zh-CN": "位于中环半山，介绍孙中山先生的生平及与香港的关系，建筑本身为法定古迹。",
             "en": "Located in Mid-Levels Central, the museum showcases the life of Dr Sun Yat-sen and his connection with Hong Kong. The building itself is a declared monument."
         },
-        "images": []
+        "images": [
+            "Dr Sun Yat-sen Museum.jpg",
+            "Dr Sun Yat-sen Museum.jpg(2)",
+            "Dr Sun Yat-sen Museum.jpg(3)"
+        ]
     },
     {
         "id": "spot_010",
@@ -69,7 +81,11 @@
             "zh-CN": "由传奇的九龙寨城改建而成的江南园林，保留了衙门建筑和部分遗迹，历史感浓厚。",
             "en": "Transformed from the legendary Kowloon Walled City, this Jiangnan-style garden preserves the yamen building and remnants of the past, rich in historical atmosphere."
         },
-        "images": []
+        "images": [
+            "Kowloon Walled City Park.jpg",
+            "Kowloon Walled City Park.jpg(2)",
+            "Kowloon Walled City Park.jpg(3)"
+        ]
     },
     {
         "id": "spot_011",
@@ -87,7 +103,11 @@
             "zh-CN": "位于钻石山，仿唐代园林设计，环境恬静，有金阁寺风格的圆满阁，是闹市中的净土。",
             "en": "Located in Diamond Hill, Nan Lian Garden is designed in the Tang dynasty style. With its serene environment and the Pavilion of Absolute Perfection, it is a peaceful oasis in the city."
         },
-        "images": []
+        "images": [
+            "Nan Lian Garden.jpg",
+            "Nan Lian Garden.jpg(2)",
+            "Nan Lian Garden.jpg(3)"
+        ]
     },
     {
         "id": "spot_012",
@@ -105,6 +125,10 @@
             "zh-CN": "与南莲园池相连，是大型仿唐木构建筑群，气势宏伟，全木结构无钉设计。",
             "en": "Connected to Nan Lian Garden, Chi Lin Nunnery is a grand Tang-style wooden architectural complex, built entirely without nails."
         },
-        "images": []
+        "images": [
+            "Chi Lin Nunnery.jpg",
+            "Chi Lin Nunnery.jpg(2)",
+            "Chi Lin Nunnery.jpg(3)"
+        ]
     }
 ]

@@ -15,7 +15,11 @@
             "zh-CN": "观赛型娱乐（赛马）重点地点之一。",
             "en": "A key venue for spectator sports (horse racing)."
         },
-        "images": []
+        "images": [
+            "Sha Tin Racecourse.jpg",
+            "Sha Tin Racecourse.jpg(2)",
+            "Sha Tin Racecourse.jpg(3)"
+        ]
     },
     {
         "id": "spot_029",
@@ -33,7 +37,11 @@
             "zh-CN": "香港特色观赛型娱乐之一（赛马日气氛好）。",
             "en": "One of Hong Kong's unique spectator spots (great atmosphere on race days)."
         },
-        "images": []
+        "images": [
+            "Happy Valley Racecourse.jpg",
+            "Happy Valley Racecourse.jpg(2)",
+            "Happy Valley Racecourse.jpg(3)"
+        ]
     },
     {
         "id": "spot_030",
@@ -51,7 +59,11 @@
             "zh-CN": "必去超大室内弹床游乐场",
             "en": "A must-visit huge indoor trampoline park."
         },
-        "images": []
+        "images": [
+            "Ryze Ultimate Trampoline Park.jpg",
+            "Ryze Ultimate Trampoline Park.jpg(2)",
+            "Ryze Ultimate Trampoline Park.jpg(3)"
+        ]
     },
     {
         "id": "spot_031",
@@ -69,7 +81,11 @@
             "zh-CN": "全港最大室内攀石场",
             "en": "The largest indoor climbing gym in Hong Kong."
         },
-        "images": []
+        "images": [
+            "Hong Kong Climbing Park (Sha Tin).jpg",
+            "Hong Kong Climbing Park (Sha Tin).jpg(2)",
+            "Hong Kong Climbing Park (Sha Tin).jpg(3)"
+        ]
     },
     {
         "id": "spot_032",
@@ -87,7 +103,11 @@
             "zh-CN": "12个充气水上障碍，包括垂直滑梯等",
             "en": "12 inflatable water obstacles, including vertical slides."
         },
-        "images": []
+        "images": [
+            "Core Aqua Park (Tai Mei Tuk).jpg",
+            "Core Aqua Park (Tai Mei Tuk).jpg(2)",
+            "Core Aqua Park (Tai Mei Tuk).jpg(3)"
+        ]
     },
     {
         "id": "spot_033",
@@ -105,7 +125,11 @@
             "zh-CN": "商场内溜冰场，属“运动＋休闲”玩法。",
             "en": "Mall ice rink, offering a mix of sports and leisure."
         },
-        "images": []
+        "images": [
+            "Cityplaza Ice Palace.jpg",
+            "Cityplaza Ice Palace.jpg(2)",
+            "Cityplaza Ice Palace.jpg(3)"
+        ]
     },
     {
         "id": "spot_034",
@@ -123,7 +147,11 @@
             "zh-CN": "溜冰/曲棍球相关设施齐，属运动型娱乐。",
             "en": "Well-equipped for skating/hockey, sports-oriented entertainment."
         },
-        "images": []
+        "images": [
+            "Mega Ice.jpg",
+            "Mega Ice.jpg(2)",
+            "Mega Ice.jpg(3)"
+        ]
     },
     {
         "id": "spot_035",
@@ -141,7 +169,11 @@
             "zh-CN": "商场溜冰场，属运动休闲型娱乐。",
             "en": "Mall ice rink, sports and leisure entertainment."
         },
-        "images": []
+        "images": [
+            "Glacier (Festival Walk).jpg",
+            "Glacier (Festival Walk).jpg(2)",
+            "Glacier (Festival Walk).jpg(3)"
+        ]
     },
     {
         "id": "spot_036",
@@ -159,7 +191,11 @@
             "zh-CN": "市区溜冰场，适合拍拖/朋友活动。",
             "en": "Urban ice rink, great for dates or hanging out with friends."
         },
-        "images": []
+        "images": [
+            "The Rink (Elements).jpg",
+            "The Rink (Elements).jpg(2)",
+            "The Rink (Elements).jpg(3)"
+        ]
     },
     {
         "id": "spot_037",
@@ -177,7 +213,11 @@
             "zh-CN": "40条国际标准球道",
             "en": "40 international standard lanes."
         },
-        "images": []
+        "images": [
+            "Top Bowl Tenpin Bowling (Kai Tak Sports Park).jpg",
+            "Top Bowl Tenpin Bowling (Kai Tak Sports Park).jpg(2)",
+            "Top Bowl Tenpin Bowling (Kai Tak Sports Park).jpg(3)"
+        ]
     },
     {
         "id": "spot_038",
@@ -195,7 +235,11 @@
             "zh-CN": "32条球道，提供桌球、飞镖机、足球机等",
             "en": "32 lanes, offering billiards, dart machines, football tables, etc."
         },
-        "images": []
+        "images": [
+            "Dragon Bowling (Tsuen Wan).jpg",
+            "Dragon Bowling (Tsuen Wan).jpg(2)",
+            "Dragon Bowling (Tsuen Wan).jpg(3)"
+        ]
     },
     {
         "id": "spot_039",
@@ -213,6 +257,10 @@
             "zh-CN": "24条球道，收费亲民，另有飞镖、桌球、气垫球等",
             "en": "24 lanes, affordable pricing, with darts, billiards, air hockey, etc."
         },
-        "images": []
+        "images": [
+            "Belair Bowling.jpg",
+            "Belair Bowling.jpg(2)",
+            "Belair Bowling.jpg(3)"
+        ]
     }
 ]

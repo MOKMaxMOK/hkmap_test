@@ -143,7 +143,13 @@
             z-index: 1000;
             touch-action: none;
             user-select: none;
-            transition: top 0.15s;
+            transition: top 0.3s ease, right 0.3s ease, left 0.3s ease;
+            /* 加入過渡效果讓自動吸頂更平滑 */
+        }
+
+        /* 取消拖曳時的動畫避免延遲感 */
+        .legend-group.dragging {
+            transition: none;
         }
 
         .legend-group.expand-left {
@@ -1110,6 +1116,16 @@
                 .setHTML(generateCardHTML(d, c, true))
                 .addTo(map);
             requestAnimationFrame(() => hydratePopupImages(d, token, false));
+
+            // 🔥 新增：當顯示 Popup 時，若 legend 處於展開狀態，自動移到頂部 Dock
+            const legend = document.getElementById('legend-drag');
+            if (legend && document.getElementById('legend-card').style.display === 'block') {
+                const barBottom = getBarBottom();
+                const TOP_LIMIT = barBottom + 2;
+                legend.style.top = TOP_LIMIT + 'px';
+                // 觸發 dock 狀態（展開成橫向）
+                setLegendDocked(true);
+            }
         }
         function showListModal(d) {
             currentSpotData = { d, c: files.find(f => f.id === d.cat).color, isPopup: false };
@@ -1129,11 +1145,40 @@
             const legend = document.getElementById('legend-drag');
             const card = document.getElementById('legend-card');
             const btn = document.getElementById('legend-btn');
+
+            // 🔥 修正：收合/展開時，保持目前的左右位置與對齊邏輯
             if (show) {
+                // 如果即將展開，計算位置以決定向左或向右展開
                 const isRightSide = legend.offsetLeft > window.innerWidth / 2;
-                if (isRightSide) { legend.classList.add('expand-left'); legend.style.right = (window.innerWidth - legend.offsetLeft - legend.offsetWidth) + 'px'; legend.style.left = 'auto'; }
-                else { legend.classList.remove('expand-left'); legend.style.left = legend.offsetLeft + 'px'; legend.style.right = 'auto'; }
+                if (isRightSide) {
+                    legend.classList.add('expand-left');
+                    // 只有在非 dock 狀態時才改變 right/left，否則由 CSS 處理
+                    if (!legend.classList.contains('dock-top')) {
+                        legend.style.right = (window.innerWidth - legend.offsetLeft - legend.offsetWidth) + 'px';
+                        legend.style.left = 'auto';
+                    }
+                } else {
+                    legend.classList.remove('expand-left');
+                    if (!legend.classList.contains('dock-top')) {
+                        legend.style.left = legend.offsetLeft + 'px';
+                        legend.style.right = 'auto';
+                    }
+                }
+            } else {
+                // 收回按鈕時，如果之前是靠右對齊的，確保它的 left 屬性被正確重置
+                if (legend.classList.contains('expand-left') && !legend.classList.contains('dock-top')) {
+                    // 把 right 轉回 left，以確保位置固定
+                    const currentRight = parseFloat(legend.style.right) || 8;
+                    const calculatedLeft = window.innerWidth - currentRight - 40; // 40 是按鈕寬度
+                    legend.style.left = calculatedLeft + 'px';
+                    legend.style.right = 'auto';
+                } else if (legend.classList.contains('dock-top')) {
+                    // 如果在頂部收合，按鈕維持在右上角
+                    legend.style.right = '8px';
+                    legend.style.left = 'auto';
+                }
             }
+
             card.style.display = show ? 'block' : 'none';
             btn.style.display = show ? 'none' : 'flex';
         }
@@ -1144,7 +1189,15 @@
             return bar ? Math.round(bar.getBoundingClientRect().bottom) : 50;
         }
         function setLegendDocked(docked) {
-            document.getElementById('legend-drag').classList.toggle('dock-top', !!docked);
+            const legend = document.getElementById('legend-drag');
+            if (docked) {
+                legend.classList.add('dock-top');
+                // Dock 狀態時重置 left/right 讓 CSS 控制
+                legend.style.left = 'auto';
+                legend.style.right = '8px';
+            } else {
+                legend.classList.remove('dock-top');
+            }
         }
 
         /* ===== 渲染列表 ===== */
@@ -1188,39 +1241,49 @@
         /* ===== Marker Pin ===== */
         function getPin(c) { const x = document.createElement('canvas'); x.width = 64; x.height = 64; const z = x.getContext('2d'); z.fillStyle = c; z.beginPath(); z.arc(32, 24, 20, 0, Math.PI * 2); z.fill(); z.beginPath(); z.moveTo(12, 24); z.lineTo(32, 60); z.lineTo(52, 24); z.fill(); z.fillStyle = 'white'; z.beginPath(); z.arc(32, 24, 8, 0, Math.PI * 2); z.fill(); return x.toDataURL(); }
 
-        /* ===== 🔥 可拖拽圖例（貼近 bar 自動 dock + 橫向展開）===== */
+        /* ===== 🔥 可拖拽圖例 ===== */
         function makeDraggable(el) {
             let isDragging = false, startX, startY, initialLeft, initialTop;
             const PADDING = 8;
 
             const onMove = (clientX, clientY) => {
                 if (!isDragging) return;
+
+                // 計算拖曳的實際位置
                 let newLeft = initialLeft + (clientX - startX);
                 let newTop = initialTop + (clientY - startY);
 
                 const barBottom = getBarBottom();
-                const TOP_LIMIT = barBottom + 2;   // 最高只能貼住 bar 底部下 2px
-                const DOCK_THRESH = TOP_LIMIT + 20;  // 距離 bar 20px 內自動貼住
-                const maxLeft = window.innerWidth - el.offsetWidth - PADDING;
-                const maxTop = window.innerHeight - el.offsetHeight - PADDING;
+                const TOP_LIMIT = barBottom + 2;   // 最高貼住 bar 下 2px
+                const DOCK_THRESH = TOP_LIMIT + 20;
 
+                // 🔥 修正：使用 getBoundingClientRect() 來準確計算元素邊界
+                const elRect = el.getBoundingClientRect();
+                const actualWidth = elRect.width;
+                const actualHeight = elRect.height;
+
+                const maxLeft = window.innerWidth - actualWidth - PADDING;
+                const maxTop = window.innerHeight - actualHeight - PADDING;
+
+                // 防止超出螢幕
                 newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
-                newTop = Math.min(Math.max(TOP_LIMIT, newTop), maxTop);
+                // 確保 top 不會小於 TOP_LIMIT (這解決了無法推到頂部的問題)
+                newTop = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-                // 接近 bar 就自動吸附並切換橫向展開
+                // 接近頂部自動吸附
                 const shouldDock = newTop <= DOCK_THRESH;
                 if (shouldDock) newTop = TOP_LIMIT;
                 setLegendDocked(shouldDock);
 
                 el.style.left = newLeft + 'px';
                 el.style.top = newTop + 'px';
-                el.style.right = 'auto';
+                if (!shouldDock) el.style.right = 'auto';
             };
 
             const onEnd = () => {
                 if (!isDragging) return;
                 isDragging = false;
-                // 如果卡片是展開狀態，重新計算 expand-left 方向
+                el.classList.remove('dragging');
                 if (document.getElementById('legend-card').style.display === 'block') {
                     toggleLegend(true);
                 }
@@ -1228,16 +1291,30 @@
 
             // Touch
             el.addEventListener('touchstart', e => {
+                // 🔥 修正手機拖動阻礙：取消默認行為防止網頁跟著滾動
+                if (e.target.closest('.legend-card') || e.target.closest('.legend-btn')) {
+                    if (!e.target.closest('.legend-close')) e.preventDefault();
+                }
+
                 isDragging = true;
+                el.classList.add('dragging'); // 移除動畫效果確保跟手
                 startX = e.touches[0].clientX; startY = e.touches[0].clientY;
                 initialLeft = el.offsetLeft; initialTop = el.offsetTop;
             }, { passive: false });
-            el.addEventListener('touchmove', e => { e.preventDefault(); onMove(e.touches[0].clientX, e.touches[0].clientY); }, { passive: false });
+
+            el.addEventListener('touchmove', e => {
+                if (!isDragging) return;
+                e.preventDefault();
+                onMove(e.touches[0].clientX, e.touches[0].clientY);
+            }, { passive: false });
+
             el.addEventListener('touchend', onEnd);
 
             // Mouse
             el.addEventListener('mousedown', e => {
+                if (e.target.closest('.legend-close')) return;
                 isDragging = true;
+                el.classList.add('dragging');
                 startX = e.clientX; startY = e.clientY;
                 initialLeft = el.offsetLeft; initialTop = el.offsetTop;
                 el.style.cursor = 'grabbing';
@@ -1245,7 +1322,7 @@
             window.addEventListener('mousemove', e => { if (!isDragging) return; e.preventDefault(); onMove(e.clientX, e.clientY); });
             window.addEventListener('mouseup', () => { if (!isDragging) return; onEnd(); el.style.cursor = 'move'; });
 
-            // 視窗大小改變時維持 dock 狀態對齊
+            // Resize
             window.addEventListener('resize', () => {
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
