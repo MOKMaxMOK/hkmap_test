@@ -143,15 +143,14 @@
             z-index: 1000;
             touch-action: none;
             user-select: none;
-            /* 加入平滑過渡，自動吸頂時不突兀 */
             transition: top 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), left 0.3s cubic-bezier(0.25, 0.8, 0.25, 1), right 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
         }
 
-        /* 拖曳中關閉過渡，確保跟手 */
         .legend-group.dragging {
             transition: none !important;
         }
 
+        /* 正常靠左展開 */
         .legend-group.expand-left {
             align-items: flex-start;
         }
@@ -168,6 +167,7 @@
             cursor: move;
             font-size: 20px;
             transition: transform 0.2s;
+            pointer-events: auto;
         }
 
         .legend-btn:active {
@@ -186,6 +186,7 @@
             position: relative;
             min-width: auto;
             cursor: move;
+            pointer-events: auto;
         }
 
         .legend-close {
@@ -203,6 +204,7 @@
             line-height: 20px;
             box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
             z-index: 1;
+            pointer-events: auto;
         }
 
         .legend-group.expand-left .legend-close {
@@ -233,12 +235,12 @@
             flex-shrink: 0;
         }
 
-        /* 🔥 Dock-top：拖到頂部自動橫向自適應展開 */
-        .legend-group.dock-top {
+        /* 🔥 Dock-top 樣式：只有在展開狀態且吸頂時才生效 */
+        .legend-group.dock-top.is-expanded {
             align-items: center;
         }
 
-        .legend-group.dock-top .legend-card {
+        .legend-group.dock-top.is-expanded .legend-card {
             width: auto;
             max-width: calc(100vw - 16px);
             padding: 8px 12px;
@@ -246,22 +248,20 @@
             box-sizing: border-box;
         }
 
-        .legend-group.dock-top #legend-content {
+        .legend-group.dock-top.is-expanded #legend-content {
             flex-direction: row;
             flex-wrap: wrap;
-            /* 🔥 自動換行 */
             justify-content: flex-start;
             gap: 6px 12px;
         }
 
-        .legend-group.dock-top .legend-item {
+        .legend-group.dock-top.is-expanded .legend-item {
             font-size: 12px;
             margin: 0;
             white-space: nowrap;
-            /* 🔥 確保文字不被截斷 */
         }
 
-        .legend-group.dock-top .legend-close {
+        .legend-group.dock-top.is-expanded .legend-close {
             top: -8px;
             right: -8px;
             left: auto;
@@ -871,7 +871,8 @@
     <div id="main-container">
         <div id="map"></div>
 
-        <div class="legend-group" id="legend-drag">
+        <!-- 初始設定為 is-expanded 以配合 inline style -->
+        <div class="legend-group is-expanded" id="legend-drag">
             <div class="legend-btn" id="legend-btn" onclick="toggleLegend(true)">❓</div>
             <div class="legend-card" id="legend-card">
                 <div class="legend-close" onclick="toggleLegend(false)">✕</div>
@@ -1013,7 +1014,9 @@
         let selCats = files.map(f => f.id), selRegs = regions.map(r => r.id);
         let lastCenter = null, lastZoom = null, activePopup = null, currentSpotData = null, hoverPopup = null;
 
+        // 分別記錄：是否吸頂、是否為展開狀態
         let isLegendDocked = false;
+        let isLegendExpanded = true;
 
         try { const s = navigator.language.toLowerCase(); curLang = s === 'zh-cn' || s === 'zh-sg' ? 'zh-CN' : s.startsWith('zh') ? 'zh-HK' : 'en'; } catch (e) { }
 
@@ -1024,7 +1027,6 @@
             return bar ? Math.round(bar.getBoundingClientRect().bottom) : 50;
         }
 
-        // 判斷是否為手機版 (小於 768px)
         function isMobile() {
             return window.innerWidth < 768;
         }
@@ -1130,17 +1132,16 @@
                 .addTo(map);
             requestAnimationFrame(() => hydratePopupImages(d, token, false));
 
-            // 🔥 僅在「手機版」且「Legend是展開狀態」時，自動吸頂並居中橫向展開
+            // 🔥 手機版點擊 Marker 自動吸頂 (只在展開狀態下)
             const legend = document.getElementById('legend-drag');
-            if (isMobile() && legend && document.getElementById('legend-card').style.display === 'block') {
+            if (isMobile() && legend && isLegendExpanded) {
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
 
                 isLegendDocked = true;
                 legend.classList.add('dock-top');
-                legend.classList.remove('expand-left'); // 移除向左展開的樣式避免衝突
+                legend.classList.remove('expand-left');
 
-                // 強制將位置設為頂部及水平置中
                 legend.style.top = TOP_LIMIT + 'px';
                 legend.style.left = '8px';
                 legend.style.right = '8px';
@@ -1161,13 +1162,19 @@
             if (activePopup) { activePopup.remove(); activePopup = null; map.setMaxBounds(hkBounds); if (lastCenter) { map.easeTo({ center: lastCenter, zoom: lastZoom, offset: [0, 0], duration: 600 }); lastCenter = null; } }
         };
 
-        /* ===== 圖例 ===== */
-        function toggleLegend(show) {
+        /* ===== 圖例展開/收合邏輯 ===== */
+        // 🔥 全新設計：完全分離展開與收合的定位
+        window.toggleLegend = function (show) {
             const legend = document.getElementById('legend-drag');
             const card = document.getElementById('legend-card');
             const btn = document.getElementById('legend-btn');
 
+            isLegendExpanded = show;
+
             if (show) {
+                legend.classList.add('is-expanded');
+
+                // 恢復展開狀態的正確定位
                 if (isLegendDocked) {
                     legend.style.left = '8px';
                     legend.style.right = '8px';
@@ -1184,7 +1191,8 @@
                     }
                 }
             } else {
-                // 收合時，如果是 dock 狀態，保持右上角
+                legend.classList.remove('is-expanded');
+                // 🔥 收合時，無條件把按鈕固定在當前所在側，解除置中
                 if (isLegendDocked) {
                     legend.style.right = '8px';
                     legend.style.left = 'auto';
@@ -1198,7 +1206,7 @@
 
             card.style.display = show ? 'block' : 'none';
             btn.style.display = show ? 'none' : 'flex';
-        }
+        };
 
         /* ===== 渲染列表 ===== */
         function renderLangList() {
@@ -1249,41 +1257,47 @@
             const onMove = (clientX, clientY) => {
                 if (!isDragging) return;
 
-                // 計算拖曳的新位置
                 let newLeft = initialLeft + (clientX - startX);
                 let newTop = initialTop + (clientY - startY);
 
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
+
+                // 只有在展開狀態下，才會有「吸頂置中橫向佈局」的邏輯
                 const DOCK_THRESH = TOP_LIMIT + 25;
 
-                // 🔥 為了徹底解決彈飛問題，我們在拖曳中不理會當前變形的尺寸
-                // 而是強制以原本的 `initialTop` 加上 `dy` 來計算是否碰到上下邊界
-                // 只針對 viewport 高度做簡單限制，確保不會拖出畫面底部
+                // 上下邊界：不再受本身寬高影響，確保不會彈飛
                 const maxTop = window.innerHeight - 50;
-
                 newTop = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-                // 左側跟右側邊界限制
-                const maxLeft = window.innerWidth - 50; // 50 是收合時按鈕大約的寬度
+                // 左右邊界
+                const maxLeft = window.innerWidth - 50;
                 newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
 
-                const shouldDock = newTop <= DOCK_THRESH;
-
-                if (shouldDock) {
-                    newTop = TOP_LIMIT;
-                    if (!isLegendDocked) {
-                        isLegendDocked = true;
-                        el.classList.add('dock-top');
+                if (isLegendExpanded) {
+                    const shouldDock = newTop <= DOCK_THRESH;
+                    if (shouldDock) {
+                        newTop = TOP_LIMIT;
+                        if (!isLegendDocked) {
+                            isLegendDocked = true;
+                            el.classList.add('dock-top');
+                        }
+                        el.style.left = '8px';
+                        el.style.right = '8px';
+                        el.style.top = newTop + 'px';
+                    } else {
+                        if (isLegendDocked) {
+                            isLegendDocked = false;
+                            el.classList.remove('dock-top');
+                        }
+                        el.style.left = newLeft + 'px';
+                        el.style.top = newTop + 'px';
+                        el.style.right = 'auto';
                     }
-                    el.style.left = '8px';
-                    el.style.right = '8px';
-                    el.style.top = newTop + 'px';
                 } else {
-                    if (isLegendDocked) {
-                        isLegendDocked = false;
-                        el.classList.remove('dock-top');
-                    }
+                    // 🔥 如果是收合狀態（只是一個小圓點按鈕），永遠不要觸發 dock-top，也不要置中
+                    isLegendDocked = false;
+                    el.classList.remove('dock-top');
                     el.style.left = newLeft + 'px';
                     el.style.top = newTop + 'px';
                     el.style.right = 'auto';
@@ -1295,17 +1309,23 @@
                 isDragging = false;
                 el.classList.remove('dragging');
 
-                // 如果放開時卡片是展開的，重新計算 expand-left
-                if (document.getElementById('legend-card').style.display === 'block') {
+                // 放開手指後，重新計算展開時的左右對齊
+                if (isLegendExpanded) {
                     toggleLegend(true);
                 }
             };
 
             // Touch
             el.addEventListener('touchstart', e => {
+                // 避免干擾點擊事件，如果是點擊展開/收合按鈕，不觸發拖曳預設阻擋
                 if (e.target.closest('.legend-card') || e.target.closest('.legend-btn')) {
-                    if (!e.target.closest('.legend-close')) e.preventDefault();
+                    if (!e.target.closest('.legend-close') && !e.target.closest('#legend-btn')) {
+                        e.preventDefault();
+                    }
                 }
+
+                // 點擊關閉或開啟按鈕時，不啟動拖拽
+                if (e.target.closest('.legend-close') || (e.target.id === 'legend-btn')) return;
 
                 isDragging = true;
                 el.classList.add('dragging');
@@ -1324,7 +1344,8 @@
 
             // Mouse
             el.addEventListener('mousedown', e => {
-                if (e.target.closest('.legend-close')) return;
+                if (e.target.closest('.legend-close') || (e.target.id === 'legend-btn')) return;
+
                 isDragging = true;
                 el.classList.add('dragging');
 
@@ -1339,7 +1360,7 @@
             window.addEventListener('resize', () => {
                 const barBottom = getBarBottom();
                 const TOP_LIMIT = barBottom + 2;
-                if (el.offsetTop <= TOP_LIMIT + 20) {
+                if (el.offsetTop <= TOP_LIMIT + 20 && isLegendExpanded) {
                     el.style.top = TOP_LIMIT + 'px';
                     isLegendDocked = true;
                     el.classList.add('dock-top');
@@ -1352,5 +1373,3 @@
 </body>
 
 </html>
-
-//ff
