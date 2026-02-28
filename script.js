@@ -492,32 +492,24 @@ function makeDraggable(el) {
         let newLeft = initialLeft + dx;
         let newTop = initialTop + dy;
 
-        // 相對於 #main-container (已經有 top:50px) 的最頂端就是 0，設 2px 是為了一點點間隙或陰影
+        // ❗ 放寬吸頂判定範圍：距離頂部 20px 內都算想吸頂
         const TOP_LIMIT = 2;
-        const DOCK_THRESH = TOP_LIMIT + 25; // 距離頂部 25px 內視為「想吸頂」
+        const DOCK_THRESH = TOP_LIMIT + 20;
 
-        // 取得卡片目前的長寬
         const cardRect = el.getBoundingClientRect();
         const halfWidth = cardRect.width / 2;
         const halfHeight = cardRect.height / 2;
 
-        // --- 垂直邊界 (Top) 計算 ---
-        // 往下拖最多只能留一半在畫面內 (減去上方導航欄 50px)
         const maxTop = window.innerHeight - 50 - halfHeight;
         newTop = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-        // --- 水平邊界 (Left) 計算 ---
-        // 往左、往右拖都允許把卡片拉出畫面一半，只留 20px 在畫面內讓人點擊
         const minLeft = -halfWidth + 20;
         const maxLeft = window.innerWidth - halfWidth - 20;
         newLeft = Math.min(Math.max(minLeft, newLeft), maxLeft);
 
-        // 如果目前是展開狀態，處理吸頂邏輯
         if (isLegendExpanded) {
-            // 條件1：高度靠近頂部 (<= DOCK_THRESH)
-            // 條件2：卡片沒有被拖出左右邊界外 (確保只有在畫面中央的上方才會觸發吸頂展開)
-            const isWithinHorizontalBounds = (newLeft >= 8 && newLeft <= window.innerWidth - cardRect.width - 8);
-            const shouldDock = (newTop <= DOCK_THRESH) && isWithinHorizontalBounds;
+            // ❗ 移除嚴格的左右邊界限制。只要拉到頂部 (<= DOCK_THRESH)，就判定為要吸頂
+            const shouldDock = newTop <= DOCK_THRESH;
 
             if (shouldDock) {
                 newTop = TOP_LIMIT;
@@ -525,17 +517,15 @@ function makeDraggable(el) {
                     isLegendDocked = true;
                     el.classList.add('dock-top');
                 }
-                // dock-top 狀態的 left/right 由 CSS 的 !important 接管
                 el.style.top = newTop + 'px';
             } else {
                 if (isLegendDocked) {
                     isLegendDocked = false;
                     el.classList.remove('dock-top');
                 }
-                // 自由浮動狀態，套用計算好的新位置
                 el.style.left = newLeft + 'px';
                 el.style.top = newTop + 'px';
-                el.style.right = 'auto'; // 清除 right 讓 left 正常生效
+                el.style.right = 'auto';
             }
         } else {
             // 如果是縮小成一個按鈕(非展開)的狀態，就不處理吸頂，單純跟隨滑鼠
