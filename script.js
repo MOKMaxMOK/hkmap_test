@@ -274,13 +274,22 @@ window.showPopup = function (d, c) {
 
     const legend = document.getElementById('legend-drag');
     if (isMobile() && legend && isLegendExpanded) {
-        if (!preDockState) {
-            preDockState = {
-                top: legend.style.top,
-                left: legend.style.left,
-                right: legend.style.right,
-                hasClassExpandLeft: legend.classList.contains('expand-left')
-            };
+
+        // ❗ 核心修正：如果點擊前「已經是吸頂狀態」，我們就將 preDockState 設為 null，
+        // 這樣在 closePopup() 時就不會觸發還原邏輯。
+        if (!isLegendDocked) {
+            // 只有本來不在頂部時，才紀錄舊位置
+            if (!preDockState) {
+                preDockState = {
+                    top: legend.style.top,
+                    left: legend.style.left,
+                    right: legend.style.right,
+                    hasClassExpandLeft: legend.classList.contains('expand-left')
+                };
+            }
+        } else {
+            // 本來就在頂部的話，清空記憶
+            preDockState = null;
         }
 
         // 統一把 TOP_LIMIT 設為 2
@@ -289,7 +298,7 @@ window.showPopup = function (d, c) {
         legend.classList.add('dock-top');
         legend.classList.remove('expand-left');
         legend.style.top = TOP_LIMIT + 'px';
-        // ❗ 這裡不需要再寫 left/right，因為 css 裡面已經加了 !important
+        // 不需寫 left/right，因為 css 已加 !important
     }
 }
 
@@ -315,17 +324,28 @@ window.closePopup = function () {
     }
 
     const legend = document.getElementById('legend-drag');
+
+    // ❗ 因為我們上面修改了，只有在「點擊前非吸頂狀態」時才會有 preDockState。
+    // 如果它本來就吸頂了，這裡的 preDockState 會是 null，裡面的還原邏輯就不會執行，從而保持吸頂！
     if (preDockState && legend && isLegendExpanded) {
         isLegendDocked = false;
         legend.classList.remove('dock-top');
-        if (preDockState.hasClassExpandLeft) legend.classList.add('expand-left');
-        else legend.classList.remove('expand-left');
+
+        if (preDockState.hasClassExpandLeft) {
+            legend.classList.add('expand-left');
+        } else {
+            legend.classList.remove('expand-left');
+        }
+
         legend.style.top = preDockState.top;
         legend.style.left = preDockState.left;
         legend.style.right = preDockState.right;
+
+        // 還原後清空記憶
         preDockState = null;
     }
 }
+
 
 window.toggleLegend = function (show) {
     const legend = document.getElementById('legend-drag');

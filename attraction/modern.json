@@ -50,9 +50,9 @@
         "lat": 22.2892717,
         "lng": 114.1496948,
         "name": {
-            "zh-HK": "中西區海濱長廊（上環段）",
-            "zh-CN": "中西区海滨长廊（上环段）",
-            "en": "Central and Western District Promenade (Sheung Wan Section)"
+            "zh-HK": "中西區海濱長廊",
+            "zh-CN": "中西区海滨长廊",
+            "en": "Central and Western District Promenade"
         },
         "description": {
             "zh-HK": "連接信德中心，環境清幽，可欣賞維港西面景色及日落。",
@@ -60,9 +60,9 @@
             "en": "Connecting to Shun Tak Centre, this tranquil promenade offers views of the western side of Victoria Harbour and beautiful sunsets."
         },
         "images": [
-            "Central and Western District Promenade (Sheung Wan Section).jpg",
-            "Central and Western District Promenade (Sheung Wan Section).jpg(2)",
-            "Central and Western District Promenade (Sheung Wan Section).jpg(3)"
+            "Central and Western District Promenade.jpg",
+            "Central and Western District Promenade.jpg(2)",
+            "Central and Western District Promenade.jpg(3)"
         ]
     },
     {
@@ -72,9 +72,9 @@
         "lat": 22.2970156,
         "lng": 114.1780597,
         "name": {
-            "zh-HK": "尖沙咀海濱長廊 & 星光大道",
-            "zh-CN": "尖沙咀海滨长廊 & 星光大道",
-            "en": "Tsim Sha Tsui Promenade & Avenue of Stars"
+            "zh-HK": "海濱長廊 & 星光大道",
+            "zh-CN": "海滨长廊 & 星光大道",
+            "en": "Promenade & Avenue of Stars"
         },
         "description": {
             "zh-HK": "欣賞維多利亞港天際線的最佳位置，晚上可觀賞「幻彩詠香江」燈光秀。",
@@ -82,9 +82,9 @@
             "en": "The best spot to enjoy Victoria Harbour's skyline, with nightly views of the 'Symphony of Lights' show."
         },
         "images": [
-            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg",
-            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg(2)",
-            "Tsim Sha Tsui Promenade & Avenue of Stars.jpg(3)"
+            "Promenade & Avenue of Stars.jpg",
+            "Promenade & Avenue of Stars.jpg(2)",
+            "Promenade & Avenue of Stars.jpg(3)"
         ]
     },
     {
