@@ -169,7 +169,6 @@ body {
 .legend-btn:active {
     transform: scale(0.95);
 }
-
 .legend-card {
     background: rgba(255, 255, 255, 0.92);
     backdrop-filter: blur(8px);
@@ -183,10 +182,11 @@ body {
     min-width: auto;
     cursor: move;
     pointer-events: auto;
+    /* ❗ 刪除這裡的 overflow-y: auto 或 overflow: hidden 讓叉叉能凸出去 */
     max-height: calc(100vh - 120px);
-    overflow-y: auto;
 }
 
+/* ===== 修正: 打叉按鈕 ===== */
 .legend-close {
     position: absolute;
     top: -8px;
@@ -201,7 +201,8 @@ body {
     text-align: center;
     line-height: 20px;
     box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
-    z-index: 1;
+    z-index: 10;
+    
     pointer-events: auto;
 }
 
@@ -242,22 +243,50 @@ body {
 /* Dock-top */
 .legend-group.dock-top.is-expanded {
     align-items: center;
+    /* 讓整個 group 在畫面上方置中 */
+    left: 0 !important;
+    right: 0 !important;
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    /* 內容置中 */
 }
 
 .legend-group.dock-top.is-expanded .legend-card {
+    /* ❗ 拿掉 width: 100%，改為 auto 讓內容決定寬度 */
     width: auto;
     max-width: calc(100vw - 16px);
-    padding: 8px 12px;
+    padding: 6px 16px;
+    /* 稍微加寬左右 padding 比較好看 */
+    margin-top: 0;
     margin-bottom: 0;
+
+    /* ❗ 既然不佔滿全寬，我們把圓角加回來，看起來像一個懸浮的藥丸 (Pill) */
+    border-radius: 20px;
+    border-top: none;
+    box-sizing: border-box;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 .legend-group.dock-top.is-expanded #legend-content {
     flex-direction: row;
     flex-wrap: wrap;
-    justify-content: flex-start;
+    justify-content: center;
+    /* 裡面的標籤也置中排列 */
     gap: 6px 12px;
 }
 
+.legend-group.dock-top.is-expanded .legend-item {
+    margin: 0;
+}
+
+/* 叉叉按鈕的位置調整 */
+.legend-group.dock-top.is-expanded .legend-close {
+    top: -6px;
+    /* 稍微往上凸一點點，因為我們把圓角加回來了 */
+    right: -6px;
+    left: auto;
+}
 /* MapLibre control position tweak */
 .maplibregl-ctrl-top-right {
     top: auto !important;

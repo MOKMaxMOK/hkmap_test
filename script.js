@@ -117,7 +117,7 @@ function initMap() {
         maxBounds: hkBounds,
         attributionControl: false
     });
-    // ... 下面省略
+    
 
     map.addControl(new maplibregl.NavigationControl({ showCompass: true, visualizePitch: true }), 'top-right');
     map.on('click', () => closePopup());
@@ -282,14 +282,14 @@ window.showPopup = function (d, c) {
                 hasClassExpandLeft: legend.classList.contains('expand-left')
             };
         }
-        const barBottom = getBarBottom();
-        const TOP_LIMIT = barBottom + 2;
+
+        // 統一把 TOP_LIMIT 設為 2
+        const TOP_LIMIT = 2;
         isLegendDocked = true;
         legend.classList.add('dock-top');
         legend.classList.remove('expand-left');
         legend.style.top = TOP_LIMIT + 'px';
-        legend.style.left = '8px';
-        legend.style.right = '8px';
+        // ❗ 這裡不需要再寫 left/right，因為 css 裡面已經加了 !important
     }
 }
 
@@ -482,6 +482,7 @@ function makeDraggable(el) {
         const dx = clientX - startX;
         const dy = clientY - startY;
 
+        // 如果移動距離超過 3px，才判定為正在拖曳
         if (Math.abs(dx) > 3 || Math.abs(dy) > 3) {
             hasMoved = true;
         }
@@ -491,37 +492,53 @@ function makeDraggable(el) {
         let newLeft = initialLeft + dx;
         let newTop = initialTop + dy;
 
-        const barBottom = getBarBottom();
-        const TOP_LIMIT = barBottom + 2;
-        const DOCK_THRESH = TOP_LIMIT + 25;
+        // 相對於 #main-container (已經有 top:50px) 的最頂端就是 0，設 2px 是為了一點點間隙或陰影
+        const TOP_LIMIT = 2;
+        const DOCK_THRESH = TOP_LIMIT + 25; // 距離頂部 25px 內視為「想吸頂」
 
-        const maxTop = window.innerHeight - 50;
+        // 取得卡片目前的長寬
+        const cardRect = el.getBoundingClientRect();
+        const halfWidth = cardRect.width / 2;
+        const halfHeight = cardRect.height / 2;
+
+        // --- 垂直邊界 (Top) 計算 ---
+        // 往下拖最多只能留一半在畫面內 (減去上方導航欄 50px)
+        const maxTop = window.innerHeight - 50 - halfHeight;
         newTop = Math.max(TOP_LIMIT, Math.min(newTop, maxTop));
 
-        const maxLeft = window.innerWidth - 50;
-        newLeft = Math.min(Math.max(PADDING, newLeft), maxLeft);
+        // --- 水平邊界 (Left) 計算 ---
+        // 往左、往右拖都允許把卡片拉出畫面一半，只留 20px 在畫面內讓人點擊
+        const minLeft = -halfWidth + 20;
+        const maxLeft = window.innerWidth - halfWidth - 20;
+        newLeft = Math.min(Math.max(minLeft, newLeft), maxLeft);
 
+        // 如果目前是展開狀態，處理吸頂邏輯
         if (isLegendExpanded) {
-            const shouldDock = newTop <= DOCK_THRESH;
+            // 條件1：高度靠近頂部 (<= DOCK_THRESH)
+            // 條件2：卡片沒有被拖出左右邊界外 (確保只有在畫面中央的上方才會觸發吸頂展開)
+            const isWithinHorizontalBounds = (newLeft >= 8 && newLeft <= window.innerWidth - cardRect.width - 8);
+            const shouldDock = (newTop <= DOCK_THRESH) && isWithinHorizontalBounds;
+
             if (shouldDock) {
                 newTop = TOP_LIMIT;
                 if (!isLegendDocked) {
                     isLegendDocked = true;
                     el.classList.add('dock-top');
                 }
-                el.style.left = '8px';
-                el.style.right = '8px';
+                // dock-top 狀態的 left/right 由 CSS 的 !important 接管
                 el.style.top = newTop + 'px';
             } else {
                 if (isLegendDocked) {
                     isLegendDocked = false;
                     el.classList.remove('dock-top');
                 }
+                // 自由浮動狀態，套用計算好的新位置
                 el.style.left = newLeft + 'px';
                 el.style.top = newTop + 'px';
-                el.style.right = 'auto';
+                el.style.right = 'auto'; // 清除 right 讓 left 正常生效
             }
         } else {
+            // 如果是縮小成一個按鈕(非展開)的狀態，就不處理吸頂，單純跟隨滑鼠
             isLegendDocked = false;
             el.classList.remove('dock-top');
             el.style.left = newLeft + 'px';
@@ -556,8 +573,19 @@ function makeDraggable(el) {
         isDragging = true;
         hasMoved = false;
         el.classList.add('dragging');
-        startX = e.touches[0].clientX; startY = e.touches[0].clientY;
-        initialLeft = el.offsetLeft; initialTop = el.offsetTop;
+
+        startX = e.touches[0].clientX;
+        startY = e.touches[0].clientY;
+
+        // 修復：從橫向吸頂下拉時，為了避免寬度突變導致卡片跳位，
+        // 強制把拖曳起始點設定在手指點擊的 X 座標正下方 (扣掉直向卡片一半寬度約 60px)
+        if (isLegendDocked) {
+            initialLeft = startX - 60;
+        } else {
+            initialLeft = el.offsetLeft;
+        }
+        initialTop = el.offsetTop;
+
     }, { passive: false });
 
     el.addEventListener('touchmove', e => {
@@ -572,8 +600,18 @@ function makeDraggable(el) {
         isDragging = true;
         hasMoved = false;
         el.classList.add('dragging');
-        startX = e.clientX; startY = e.clientY;
-        initialLeft = el.offsetLeft; initialTop = el.offsetTop;
+
+        startX = e.clientX;
+        startY = e.clientY;
+
+        // 滑鼠版本的下拉跳位修復
+        if (isLegendDocked) {
+            initialLeft = startX - 60;
+        } else {
+            initialLeft = el.offsetLeft;
+        }
+        initialTop = el.offsetTop;
+
         el.style.cursor = 'grabbing';
     });
 
@@ -590,14 +628,13 @@ function makeDraggable(el) {
     });
 
     window.addEventListener('resize', () => {
-        const barBottom = getBarBottom();
-        const TOP_LIMIT = barBottom + 2;
+        // Resize 時確保不會被擠到畫面外
+        const TOP_LIMIT = 2;
         if (el.offsetTop <= TOP_LIMIT + 20 && isLegendExpanded) {
             el.style.top = TOP_LIMIT + 'px';
             isLegendDocked = true;
             el.classList.add('dock-top');
-            el.style.left = '8px';
-            el.style.right = '8px';
+            // 交給 css 的 !important 去置中，這裡不需要修改 left/right
         }
     });
 }
